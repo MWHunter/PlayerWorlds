@@ -1,0 +1,874 @@
+##########################################################################################
+#                                                                                        #
+#       ____  __                     _       __           __    __     ____              #
+#      / __ \/ /___ ___  _____  ____| |     / /___  _____/ /___/ /____/ __ \_________    #
+#     / /_/ / / __ `/ / / / _ \/ ___/ | /| / / __ \/ ___/ / __  / ___/ /_/ / ___/ __ \   #
+#    / ____/ / /_/ / /_/ /  __/ /   | |/ |/ / /_/ / /  / / /_/ (__  ) ____/ /  / /_/ /   #
+#   /_/   /_/\__,_/\__, /\___/_/    |__/|__/\____/_/  /_/\__,_/____/_/   /_/   \____/    #
+#                 /____/                                                                 #
+#                                                                                        #
+#                          Thank you for purchasing the plugin!                          #
+#                                                                                        #
+#                                  Created by: _HeroPwP                                  #
+##########################################################################################
+
+Basic:
+  # The prefix of the World Name
+  World-Prefix: 'PlayerWorldsPro_'
+  # Should a player teleport to the player world after creating a player world?
+  Teleport-On-Create: true
+  # Should a player respawn in the player world?
+  Respawn: true
+  # All player worlds load on startup.
+  Load-On-Startup: true
+  # If false, chunks of the world will not be kept in memory. They are resulting in less memory used by your server when players aren't logged in.
+  Keep-Spawn-In-Memory: false
+  Async:
+    # If true, worlds will be loaded asynchronously. The result is less lag and faster loading of the world.
+    # Note: You need to have FastAsyncWorldEdit installed on the server.
+    # Note: It may not work correctly on all Minecraft versions due to FAWE. If this happens, please turn it off.
+    FAWE: false
+    # If true, the chunks will be loaded/generated asynchronously before teleporting.
+    # Note: You need to use PaperMC (PaperSpigot).
+    Paper: false
+  # Is it possible to teleport through nether and end portals in player worlds?
+  Portals: true
+  Check-For-Updates: true
+
+# Messages that appear when a player joins or leaves from the player world.
+JoinAndLeaveMSG:
+  Enabled: true
+  # If a player with the permission: PlayerWorldsPro.bypass.JoinAndLeaveMSG joins or leaves from a player world, no message will be displayed to anyone.
+  Bypass: false
+  Messages:
+    Join: '&8[&a+&8] &aPlayer &f%player% &ahas joined the player world.'
+    Leave: '&8[&c-&8] &cPlayer &f%player% &chas left from the player world.'
+
+# You can also turn on the expiration of player worlds.
+Expiration:
+  # You need to have an economy plugin to turn on.
+  Enabled: false
+  # Expiration Format
+  Format: 'dd.MM.yyyy HH:mm'
+
+# Time in seconds before a player can create a player's world since the last creation.
+Cooldown:
+  Enabled: true
+  Interval: 60
+
+# New players can create a free player world for a certain number of days.
+# Note:You must turn on Expiration first
+Claim:
+  Enabled: false
+  # Length of expiration in days
+  Length: 7
+
+# Here, you will find commands that will trigger a specific action.
+Commands:
+  # Create a player world
+  # Available variables:
+  #  %owner% - get the owner of the player world
+  #  %world% - get the name of the world
+  Create:
+    Enabled: false
+    List:
+      - 'say %owner% created world %world%!'
+  # Delete player world
+  # Available variables:
+  #  %owner% - get the owner of the player world
+  #  %world% - get the name of the world
+  Delete:
+    Enabled: false
+    List:
+      - 'say %owner% deleted world %world%!'
+  # Teleporting through a nether portal
+  # Available variables:
+  #  %player% - get the name of the player that triggered the event
+  #  %world% - get the name of the world
+  Nether:
+    Enabled: false
+    List:
+      - 'say %player% tried to teleport to Nether from %world%!'
+  # TTeleporting through an end portal
+  # Available variables:
+  #  %player% - get the name of the player that triggered the event
+  #  %world% - get the name of the world
+  End:
+    Enabled: false
+    List:
+      - 'say %player% tried to teleport to End from %world%!'
+
+# These settings set when the player world created.
+Default-Settings:
+  # Change of weather
+  WeatherCycle: true
+  # Difficulty:
+  # PEACEFUL, EASY, NORMAL, HARD
+  Difficulty: EASY
+  # Enable or Disable breaking blocks of players.
+  Block-Breaking: true
+  # Enable or Disable placing blocks of players.
+  Block-Placing: true
+  # Enable or Disable PVP
+  PvP: true
+  # Enable or Disable Pickup items
+  Pickup: true
+  # Enable or Disable Drop items
+  Drop: true
+  # Enable or Disable Player Damage
+  Damage: true
+  # Enable or Disable Hunger
+  Hunger: true
+  # Enable or Disable interaction with Bucket
+  Bucket: true
+  # Default game mode for players:
+  # SURVIVAL, CREATIVE, ADVENTURE, SPECTATOR
+  GameMode: SURVIVAL
+  # Here, you can set the privacy of the player world.
+  # PUBLIC, PRIVATE
+  Access: PUBLIC
+  # Size of the World Border
+  # Use number -1 for the default size of the World Border.
+  World-Border: -1
+
+# You can set your custom world generators:
+    # Custom-Generators:
+    #   - 'VoidGenerator'
+    #   - 'Realistic_World'
+Custom-Generators: {}
+
+# Here you can enable or disable permissions.
+# False - A player doesn't need permission
+# True - Player needs permission
+Permissions:
+  # Create any player world: PlayerWorldsPro.createWorld
+  Create-World: false
+  Create-World-Type:
+    # Create normal player world: PlayerWorldsPro.createWorld.normal
+    Normal: false
+    # Create flat player world: PlayerWorldsPro.createWorld.flat
+    Flat: false
+    # Create empty player world: PlayerWorldsPro.createWorld.empty
+    Empty: false
+    # Create a player world with pre-built maps: PlayerWorldsPro.createWorld.preBuiltMaps
+    Pre-Built-Maps: false
+    # Create player world with custom generator: PlayerWorldsPro.createWorld.customGenerators
+    Custom-Generators: false
+  # Change time of player world: PlayerWorldsPro.changeTime
+  Change-Time: false
+  # Change weather of player world: PlayerWorldsPro.changeWeather
+  Change-Weather: false
+  # Change difficulty of the player world: PlayerWorldsPro.changeDifficulty
+  Change-Difficulty: false
+  # Set spawn location of the player world: PlayerWorldsPro.setSpawn
+  Set-Spawn-Location: false
+  # Edit Block Breaking of the player world: PlayerWorldsPro.editBlockBreaking
+  Block-Breaking: false
+  # Edit Block Placing of the player world: PlayerWorldsPro.editBlockPlacing
+  Block-Placing: false
+  # Edit PvP of the player world: PlayerWorldsPro.editPvP
+  PvP: false
+  # Change the world border of the player world: PlayerWorldsPro.worldBorder
+  World-Border: false
+  # Edit Item Pickup of the player world: PlayerWorldsPro.editItemPickup
+  Item-Pickup: false
+  # Edit Drop Item of the player world: PlayerWorldsPro.editDropItem
+  Drop-Item: false
+  # Edit Player Damage: PlayerWorldsPro.editPlayerDamage
+  Player-Damage: false
+  # Edit Hunger: PlayerWorldsPro.editHunger
+  Hunger: false
+  # Edit Bucket: PlayerWorldsPro.editBucket
+  Bucket: true
+  # Change Game Mode of Player: PlayerWorldsPro.changeGameMode
+  Change-GameMode: false
+  # Change default Game Mode of player world: PlayerWorldsPro.changeGameMode.default
+  Change-Default-GameMode: false
+  # Teleport player in the player world: PlayerWorldsPro.teleport
+  Teleport: false
+  # Enable or disable flying of a player in the player world: PlayerWorldsPro.fly
+  Fly: false
+  # Change access of player world: PlayerWorldsPro.access
+  Access: false
+  # Kick player from the player world: PlayerWorldsPro.kick
+  Kick: false
+  # Ban or unban player from the player world: PlayerWorldsPro.ban
+  Ban: false
+
+# Here, you can translate variables of the plugin.
+Variables:
+  Enabled: '&aEnabled'
+  Disabled: '&cDisabled'
+  PUBLIC: '&aPublic'
+  PRIVATE: '&cPrivate'
+
+# Here, you can customize menus.
+GUI:
+  # Basic GUI configuration
+  Basic:
+    # Hides a item if the player does not have permission.
+    Hide-Without-Permission: false
+
+  # Name of the menu
+  Main:
+    # Title in menu
+    Title: '&6PlayerWorldsPro'
+    # Here you can set items of the menu.
+    Items:
+      Previous: '&f<<< &6Previous Page'
+      Next: '&6Next Page &f>>>'
+      Statistics:
+        Displayname: '&aStatistics'
+        Lore:
+          - '&f'
+          - '&fTotal player worlds: &a%total_player_worlds%'
+          - '&fTotal players: &a%total_players%'
+      My-World:
+        Displayname: '&bMy World'
+        Lore:
+          - '&f'
+          - '&6Players: &r%players%'
+          - '&f'
+          - '&aExpiration: &r%expiration%'
+          - '&f'
+          - '&7● &fLeft Click: &aTeleport &f✩'
+          - '&7● &fRight Click: &cOpen Settings &f⚒'
+      My-World-Dont-Have:
+        Displayname: '&bMy World'
+        Lore:
+          - '&f'
+          - '&cYou don''t have a player world!'
+      Create-World:
+        Displayname: '&eCreate World'
+        Lore:
+          - '&fClick to create player world.'
+      Player-World:
+        Displayname: '&aWorld of %player%'
+        Lore:
+          - '&f'
+          - '&6Players: &r%players%'
+          - '&f'
+          - '&fAccess: %access%'
+          - '&f'
+          - '&aClick to teleport.'
+      Player-World-Own:
+        Displayname: '&aWorld of %player%'
+        Lore:
+          - '&f'
+          - '&6Players: &r%players%'
+          - '&f'
+          - '&fAccess: %access%'
+          - '&f'
+          - '&7● &fLeft Click: &aTeleport &f✩'
+          - '&7● &fRight Click: &cOpen Settings &f⚒'
+
+  Create-World:
+    Title: '&eCreate World'
+    Items:
+      Normal:
+        Displayname: '&aNormal world'
+        Lore:
+          - '&fClick to create a normal world.'
+      Flat:
+        Displayname: '&2Flat world'
+        Lore:
+          - '&fClick to create a flat world.'
+      Empty:
+        Displayname: '&cEmpty world'
+        Lore:
+          - '&fClick to create an empty world.'
+      Pre-Built-Maps:
+        Displayname: '&ePre-built Maps'
+        Lore:
+          - '&fClick to open pre-built maps.'
+      Custom-Generators:
+        Displayname: '&bCustom Generators'
+        Lore:
+          - '&fClick to open custom generators.'
+
+  Pre-Built-Maps:
+    Title: '&ePre-built Maps'
+    Items:
+      Map:
+        Displayname: '&a%name%'
+        Lore:
+          - '&fClick to create a player world with this map.'
+
+  Custom-Generators:
+    Title: '&bCustom Generators'
+    Items:
+      Generator:
+        Displayname: '&a%name%'
+        Lore:
+          - '&fClick to create a player world using the custom generator.'
+
+  Settings:
+    Title: '&cSettings'
+    Items:
+      Change-Time:
+        Displayname: '&eChange Time'
+        Lore:
+          - '&fClick to change the time.'
+      Change-Weather:
+        Displayname: '&bChange Weather'
+        Lore:
+          - '&fClick to change the weather.'
+      Change-Difficulty:
+        Displayname: '&dChange Difficulty'
+        Lore:
+          - '&fClick to change the difficulty.'
+      Spawn-Location:
+        Displayname: '&cSet Spawn Location'
+        Lore:
+          - '&fClick to set a spawn location.'
+      Block-Breaking:
+        Displayname: '&eEdit Block Breaking'
+        Lore:
+          - '&f'
+          - '&fStatus: %status%'
+          - '&f'
+          - '&7● &fLeft Click: &a✔ Allow Block Breaking'
+          - '&7● &fRight Click: &c✖ Deny Block Breaking'
+      Block-Placing:
+        Displayname: '&eEdit Block Placing'
+        Lore:
+          - '&f'
+          - '&fStatus: %status%'
+          - '&f'
+          - '&7● &fLeft Click: &a✔ Allow Block Placing'
+          - '&7● &fRight Click: &c✖ Deny Block Placing'
+      PvP:
+        Displayname: '&eEdit PvP'
+        Lore:
+          - '&f'
+          - '&fStatus: %status%'
+          - '&f'
+          - '&7● &fLeft Click: &a✔ Allow PvP'
+          - '&7● &fRight Click: &c✖ Deny PvP'
+      World-Border:
+        Displayname: '&cWorld Border'
+        Lore:
+          - '&fClick to edit the world border.'
+      Pickup:
+        Displayname: '&eEdit Item Pickup'
+        Lore:
+          - '&f'
+          - '&fStatus: %status%'
+          - '&f'
+          - '&7● &fLeft Click: &a✔ Allow Item Pickup'
+          - '&7● &fRight Click: &c✖ Deny Item Pickup'
+      Drop:
+        Displayname: '&eEdit Drop Item'
+        Lore:
+          - '&f'
+          - '&fStatus: %status%'
+          - '&f'
+          - '&7● &fLeft Click: &a✔ Allow Drop Item'
+          - '&7● &fRight Click: &c✖ Deny Drop Item'
+      Damage:
+        Displayname: '&eEdit Player Damage'
+        Lore:
+          - '&f'
+          - '&fStatus: %status%'
+          - '&f'
+          - '&7● &fLeft Click: &a✔ Allow Player Damage'
+          - '&7● &fRight Click: &c✖ Deny Player Damage'
+      Hunger:
+        Displayname: '&eEdit Hunger'
+        Lore:
+          - '&f'
+          - '&fStatus: %status%'
+          - '&f'
+          - '&7● &fLeft Click: &a✔ Allow Hunger'
+          - '&7● &fRight Click: &c✖ Deny Hunger'
+      Bucket:
+        Displayname: '&eEdit Bucket'
+        Lore:
+          - '&f'
+          - '&fStatus: %status%'
+          - '&f'
+          - '&7● &fLeft Click: &a✔ Allow Bucket'
+          - '&7● &fRight Click: &c✖ Deny Bucket'
+      GameMode:
+        Displayname: '&bChange Game Mode'
+        Lore:
+          - '&7● &fLeft Click: &aChange Game Mode of Player'
+          - '&7● &fRight Click: &cChange default Game Mode'
+      Teleport:
+        Displayname: '&aTeleport'
+        Lore:
+          - '&7● &fLeft Click: &aTeleport to player'
+          - '&7● &fRight Click: &cTeleport player to you'
+      Fly:
+        Displayname: '&eFly'
+        Lore:
+          - '&7● &fLeft Click: &aChange fly mode'
+          - '&7● &fRight Click: &cChange the fly mode of another player'
+      Access:
+        Displayname: '&aAccess'
+        Lore:
+          - '&f'
+          - '&fStatus: %status%'
+          - '&f'
+          - '&7● &fLeft Click: &aSet public player world'
+          - '&7● &fRight Click: &cSet private player world'
+      Add-Member:
+        Displayname: '&aAdd Member'
+        Lore:
+          - '&fClick to add a member to your player world.'
+      Remove-Member:
+        Displayname: '&cRemove Member'
+        Lore:
+          - '&fClick to remove a member from your player world.'
+      Extend:
+        Displayname: '&eExtend player world'
+        Lore:
+          - '&fClick to extend your player world.'
+      Delete:
+        Displayname: '&e⚠ &c&lDelete player world &e⚠'
+        Lore:
+          - '&fClick with the shift to delete your player world.'
+      Kick:
+        Displayname: '&dKick Player'
+        Lore:
+          - '&fClick to kick a player from your player world.'
+      Ban:
+        Displayname: '&cBan Player'
+        Lore:
+          - '&7● &fLeft Click: &cBan Player'
+          - '&7● &fRight Click: &aUnban Player'
+
+  Change-Time:
+    Title: '&eChange Time'
+    Items:
+      Day:
+        Displayname: '&eDay'
+        Lore:
+          - '&fClick to change the time to day.'
+      Sunset:
+        Displayname: '&6Sunset'
+        Lore:
+          - '&fClick to change the time to sunset.'
+      Night:
+        Displayname: '&9Night'
+        Lore:
+          - '&fClick to change the time to night.'
+      Sunrise:
+        Displayname: '&dSunrise'
+        Lore:
+          - '&fClick to change the time to sunrise.'
+      Daylight-Cycle-Lock:
+        Displayname: '&eDaylight Cycle'
+        Lore:
+          - '&cClick to lock the daily cycle.'
+      Daylight-Cycle-Unlock:
+        Displayname: '&eDaylight Cycle'
+        Lore:
+          - '&aClick to unlock the daily cycle.'
+
+  Change-Weather:
+    Title: '&bChange Weather'
+    Items:
+      Clear:
+        Displayname: 'Clear'
+        Lore:
+          - '&fClick to change the weather to clear.'
+      Rain:
+        Displayname: '&bRain'
+        Lore:
+          - '&fClick to change the weather to rain.'
+      Thunder:
+        Displayname: '&eThunder'
+        Lore:
+          - '&fClick to change the weather to thunder.'
+      Weather-Cycle-Lock:
+        Displayname: '&bWeather Cycle'
+        Lore:
+          - '&cClick to lock the weather cycle.'
+      Weather-Cycle-Unlock:
+        Displayname: '&bWeather Cycle'
+        Lore:
+          - '&aClick to unlock the weather cycle.'
+
+  Change-Difficulty:
+    Title: '&dChange Difficulty'
+    Items:
+      Peaceful:
+        Displayname: '&dPeaceful'
+        Lore:
+          - '&fClick to change the difficulty to peaceful.'
+      Easy:
+        Displayname: '&aEasy'
+        Lore:
+          - '&fClick to change the difficulty to easy.'
+      Normal:
+        Displayname: '&eNormal'
+        Lore:
+          - '&fClick to change the difficulty to normal.'
+      Hard:
+        Displayname: '&cHard'
+        Lore:
+          - '&fClick to change the difficulty to hard.'
+
+  World-Border:
+    Title: '&cWorld Border'
+    Items:
+      Change:
+        Displayname: 'World Border size: &a%size%'
+        Lore:
+          - '&7< &c-100     &a+100 &7>'
+      Center:
+        Displayname: '&bCenter'
+        Lore:
+          - '&fClick to center World Border.'
+      Set:
+        Displayname: '&aSet size to 100'
+        Lore:
+          - '&fClick to set the size of World Border to 100.'
+      Reset:
+        Displayname: '&6Reset'
+        Lore:
+          - '&fClick to reset the size of the World Border.'
+
+  Change-GameMode:
+    Title: '&bChange Game Mode'
+    Items:
+      Survival:
+        Displayname: '&aSurvival'
+        Lore:
+          - '&7● &fLeft Click: &aChange your Game Mode'
+          - '&7● &fRight Click: &eChange Game Mode of another player'
+      Creative:
+        Displayname: '&dCreative'
+        Lore:
+          - '&7● &fLeft Click: &aChange your Game Mode'
+          - '&7● &fRight Click: &eChange Game Mode of another player'
+      Adventure:
+        Displayname: '&6Adventure'
+        Lore:
+          - '&7● &fLeft Click: &aChange your Game Mode'
+          - '&7● &fRight Click: &eChange Game Mode of another player'
+      Spectator:
+        Displayname: '&cSpectator'
+        Lore:
+          - '&7● &fLeft Click: &aChange your Game Mode'
+          - '&7● &fRight Click: &eChange Game Mode of another player'
+
+  Change-GameMode-SelectPlayer:
+    Title: '&bChange Game Mode > Select Player'
+    Items:
+      Previous: '&f<<< &6Previous Page'
+      Next: '&6Next Page &f>>>'
+      Player:
+        Displayname: '%player%'
+        Lore:
+          - '&f'
+          - '&aClick to change Game Mode.'
+
+  Change-Default-GameMode:
+    Title: '&bChange default Game Mode'
+    Items:
+      Survival:
+        Displayname: '&aSurvival'
+        Lore:
+          - '&fClick to change the default Game Mode to Survival.'
+      Creative:
+        Displayname: '&dCreative'
+        Lore:
+          - '&fClick to change the default Game Mode to Creative.'
+      Adventure:
+        Displayname: '&6Adventure'
+        Lore:
+          - '&fClick to change the default Game Mode to Adventure.'
+      Spectator:
+        Displayname: '&cSpectator'
+        Lore:
+          - '&fClick to change the default Game Mode to Spectator.'
+
+  Teleport:
+    Title: '&aTeleport'
+    Items:
+      Previous: '&f<<< &6Previous Page'
+      Next: '&6Next Page &f>>>'
+      Player:
+        Displayname: '%player%'
+        Lore:
+          - '&f'
+          - '&aClick to teleport to a player.'
+
+  Teleport-Here:
+    Title: '&aTeleport Here'
+    Items:
+      Previous: '&f<<< &6Previous Page'
+      Next: '&6Next Page &f>>>'
+      Player:
+        Displayname: '%player%'
+        Lore:
+          - '&f'
+          - '&aClick to teleport a player to you.'
+
+  Fly:
+    Title: '&eFly'
+    Items:
+      Previous: '&f<<< &6Previous Page'
+      Next: '&6Next Page &f>>>'
+      Player:
+        Displayname: '%player%'
+        Lore:
+          - '&f'
+          - '&aClick to change the fly mode of a player.'
+
+  Add-Member:
+    Title: '&aAdd Member'
+    Items:
+      Previous: '&f<<< &6Previous Page'
+      Next: '&6Next Page &f>>>'
+      Player:
+        Displayname: '%player%'
+        Lore:
+          - '&f'
+          - '&aClick to add a player to members.'
+
+  Remove-Member:
+    Title: '&cRemove Member'
+    Items:
+      Previous: '&f<<< &6Previous Page'
+      Next: '&6Next Page &f>>>'
+      Player:
+        Displayname: '%player%'
+        Lore:
+          - '&f'
+          - '&aClick to remove a player from members.'
+
+  Kick-Player:
+    Title: '&dKick Player'
+    Items:
+      Previous: '&f<<< &6Previous Page'
+      Next: '&6Next Page &f>>>'
+      Player:
+        Displayname: '%player%'
+        Lore:
+          - '&f'
+          - '&aClick to kick a player from the player world.'
+
+  Ban-Player:
+    Title: '&cBan Player'
+    Items:
+      Previous: '&f<<< &6Previous Page'
+      Next: '&6Next Page &f>>>'
+      Player:
+        Displayname: '%player%'
+        Lore:
+          - '&f'
+          - '&aClick to ban a player from the player world.'
+
+  Unban-Player:
+    Title: '&cUnban Player'
+    Items:
+      Previous: '&f<<< &6Previous Page'
+      Next: '&6Next Page &f>>>'
+      Player:
+        Displayname: '%player%'
+        Lore:
+          - '&f'
+          - '&aClick to unban player from the player world.'
+
+  Buy-Player-World:
+    Title: '&eBuy player world'
+    Items:
+      First:
+        # Length of expiration in days
+        Length: 7
+        # Price per purchase
+        Price: 300
+        Displayname: '&e%length% days'
+        Lore:
+          - '&f'
+          - '&6Price: &f%price%'
+          - '&f'
+          - '&aClick to buy the player world.'
+      Second:
+        Length: 14
+        Price: 600
+        Displayname: '&e%length% days'
+        Lore:
+          - '&f'
+          - '&6Price: &f%price%'
+          - '&f'
+          - '&aClick to buy the player world.'
+      Third:
+        Length: 30
+        Price: 1200
+        Displayname: '&e%length% days'
+        Lore:
+          - '&f'
+          - '&6Price: &f%price%'
+          - '&f'
+          - '&aClick to buy the player world.'
+
+  Extend-Player-World:
+    Title: '&eExtend player world'
+    Items:
+      First:
+        Length: 7
+        Price: 300
+        Displayname: '&e%length% days'
+        Lore:
+          - '&f'
+          - '&6Price: &f%price%'
+          - '&f'
+          - '&aClick to extend the player world.'
+      Second:
+        Length: 14
+        Price: 600
+        Displayname: '&e%length% days'
+        Lore:
+          - '&f'
+          - '&6Price: &f%price%'
+          - '&f'
+          - '&aClick to extend the player world.'
+      Third:
+        Length: 30
+        Price: 1200
+        Displayname: '&e%length% days'
+        Lore:
+          - '&f'
+          - '&6Price: &f%price%'
+          - '&f'
+          - '&aClick to extend the player world.'
+
+# Here, you will find all the translatable messages of the plugin.
+Messages:
+  Prefix: '&8[&6PlayerWorldsPro&8] &r'
+  Insufficient-Permission: '&cYou don''t have permission!'
+  Send-From-Game: '&cYou can send this command only from the game!'
+  Configuration-Reloaded: '&aConfiguration file successfully reloaded!'
+  Lobby-Setup: '&aLobby location successfully set!'
+  Spawn-Setup: '&aSpawn location successfully set!'
+  Dont-Have: '&cYou don''t have a player world!'
+  Doesnt-Have: '&cPlayer %player% doesn''t have a player world!'
+  Already-Have: '&cYou already have a player world!'
+  Lobby-Is-Not-Configured: '&cLobby location isn''t configured!'
+  Insufficient-Permission-Create-World: '&cYou don''t have permission to create a player world!'
+  Insufficient-Permission-Create-World-Type: '&cYou don''t have permission to create this type of player world!'
+  Create-Cooldown: '&cYou have to wait %time% second(s) before you can create a player world again!'
+  Creating-World: '&eCreating the player world, please wait.'
+  World-Created: '&aYour player world was successfully created!'
+  World-Deleted: '&aThe player world was successfully deleted!'
+  World-Delete-Error: '&cAn error has occurred, the player world cannot be deleted! Please try again.'
+  World-NotFound: '&cPlayer %player% doesn''t have a player world!'
+  Usage:
+    Join: '&aUsage: &f/PlayerWorldsPro join <player>'
+    SetWorldBorder: '&aUsage: &f/PlayerWorldsPro setWorldBorder <player> <size>'
+    Expiration: '&aUsage: &f/PlayerWorldsPro expiration <set/extend> <player> <length_in_days>'
+    Delete: '&aUsage: &f/PlayerWorldsPro delete <player>'
+  Invalid-Number: '&cNumber ''%number%'' is not valid number!'
+  Positive-Number: '&cYou must enter a positive number!'
+  Expiration-Disabled: '&cExpiration is disabled!'
+  Teleported: '&aYou were teleported!'
+  Unknown-Argument: '&cUnknown argument ''%argument%''! Type /PlayerWorldsPro for help!'
+  Unloaded-World: '&cThe world is not loaded!'
+  Same-World: '&cYou must be in the same world!'
+  In-Player-World: '&cYou aren''t in a player world!'
+  Change-Time:
+    Insufficient-Permission: '&cYou don''t have permission to change the time!'
+    Day: '&aYou changed time to day!'
+    Sunset: '&aYou changed time to sunset!'
+    Night: '&aYou changed time to night!'
+    Sunrise: '&aYou changed time to sunrise!'
+  Daylight-Cycle:
+    Lock: '&aYou locked the daylight cycle!'
+    Unlock: '&aYou unlocked the daylight cycle!'
+  Change-Weather:
+    Insufficient-Permission: '&cYou don''t have permission to change the weather!'
+    Clear: '&aYou changed the weather to clear!'
+    Rain: '&aYou changed the weather to rain!'
+    Thunder: '&aYou changed the weather to thunder!'
+  Weather-Cycle:
+    Lock: '&aYou locked the weather cycle!'
+    Unlock: '&aYou unlocked the weather cycle!'
+  Change-Difficulty:
+    Insufficient-Permission: '&cYou don''t have permission to change the difficulty!'
+    Peaceful: '&aYou changed the difficulty to peaceful!'
+    Easy: '&aYou changed the difficulty to easy!'
+    Normal: '&aYou changed the difficulty to normal!'
+    Hard: '&aYou changed the difficulty to hard!'
+  Block-Breaking:
+    Insufficient-Permission: '&cYou don''t have permission to edit block breaking!'
+    Allow: '&aYou allowed block breaking!'
+    Deny: '&aYou denied block breaking!'
+  Block-Placing:
+    Insufficient-Permission: '&cYou don''t have permission to edit block placing!'
+    Allow: '&aYou allowed block placing!'
+    Deny: '&aYou denied block placing!'
+  PvP:
+    Insufficient-Permission: '&cYou don''t have permission to edit PvP!'
+    Allow: '&aYou allowed PVP!'
+    Deny: '&aYou denied PVP!'
+  World-Border:
+    Insufficient-Permission: '&cYou don''t have permission to edit World Border!'
+    Center: '&aYou center World Border.'
+    Set: '&aYou set the World Border size to %size%.'
+    Reset: '&aYou reset the size of the World Border.'
+  Pickup:
+    Insufficient-Permission: '&cYou don''t have permission to edit item pickup!'
+    Allow: '&aYou allowed pickup items!'
+    Deny: '&aYou denied pickup items!'
+  Drop:
+    Insufficient-Permission: '&cYou don''t have permission to edit drop items!'
+    Allow: '&aYou allowed drop items!'
+    Deny: '&aYou denied drop items!'
+  Damage:
+    Insufficient-Permission: '&cYou don''t have permission to edit player damage!'
+    Allow: '&aYou allowed player damage!'
+    Deny: '&aYou denied player damage!'
+  Hunger:
+    Insufficient-Permission: '&cYou don''t have permission to edit hunger!'
+    Allow: '&aYou allowed hunger!'
+    Deny: '&aYou denied hunger!'
+  Bucket:
+    Insufficient-Permission: '&cYou don''t have permission to edit bucket!'
+    Allow: '&aYou allowed bucket!'
+    Deny: '&aYou denied bucket!'
+  Change-GameMode:
+    Insufficient-Permission: '&cYou don''t have permission to change Game Mode!'
+    Survival: '&aYou changed your Game Mode to Survival!'
+    Creative: '&aYou changed your Game Mode to Creative!'
+    Adventure: '&aYou changed your Game Mode to Adventure!'
+    Spectator: '&aYou changed your Game Mode to Spectator!'
+  Change-GameMode-Other:
+    Survival: '&aYou change Game Mode for player &f%player% &ato &fSurvival&a!'
+    Creative: '&aYou change Game Mode for player &f%player% &ato &fCreative&a!'
+    Adventure: '&aYou change Game Mode for player &f%player% &ato &fAdventure&a!'
+    Spectator: '&aYou change Game Mode for player &f%player% &ato &fSpectator&a!'
+  Change-Default-GameMode:
+    Insufficient-Permission: '&cYou don''t have permission to change the default Game Mode!'
+    Survival: '&aYou changed the default Game Mode to Survival!'
+    Creative: '&aYou changed the default Game Mode to Creative!'
+    Adventure: '&aYou changed the default Game Mode to Adventure!'
+    Spectator: '&aYou changed the default Game Mode to Spectator!'
+  Teleport: '&aYou teleported to &f%player%&a!'
+  Teleport-Here: '&aYou teleported &f%player% &ato you!'
+  Fly: '&aYou changed your fly mode!'
+  Fly-Other: '&aYou changed the fly mode of player %player%!'
+  Access:
+    Insufficient-Permission: '&cYou don''t have permission to change Access!'
+    Public: '&aYou have set access public!'
+    Private: '&aYou have set access private!'
+    Add-Member: '&aYou add &f%player% &ato members.'
+    Remove-Member: '&aYou remove &f%player% &afrom members.'
+    Only-For-Members: '&cThis player world is only for members.'
+  Kick-Player: '&aYou kicked player &f%player%&a!'
+  Kicked: '&aYou were kicked from the player world!'
+  Ban-Player: '&aYou banned player &f%player%&a!'
+  Banned: '&aYou were banned from the player world!'
+  Already-Banned: '&cPlayer %player% is already banned!'
+  Banned-Teleport: '&aYou are banned from this player world!'
+  Unban-Player: '&aYou unbanned player &f%player%&a!'
+  Not-Enough-Money: '&cYou don''t have enough money!'
+  Successfully-Extended: '&aYou have successfully extended the player world for &f%length% &aday(s)!'
+  Successfully-Set-Expiration: '&aYou have successfully set the expiration of &f%player%''s &aplayer world to &f%length% &aday(s)!'
+  Broadcast:
+    Kick: '&aPlayer &f%player% &awas kicked by &f%executor% &afrom the player world.'
+    Ban: '&aPlayer &f%player% &awas banned by &f%executor% &afrom the player world.'
+    Unban: '&aPlayer &f%player% &awas unbanned by &f%executor% &afrom the player world.'

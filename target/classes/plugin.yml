@@ -1,0 +1,19 @@
+name: PlayerWorldsPro
+version: '4.9.7'
+description: The most advanced Player Worlds plugin with many cool features!
+website: https://www.spigotmc.org/members/_heropwp.425110/
+author: _HeroPwP
+api-version: '1.13'
+main: cz._heropwp.playerworldspro.Main
+softdepend:
+  - Vault
+  - FastAsyncWorldEdit
+  - PlaceholderAPI
+commands:
+  PlayerWorldsPro:
+    description: Main command of the plugin.
+    aliases:
+      - pw
+      - pwp
+      - playerworlds
+      - world
