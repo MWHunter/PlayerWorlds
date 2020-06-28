@@ -19,12 +19,12 @@
  */
 package cz._heropwp.playerworldspro;
 
-import cz._heropwp.playerworldspro.a.PlayerWorldsPro;
+import cz._heropwp.playerworldspro.CommandExecutor.PlayerWorldsPro;
 import cz._heropwp.playerworldspro.api.API;
-import cz._heropwp.playerworldspro.b.*;
-import cz._heropwp.playerworldspro.c.BasicEvents;
-import cz._heropwp.playerworldspro.c.SettingsEvents;
-import cz._heropwp.playerworldspro.d.*;
+import cz._heropwp.playerworldspro.GUI.*;
+import cz._heropwp.playerworldspro.EventsListener.BasicEvents;
+import cz._heropwp.playerworldspro.EventsListener.SettingsEvents;
+import cz._heropwp.playerworldspro.CoreManagers.*;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
