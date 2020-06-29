@@ -35,18 +35,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class GUI_Extend_PlayerWorld
 implements Listener {
-    private final Main a;
-
-    public GUI_Extend_PlayerWorld(Main main) {
-        this.a = main;
-    }
 
     public void a(Player player) {
-        if (!this.a.k().b().containsKey(player.getName())) {
+        if (!Main.k().b().containsKey(player.getName())) {
             player.closeInventory();
             return;
         }
-        Inventory inventory = Bukkit.createInventory(null, (int)27, (String)this.a.getConfig().getString("GUI.Extend-Player-World.Title").replace("&", "§"));
+        Inventory inventory = Bukkit.createInventory(null, (int)27, (String)Main.getPlugin().getConfig().getString("GUI.Extend-Player-World.Title").replace("&", "§"));
         player.openInventory(inventory);
         inventory.setItem(11, this.a("First"));
         inventory.setItem(13, this.a("Second"));
@@ -56,11 +51,11 @@ implements Listener {
     private ItemStack a(String string) {
         ItemStack itemStack = new ItemStack(Material.GOLD_INGOT);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Extend-Player-World.Items." + string + ".Displayname").replace("&", "§").replace("%length%", this.a.getConfig().getString("GUI.Extend-Player-World.Items." + string + ".Length")));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Extend-Player-World.Items." + string + ".Displayname").replace("&", "§").replace("%length%", Main.getPlugin().getConfig().getString("GUI.Extend-Player-World.Items." + string + ".Length")));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string2 : this.a.getConfig().getStringList("GUI.Extend-Player-World.Items." + string + ".Lore")) {
+        for (String string2 : Main.getPlugin().getConfig().getStringList("GUI.Extend-Player-World.Items." + string + ".Lore")) {
             string2 = string2.replace("&", "§");
-            string2 = string2.replace("%price%", this.a.getConfig().getString("GUI.Extend-Player-World.Items." + string + ".Price"));
+            string2 = string2.replace("%price%", Main.getPlugin().getConfig().getString("GUI.Extend-Player-World.Items." + string + ".Price"));
             arrayList.add(string2);
         }
         itemMeta.setLore(arrayList);
@@ -71,10 +66,7 @@ implements Listener {
     @EventHandler
     public void a(InventoryClickEvent inventoryClickEvent) {
         Player player = (Player)inventoryClickEvent.getWhoClicked();
-        if (!inventoryClickEvent.getView().getTitle().equals(this.a.getConfig().getString("GUI.Extend-Player-World.Title").replace("&", "§"))) {
-            return;
-        }
-        if (inventoryClickEvent.getView() == null) {
+        if (!inventoryClickEvent.getView().getTitle().equals(Main.getPlugin().getConfig().getString("GUI.Extend-Player-World.Title").replace("&", "§"))) {
             return;
         }
         if (inventoryClickEvent.getCurrentItem() == null) {
@@ -88,23 +80,23 @@ implements Listener {
             return;
         }
         inventoryClickEvent.setCancelled(true);
-        if (this.a.k().b().containsKey(player.getName())) {
+        if (Main.k().b().containsKey(player.getName())) {
             switch (inventoryClickEvent.getSlot()) {
                 case 11: {
-                    this.a.G().a((CommandSender)player, this.a.k().b().get(player.getName()), "First", true);
+                    Main.G().a((CommandSender)player, Main.k().b().get(player.getName()), "First", true);
                     break;
                 }
                 case 13: {
-                    this.a.G().a((CommandSender)player, this.a.k().b().get(player.getName()), "Second", true);
+                    Main.G().a((CommandSender)player, Main.k().b().get(player.getName()), "Second", true);
                     break;
                 }
                 case 15: {
-                    this.a.G().a((CommandSender)player, this.a.k().b().get(player.getName()), "Third", true);
+                    Main.G().a((CommandSender)player, Main.k().b().get(player.getName()), "Third", true);
                 }
             }
         }
         player.closeInventory();
-        this.a.k().b().remove(player.getName());
+        Main.k().b().remove(player.getName());
     }
 }
 

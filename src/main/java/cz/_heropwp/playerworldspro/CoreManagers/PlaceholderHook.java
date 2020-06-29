@@ -33,11 +33,11 @@ extends PlaceholderExpansion {
     }
 
     public String getAuthor() {
-        return this.a.getDescription().getAuthors().toString();
+        return Main.getPlugin().getDescription().getAuthors().toString();
     }
 
     public String getVersion() {
-        return this.a.getDescription().getVersion();
+        return Main.getPlugin().getDescription().getVersion();
     }
 
     public String onRequest(OfflinePlayer offlinePlayer, String string) {
@@ -45,10 +45,10 @@ extends PlaceholderExpansion {
             return "";
         }
         if (string.equals("worlds")) {
-            return String.valueOf(this.a.G().d());
+            return String.valueOf(Main.G().d());
         }
         if (string.equals("online_players")) {
-            return String.valueOf(this.a.G().e());
+            return String.valueOf(Main.G().e());
         }
         return null;
     }

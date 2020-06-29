@@ -38,25 +38,20 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class GUI_Settings_WorldBorder
 implements Listener {
-    private final Main a;
-
-    public GUI_Settings_WorldBorder(Main main) {
-        this.a = main;
-    }
 
     public void a(Player player) {
-        if (!this.a.k().b().containsKey(player.getName()) || Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName()))) == null) {
+        if (!Main.k().b().containsKey(player.getName()) || Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))) == null) {
             player.closeInventory();
-            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
+            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
             return;
         }
-        if (this.a.getConfig().getBoolean("Permissions.World-Border") && !player.hasPermission("PlayerWorldsPro.worldBorder")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.World-Border") && !player.hasPermission("PlayerWorldsPro.worldBorder")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.World-Border.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Border.Insufficient-Permission").replace("&", "§"));
             return;
         }
-        Inventory inventory = Bukkit.createInventory(null, (int)27, (String)this.a.getConfig().getString("GUI.World-Border.Title").replace("&", "§"));
-        World world = Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName())));
+        Inventory inventory = Bukkit.createInventory(null, (int)27, (String)Main.getPlugin().getConfig().getString("GUI.World-Border.Title").replace("&", "§"));
+        World world = Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName())));
         double d2 = world.getWorldBorder().getSize();
         player.openInventory(inventory);
         inventory.setItem(10, this.a(d2));
@@ -68,9 +63,9 @@ implements Listener {
     private ItemStack a(double d2) {
         ItemStack itemStack = new ItemStack(Material.ARROW);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.World-Border.Items.Change.Displayname").replace("&", "§").replace("%size%", String.valueOf(d2)));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Change.Displayname").replace("&", "§").replace("%size%", String.valueOf(d2)));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.World-Border.Items.Change.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.World-Border.Items.Change.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -82,9 +77,9 @@ implements Listener {
     private ItemStack a() {
         ItemStack itemStack = new ItemStack(Material.COMPASS);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.World-Border.Items.Center.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Center.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.World-Border.Items.Center.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.World-Border.Items.Center.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -96,9 +91,9 @@ implements Listener {
     private ItemStack b() {
         ItemStack itemStack = new ItemStack(Material.PAPER);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.World-Border.Items.Set.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Set.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.World-Border.Items.Set.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.World-Border.Items.Set.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -110,9 +105,9 @@ implements Listener {
     private ItemStack c() {
         ItemStack itemStack = new ItemStack(Material.BARRIER);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.World-Border.Items.Reset.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Reset.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.World-Border.Items.Reset.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.World-Border.Items.Reset.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -124,10 +119,7 @@ implements Listener {
     @EventHandler
     public void a(InventoryClickEvent inventoryClickEvent) {
         Player player = (Player)inventoryClickEvent.getWhoClicked();
-        if (!inventoryClickEvent.getView().getTitle().equals(this.a.getConfig().getString("GUI.World-Border.Title").replace("&", "§"))) {
-            return;
-        }
-        if (inventoryClickEvent.getView() == null) {
+        if (!inventoryClickEvent.getView().getTitle().equals(Main.getPlugin().getConfig().getString("GUI.World-Border.Title").replace("&", "§"))) {
             return;
         }
         if (inventoryClickEvent.getCurrentItem() == null) {
@@ -141,13 +133,13 @@ implements Listener {
             return;
         }
         inventoryClickEvent.setCancelled(true);
-        if (this.a.k().b().containsKey(player.getName()) && Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName()))) != null) {
+        if (Main.k().b().containsKey(player.getName()) && Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))) != null) {
             String string = inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName();
-            String string2 = this.a.k().b().get(player.getName());
-            World world = Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + string2));
+            String string2 = Main.k().b().get(player.getName());
+            World world = Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string2));
             WorldBorder worldBorder = world.getWorldBorder();
             double d2 = worldBorder.getSize();
-            if (string.equals(this.a.getConfig().getString("GUI.World-Border.Items.Change.Displayname").replace("&", "§").replace("%size%", String.valueOf(d2)))) {
+            if (string.equals(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Change.Displayname").replace("&", "§").replace("%size%", String.valueOf(d2)))) {
                 if (inventoryClickEvent.isLeftClick()) {
                     if (d2 > 100.0) {
                         worldBorder.setSize(d2 - 100.0);
@@ -160,24 +152,24 @@ implements Listener {
                 inventoryClickEvent.getView().getTopInventory().setItem(inventoryClickEvent.getSlot(), this.a(worldBorder.getSize()));
                 return;
             }
-            if (string.equals(this.a.getConfig().getString("GUI.World-Border.Items.Center.Displayname").replace("&", "§"))) {
+            if (string.equals(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Center.Displayname").replace("&", "§"))) {
                 player.closeInventory();
                 if (world.getName().equals(player.getWorld().getName())) {
                     worldBorder.setCenter(player.getLocation());
-                    player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.World-Border.Center").replace("&", "§"));
+                    player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Border.Center").replace("&", "§"));
                 } else {
-                    player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
+                    player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
                 }
-            } else if (string.equals(this.a.getConfig().getString("GUI.World-Border.Items.Set.Displayname").replace("&", "§"))) {
+            } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Set.Displayname").replace("&", "§"))) {
                 worldBorder.setSize(100.0);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.World-Border.Set").replace("&", "§").replace("%size%", "100"));
-            } else if (string.equals(this.a.getConfig().getString("GUI.World-Border.Items.Reset.Displayname").replace("&", "§"))) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Border.Set").replace("&", "§").replace("%size%", "100"));
+            } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Reset.Displayname").replace("&", "§"))) {
                 worldBorder.setSize(2.9999984E7);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.World-Border.Reset").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Border.Reset").replace("&", "§"));
             }
         }
         player.closeInventory();
-        this.a.k().b().remove(player.getName());
+        Main.k().b().remove(player.getName());
     }
 }
 

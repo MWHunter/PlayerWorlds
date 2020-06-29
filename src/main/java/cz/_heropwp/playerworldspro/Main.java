@@ -34,7 +34,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
     private static Economy economy = null;
-    private API a;
+    private static API a;
     private static PlayerWorldsPro b;
     private static GUI_Buy_PlayerWorld c;
     private static GUI_CreateWorld d;
@@ -75,32 +75,32 @@ public class Main extends JavaPlugin {
         plugin = this;
 
         this.saveDefaultConfig();
-        this.a = new API(this);
-        b = new PlayerWorldsPro(this);
+        a = new API();
+        b = new PlayerWorldsPro();
         c = new GUI_Buy_PlayerWorld();
-        d = new GUI_CreateWorld(this);
-        e = new GUI_CustomGenerators(this);
-        f = new GUI_Extend_PlayerWorld(this);
-        g = new GUI_Main(this);
-        h = new GUI_PreBuiltMaps(this);
-        i = new GUI_Settings(this);
-        j = new GUI_Settings_AddMember(this);
-        k = new GUI_Settings_BanPlayer(this);
-        l = new GUI_Settings_ChangeDefaultGameMode(this);
-        m = new GUI_Settings_ChangeDifficulty(this);
-        n = new GUI_Settings_ChangeGameMode(this);
-        o = new GUI_Settings_ChangeGameMode_SelectPlayer(this);
-        p = new GUI_Settings_ChangeTime(this);
-        q = new GUI_Settings_ChangeWeather(this);
-        r = new GUI_Settings_Fly(this);
-        s = new GUI_Settings_KickPlayer(this);
-        t = new GUI_Settings_RemoveMember(this);
-        u = new GUI_Settings_Teleport(this);
-        v = new GUI_Settings_TeleportHere(this);
-        w = new GUI_Settings_UnbanPlayer(this);
-        x = new GUI_Settings_WorldBorder(this);
-        y = new BasicEvents(this);
-        z = new SettingsEvents(this);
+        d = new GUI_CreateWorld();
+        e = new GUI_CustomGenerators();
+        f = new GUI_Extend_PlayerWorld();
+        g = new GUI_Main();
+        h = new GUI_PreBuiltMaps();
+        i = new GUI_Settings();
+        j = new GUI_Settings_AddMember();
+        k = new GUI_Settings_BanPlayer();
+        l = new GUI_Settings_ChangeDefaultGameMode();
+        m = new GUI_Settings_ChangeDifficulty();
+        n = new GUI_Settings_ChangeGameMode();
+        o = new GUI_Settings_ChangeGameMode_SelectPlayer();
+        p = new GUI_Settings_ChangeTime();
+        q = new GUI_Settings_ChangeWeather();
+        r = new GUI_Settings_Fly();
+        s = new GUI_Settings_KickPlayer();
+        t = new GUI_Settings_RemoveMember();
+        u = new GUI_Settings_Teleport();
+        v = new GUI_Settings_TeleportHere();
+        w = new GUI_Settings_UnbanPlayer();
+        x = new GUI_Settings_WorldBorder();
+        y = new BasicEvents();
+        z = new SettingsEvents();
         B = new BasicManager();
         C = new ConfigManager();
         C.createFoldersAndLoadFiles();
@@ -108,7 +108,7 @@ public class Main extends JavaPlugin {
         E = new WorldManager();
         this.setCommandExecutor();
         this.registerEvents();
-        this.checkFAWEEnabled();
+        checkFAWEEnabled();
         E.a();
         this.isEconomyEnabled();
         E.c();
@@ -117,13 +117,13 @@ public class Main extends JavaPlugin {
         }
     }
 
-    public void checkFAWEEnabled() {
+    public static void checkFAWEEnabled() {
         PluginManager pluginManager = Bukkit.getPluginManager();
-        if (this.getConfig().getBoolean("Basic.Async.FAWE") && pluginManager.getPlugin("FastAsyncWorldEdit") != null && pluginManager.getPlugin("FastAsyncWorldEdit").isEnabled()) {
-            this.isFAWEEnabled = true;
+        if (getPlugin().getConfig().getBoolean("Basic.Async.FAWE") && pluginManager.getPlugin("FastAsyncWorldEdit") != null && pluginManager.getPlugin("FastAsyncWorldEdit").isEnabled()) {
+            isFAWEEnabled = true;
             return;
         }
-        this.isFAWEEnabled = false;
+        isFAWEEnabled = false;
     }
 
     private void setCommandExecutor() {
@@ -170,35 +170,35 @@ public class Main extends JavaPlugin {
         return economy != null;
     }
 
-    public API c() {
-        return this.a;
+    public static API c() {
+        return a;
     }
 
-    public PlayerWorldsPro d() {
+    public static PlayerWorldsPro d() {
         return b;
     }
 
-    public GUI_Buy_PlayerWorld e() {
+    public static GUI_Buy_PlayerWorld e() {
         return c;
     }
 
-    public GUI_CreateWorld f() {
+    public static GUI_CreateWorld f() {
         return d;
     }
 
-    public GUI_CustomGenerators g() {
+    public static GUI_CustomGenerators g() {
         return e;
     }
 
-    public GUI_Extend_PlayerWorld h() {
+    public static GUI_Extend_PlayerWorld h() {
         return f;
     }
 
-    public GUI_Main i() {
+    public static GUI_Main i() {
         return g;
     }
 
-    public GUI_PreBuiltMaps j() {
+    public static GUI_PreBuiltMaps j() {
         return h;
     }
 
@@ -206,71 +206,71 @@ public class Main extends JavaPlugin {
         return i;
     }
 
-    public GUI_Settings_AddMember l() {
+    public static GUI_Settings_AddMember l() {
         return j;
     }
 
-    public GUI_Settings_BanPlayer m() {
+    public static GUI_Settings_BanPlayer m() {
         return k;
     }
 
-    public GUI_Settings_ChangeDefaultGameMode n() {
+    public static GUI_Settings_ChangeDefaultGameMode n() {
         return l;
     }
 
-    public GUI_Settings_ChangeDifficulty o() {
+    public static GUI_Settings_ChangeDifficulty o() {
         return m;
     }
 
-    public GUI_Settings_ChangeGameMode p() {
+    public static GUI_Settings_ChangeGameMode p() {
         return n;
     }
 
-    public GUI_Settings_ChangeGameMode_SelectPlayer q() {
+    public static GUI_Settings_ChangeGameMode_SelectPlayer q() {
         return o;
     }
 
-    public GUI_Settings_ChangeTime r() {
+    public static GUI_Settings_ChangeTime r() {
         return p;
     }
 
-    public GUI_Settings_ChangeWeather s() {
+    public static GUI_Settings_ChangeWeather s() {
         return q;
     }
 
-    public GUI_Settings_Fly t() {
+    public static GUI_Settings_Fly t() {
         return r;
     }
 
-    public GUI_Settings_KickPlayer u() {
+    public static GUI_Settings_KickPlayer u() {
         return s;
     }
 
-    public GUI_Settings_RemoveMember v() {
+    public static GUI_Settings_RemoveMember v() {
         return t;
     }
 
-    public GUI_Settings_Teleport w() {
+    public static GUI_Settings_Teleport w() {
         return u;
     }
 
-    public GUI_Settings_TeleportHere x() {
+    public static GUI_Settings_TeleportHere x() {
         return v;
     }
 
-    public GUI_Settings_UnbanPlayer y() {
+    public static GUI_Settings_UnbanPlayer y() {
         return w;
     }
 
-    public GUI_Settings_WorldBorder z() {
+    public static GUI_Settings_WorldBorder z() {
         return x;
     }
 
-    public BasicEvents A() {
+    public static BasicEvents A() {
         return y;
     }
 
-    public SettingsEvents B() {
+    public static SettingsEvents B() {
         return z;
     }
 
@@ -278,11 +278,11 @@ public class Main extends JavaPlugin {
         return B;
     }
 
-    public ConfigManager E() {
+    public static ConfigManager E() {
         return C;
     }
 
-    public MaterialManager F() {
+    public static MaterialManager F() {
         return D;
     }
 

@@ -34,36 +34,31 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class GUI_CustomGenerators
 implements Listener {
-    private final Main a;
 
-    public GUI_CustomGenerators(Main main) {
-        this.a = main;
-    }
-
-    public void a(Player player) {
-        if (this.a.G().c(player.getName())) {
+    public static void a(Player player) {
+        if (WorldManager.c(player.getName())) {
             player.closeInventory();
-            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Already-Have").replace("&", "§"));
+            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Already-Have").replace("&", "§"));
             return;
         }
-        Inventory inventory = Bukkit.createInventory(null, (int)54, (String)this.a.getConfig().getString("GUI.Custom-Generators.Title").replace("&", "§"));
+        Inventory inventory = Bukkit.createInventory(null, (int)54, (String)Main.getPlugin().getConfig().getString("GUI.Custom-Generators.Title").replace("&", "§"));
         player.openInventory(inventory);
         int n = 0;
-        if (this.a.getConfig().contains("Custom-Generators")) {
-            for (String string : this.a.getConfig().getStringList("Custom-Generators")) {
+        if (Main.getPlugin().getConfig().contains("Custom-Generators")) {
+            for (String string : Main.getPlugin().getConfig().getStringList("Custom-Generators")) {
                 if (n >= inventory.getSize()) break;
-                inventory.setItem(n, this.a(string));
+                inventory.setItem(n, a(string));
                 ++n;
             }
         }
     }
 
-    private ItemStack a(String string) {
+    private static ItemStack a(String string) {
         ItemStack itemStack = new ItemStack(Material.PAPER);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Custom-Generators.Items.Generator.Displayname").replace("&", "§").replace("%name%", string));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Custom-Generators.Items.Generator.Displayname").replace("&", "§").replace("%name%", string));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string2 : this.a.getConfig().getStringList("GUI.Custom-Generators.Items.Generator.Lore")) {
+        for (String string2 : Main.getPlugin().getConfig().getStringList("GUI.Custom-Generators.Items.Generator.Lore")) {
             string2 = string2.replace("&", "§");
             arrayList.add(string2);
         }
@@ -75,10 +70,7 @@ implements Listener {
     @EventHandler
     public void a(InventoryClickEvent inventoryClickEvent) {
         Player player = (Player)inventoryClickEvent.getWhoClicked();
-        if (!inventoryClickEvent.getView().getTitle().equals(this.a.getConfig().getString("GUI.Custom-Generators.Title").replace("&", "§"))) {
-            return;
-        }
-        if (inventoryClickEvent.getView() == null) {
+        if (!inventoryClickEvent.getView().getTitle().equals(Main.getPlugin().getConfig().getString("GUI.Custom-Generators.Title").replace("&", "§"))) {
             return;
         }
         if (inventoryClickEvent.getCurrentItem() == null) {
@@ -93,16 +85,16 @@ implements Listener {
         }
         inventoryClickEvent.setCancelled(true);
         if (inventoryClickEvent.getCurrentItem().getType() == Material.PAPER) {
-            String string = (String)this.a.getConfig().getStringList("Custom-Generators").get(inventoryClickEvent.getSlot());
-            if (this.a.getConfig().getStringList("Custom-Generators").contains(string)) {
-                if (this.a.G().b()) {
-                    if (this.a.getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
-                        this.a.G().a(player, WorldManager.a.CUSTOM, null, string, this.a.getConfig().getInt("Claim.Length"), null, true);
+            String string = (String)Main.getPlugin().getConfig().getStringList("Custom-Generators").get(inventoryClickEvent.getSlot());
+            if (Main.getPlugin().getConfig().getStringList("Custom-Generators").contains(string)) {
+                if (Main.G().b()) {
+                    if (Main.getPlugin().getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
+                        Main.G().a(player, WorldManager.a.CUSTOM, null, string, Main.getPlugin().getConfig().getInt("Claim.Length"), null, true);
                     } else {
                         GUI_Buy_PlayerWorld.a(player, WorldManager.a.CUSTOM, null, string);
                     }
                 } else {
-                    this.a.G().a(player, WorldManager.a.CUSTOM, null, string, null, null, false);
+                    Main.G().a(player, WorldManager.a.CUSTOM, null, string, null, null, false);
                 }
             }
         }

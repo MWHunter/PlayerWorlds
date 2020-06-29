@@ -12,82 +12,77 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class API {
-    private static Main main;
-
-    public API(Main main) {
-        API.main = main;
-    }
 
     public static boolean hasPlayerWorld(String string) {
-        return main.G().c(string);
+        return Main.G().c(string);
     }
 
     public static String getPlayerWorldOwner(String string) {
-        return main.G().d(string);
+        return Main.G().d(string);
     }
 
     public static boolean isMember(Player player, String string) {
-        return main.G().c(player, string);
+        return Main.G().c(player, string);
     }
 
     public static boolean isExpirationEnabled() {
-        return main.G().b();
+        return Main.G().b();
     }
 
     public static boolean isWeatherCycle(String string) {
-        return main.G().e(string);
+        return Main.G().e(string);
     }
 
     public static String getDifficulty(String string) {
-        return main.G().f(string);
+        return Main.G().f(string);
     }
 
     public static boolean isBlockBreaking(String string) {
-        return main.G().g(string);
+        return Main.G().g(string);
     }
 
     public static boolean isBlockPlacing(String string) {
-        return main.G().h(string);
+        return Main.G().h(string);
     }
 
     public static boolean isPvP(String string) {
-        return main.G().i(string);
+        return Main.G().i(string);
     }
 
     public static String getGameMode(String string) {
-        return main.G().j(string);
+        return Main.G().j(string);
     }
 
     public static boolean isPickup(String string) {
-        return main.G().k(string);
+        return Main.G().k(string);
     }
 
     public static boolean isDrop(String string) {
-        return main.G().l(string);
+        return Main.G().l(string);
     }
 
     public static boolean isDamage(String string) {
-        return main.G().m(string);
+        return Main.G().m(string);
     }
 
     public static boolean isHunger(String string) {
-        return main.G().n(string);
+        return Main.G().n(string);
     }
 
     public static String getAccess(String string) {
-        return main.G().p(string);
+        return Main.G().p(string);
     }
 
     public static Long getExpiration(String string) {
-        return main.G().q(string);
+        return Main.G().q(string);
     }
 
     public static String getExpirationDate(String string) {
-        return main.G().r(string);
+        return Main.G().r(string);
     }
 
     public static void deletePlayerWorld(String string) {
-        main.G().a((CommandSender)null, string);
+        Main.G().a((CommandSender)null, string);
     }
 }
 

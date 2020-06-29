@@ -42,17 +42,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class GUI_Settings
 implements Listener {
-    private final Main a;
-    private HashMap<String, String> b;
-
-    public GUI_Settings(Main main) {
-        this.a = main;
-        this.b = new HashMap();
-    }
+    private HashMap<String, String> b = new HashMap<>();
 
     public void a(Player player, String string) {
         this.b.put(player.getName(), string);
-        Inventory inventory = Bukkit.createInventory(null, (int)54, (String)this.a.getConfig().getString("GUI.Settings.Title").replace("&", "§"));
+        Inventory inventory = Bukkit.createInventory(null, (int)54, (String)Main.getPlugin().getConfig().getString("GUI.Settings.Title").replace("&", "§"));
         player.openInventory(inventory);
         inventory.setItem(0, this.a(player));
         inventory.setItem(1, this.b(player));
@@ -73,7 +67,7 @@ implements Listener {
         inventory.setItem(32, this.s(player));
         inventory.setItem(34, this.l(player));
         inventory.setItem(35, this.m(player));
-        if (this.a.G().b()) {
+        if (Main.G().b()) {
             inventory.setItem(46, this.c());
         }
         inventory.setItem(49, this.d());
@@ -82,14 +76,14 @@ implements Listener {
     }
 
     private ItemStack a(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Change-Time") && !player.hasPermission("PlayerWorldsPro.changeTime") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Change-Time") && !player.hasPermission("PlayerWorldsPro.changeTime") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.CLOCK));
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.CLOCK));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Change-Time.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Change-Time.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Change-Time.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Change-Time.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -99,14 +93,14 @@ implements Listener {
     }
 
     private ItemStack b(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Change-Weather") && !player.hasPermission("PlayerWorldsPro.changeWeather") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Change-Weather") && !player.hasPermission("PlayerWorldsPro.changeWeather") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.WATER_BUCKET);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Change-Weather.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Change-Weather.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Change-Weather.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Change-Weather.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -116,14 +110,14 @@ implements Listener {
     }
 
     private ItemStack c(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Change-Difficulty") && !player.hasPermission("PlayerWorldsPro.changeDifficulty") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Change-Difficulty") && !player.hasPermission("PlayerWorldsPro.changeDifficulty") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.BONE);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Change-Difficulty.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Change-Difficulty.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Change-Difficulty.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Change-Difficulty.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -133,14 +127,14 @@ implements Listener {
     }
 
     private ItemStack d(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Set-Spawn-Location") && !player.hasPermission("PlayerWorldsPro.setSpawn") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Set-Spawn-Location") && !player.hasPermission("PlayerWorldsPro.setSpawn") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.RED_BED));
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.RED_BED));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Spawn-Location.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Spawn-Location.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Spawn-Location.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Spawn-Location.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -150,18 +144,18 @@ implements Listener {
     }
 
     private ItemStack e(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Block-Breaking") && !player.hasPermission("PlayerWorldsPro.editBlockBreaking") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Block-Breaking") && !player.hasPermission("PlayerWorldsPro.editBlockBreaking") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.IRON_PICKAXE);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Block-Breaking.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Block-Breaking.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Block-Breaking.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Block-Breaking.Lore")) {
             string = string.replace("&", "§");
             String string2 = "Variables.";
-            string2 = this.a.G().g(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
-            string = string.replace("%status%", this.a.getConfig().getString(string2).replace("&", "§"));
+            string2 = Main.G().g(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
+            string = string.replace("%status%", Main.getPlugin().getConfig().getString(string2).replace("&", "§"));
             arrayList.add(string);
         }
         itemMeta.setLore(arrayList);
@@ -170,18 +164,18 @@ implements Listener {
     }
 
     private ItemStack f(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Block-Placing") && !player.hasPermission("PlayerWorldsPro.editBlockPlacing") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Block-Placing") && !player.hasPermission("PlayerWorldsPro.editBlockPlacing") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.BRICK);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Block-Placing.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Block-Placing.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Block-Placing.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Block-Placing.Lore")) {
             string = string.replace("&", "§");
             String string2 = "Variables.";
-            string2 = this.a.G().h(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
-            string = string.replace("%status%", this.a.getConfig().getString(string2).replace("&", "§"));
+            string2 = Main.G().h(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
+            string = string.replace("%status%", Main.getPlugin().getConfig().getString(string2).replace("&", "§"));
             arrayList.add(string);
         }
         itemMeta.setLore(arrayList);
@@ -190,18 +184,18 @@ implements Listener {
     }
 
     private ItemStack g(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.PvP") && !player.hasPermission("PlayerWorldsPro.editPvP") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.PvP") && !player.hasPermission("PlayerWorldsPro.editPvP") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.IRON_SWORD);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.PvP.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.PvP.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.PvP.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.PvP.Lore")) {
             string = string.replace("&", "§");
             String string2 = "Variables.";
-            string2 = this.a.G().i(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
-            string = string.replace("%status%", this.a.getConfig().getString(string2).replace("&", "§"));
+            string2 = Main.G().i(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
+            string = string.replace("%status%", Main.getPlugin().getConfig().getString(string2).replace("&", "§"));
             arrayList.add(string);
         }
         itemMeta.setLore(arrayList);
@@ -210,14 +204,14 @@ implements Listener {
     }
 
     private ItemStack h(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.World-Border") && !player.hasPermission("PlayerWorldsPro.worldBorder") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.World-Border") && !player.hasPermission("PlayerWorldsPro.worldBorder") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.BARRIER);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.World-Border.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.World-Border.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.World-Border.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.World-Border.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -227,18 +221,18 @@ implements Listener {
     }
 
     private ItemStack i(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Item-Pickup") && !player.hasPermission("PlayerWorldsPro.editItemPickup") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Item-Pickup") && !player.hasPermission("PlayerWorldsPro.editItemPickup") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.GOLDEN_APPLE);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Pickup.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Pickup.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Pickup.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Pickup.Lore")) {
             string = string.replace("&", "§");
             String string2 = "Variables.";
-            string2 = this.a.G().k(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
-            string = string.replace("%status%", this.a.getConfig().getString(string2).replace("&", "§"));
+            string2 = Main.G().k(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
+            string = string.replace("%status%", Main.getPlugin().getConfig().getString(string2).replace("&", "§"));
             arrayList.add(string);
         }
         itemMeta.setLore(arrayList);
@@ -247,18 +241,18 @@ implements Listener {
     }
 
     private ItemStack j(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Drop-Item") && !player.hasPermission("PlayerWorldsPro.editDropItem") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Drop-Item") && !player.hasPermission("PlayerWorldsPro.editDropItem") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.ROTTEN_FLESH);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Drop.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Drop.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Drop.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Drop.Lore")) {
             string = string.replace("&", "§");
             String string2 = "Variables.";
-            string2 = this.a.G().l(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
-            string = string.replace("%status%", this.a.getConfig().getString(string2).replace("&", "§"));
+            string2 = Main.G().l(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
+            string = string.replace("%status%", Main.getPlugin().getConfig().getString(string2).replace("&", "§"));
             arrayList.add(string);
         }
         itemMeta.setLore(arrayList);
@@ -267,18 +261,18 @@ implements Listener {
     }
 
     private ItemStack k(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Player-Damage") && !player.hasPermission("PlayerWorldsPro.editPlayerDamage") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Player-Damage") && !player.hasPermission("PlayerWorldsPro.editPlayerDamage") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.LEATHER_CHESTPLATE);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Damage.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Damage.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Damage.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Damage.Lore")) {
             string = string.replace("&", "§");
             String string2 = "Variables.";
-            string2 = this.a.G().m(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
-            string = string.replace("%status%", this.a.getConfig().getString(string2).replace("&", "§"));
+            string2 = Main.G().m(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
+            string = string.replace("%status%", Main.getPlugin().getConfig().getString(string2).replace("&", "§"));
             arrayList.add(string);
         }
         itemMeta.setLore(arrayList);
@@ -287,18 +281,18 @@ implements Listener {
     }
 
     private ItemStack l(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Hunger") && !player.hasPermission("PlayerWorldsPro.editHunger") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Hunger") && !player.hasPermission("PlayerWorldsPro.editHunger") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.APPLE);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Hunger.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Hunger.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Hunger.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Hunger.Lore")) {
             string = string.replace("&", "§");
             String string2 = "Variables.";
-            string2 = this.a.G().n(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
-            string = string.replace("%status%", this.a.getConfig().getString(string2).replace("&", "§"));
+            string2 = Main.G().n(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
+            string = string.replace("%status%", Main.getPlugin().getConfig().getString(string2).replace("&", "§"));
             arrayList.add(string);
         }
         itemMeta.setLore(arrayList);
@@ -307,18 +301,18 @@ implements Listener {
     }
 
     private ItemStack m(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Bucket") && !player.hasPermission("PlayerWorldsPro.editBucket") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Bucket") && !player.hasPermission("PlayerWorldsPro.editBucket") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.BUCKET);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Bucket.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Bucket.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Bucket.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Bucket.Lore")) {
             string = string.replace("&", "§");
             String string2 = "Variables.";
-            string2 = this.a.G().o(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
-            string = string.replace("%status%", this.a.getConfig().getString(string2).replace("&", "§"));
+            string2 = Main.G().o(this.b.get(player.getName())) ? string2 + "Enabled" : string2 + "Disabled";
+            string = string.replace("%status%", Main.getPlugin().getConfig().getString(string2).replace("&", "§"));
             arrayList.add(string);
         }
         itemMeta.setLore(arrayList);
@@ -327,14 +321,14 @@ implements Listener {
     }
 
     private ItemStack n(Player player) {
-        if (this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission") && this.a.getConfig().getBoolean("Permissions.Change-GameMode") && !player.hasPermission("PlayerWorldsPro.changeGameMode") && this.a.getConfig().getBoolean("Permissions.Change-Default-GameMode") && !player.hasPermission("PlayerWorldsPro.changeGameMode.default")) {
+        if (Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission") && Main.getPlugin().getConfig().getBoolean("Permissions.Change-GameMode") && !player.hasPermission("PlayerWorldsPro.changeGameMode") && Main.getPlugin().getConfig().getBoolean("Permissions.Change-Default-GameMode") && !player.hasPermission("PlayerWorldsPro.changeGameMode.default")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.DIAMOND);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.GameMode.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.GameMode.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.GameMode.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.GameMode.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -344,14 +338,14 @@ implements Listener {
     }
 
     private ItemStack o(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Teleport") && !player.hasPermission("PlayerWorldsPro.teleport") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Teleport") && !player.hasPermission("PlayerWorldsPro.teleport") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.PLAYER_HEAD), 1, (short)SkullType.PLAYER.ordinal());
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.PLAYER_HEAD), 1, (short)SkullType.PLAYER.ordinal());
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Teleport.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Teleport.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Teleport.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Teleport.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -361,14 +355,14 @@ implements Listener {
     }
 
     private ItemStack p(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Fly") && !player.hasPermission("PlayerWorldsPro.fly") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Fly") && !player.hasPermission("PlayerWorldsPro.fly") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.FEATHER, 1);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Fly.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Fly.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Fly.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Fly.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -378,17 +372,17 @@ implements Listener {
     }
 
     private ItemStack q(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Access") && !player.hasPermission("PlayerWorldsPro.access") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Access") && !player.hasPermission("PlayerWorldsPro.access") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.WRITABLE_BOOK));
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.WRITABLE_BOOK));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Access.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Access.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Access.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Access.Lore")) {
             string = string.replace("&", "§");
-            String string2 = "Variables." + this.a.G().p(this.b.get(player.getName()));
-            string = string.replace("%status%", this.a.getConfig().getString(string2).replace("&", "§"));
+            String string2 = "Variables." + Main.G().p(this.b.get(player.getName()));
+            string = string.replace("%status%", Main.getPlugin().getConfig().getString(string2).replace("&", "§"));
             arrayList.add(string);
         }
         itemMeta.setLore(arrayList);
@@ -397,14 +391,14 @@ implements Listener {
     }
 
     private ItemStack r(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Access") && !player.hasPermission("PlayerWorldsPro.access") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Access") && !player.hasPermission("PlayerWorldsPro.access") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.PLAYER_HEAD), 1, (short)SkullType.PLAYER.ordinal());
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.PLAYER_HEAD), 1, (short)SkullType.PLAYER.ordinal());
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Add-Member.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Add-Member.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Add-Member.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Add-Member.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -414,14 +408,14 @@ implements Listener {
     }
 
     private ItemStack s(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Access") && !player.hasPermission("PlayerWorldsPro.access") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Access") && !player.hasPermission("PlayerWorldsPro.access") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.PLAYER_HEAD), 1, (short)SkullType.PLAYER.ordinal());
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.PLAYER_HEAD), 1, (short)SkullType.PLAYER.ordinal());
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Remove-Member.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Remove-Member.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Remove-Member.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Remove-Member.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -433,9 +427,9 @@ implements Listener {
     private ItemStack c() {
         ItemStack itemStack = new ItemStack(Material.GOLD_INGOT);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Extend.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Extend.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Extend.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Extend.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -447,9 +441,9 @@ implements Listener {
     private ItemStack d() {
         ItemStack itemStack = new ItemStack(Material.TNT);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Delete.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Delete.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Delete.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Delete.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -459,14 +453,14 @@ implements Listener {
     }
 
     private ItemStack t(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Kick") && !player.hasPermission("PlayerWorldsPro.kick") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Kick") && !player.hasPermission("PlayerWorldsPro.kick") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.LEATHER_BOOTS);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Kick.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Kick.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Kick.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Kick.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -476,14 +470,14 @@ implements Listener {
     }
 
     private ItemStack u(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Ban") && !player.hasPermission("PlayerWorldsPro.ban") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Ban") && !player.hasPermission("PlayerWorldsPro.ban") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.BARRIER);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Settings.Items.Ban.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Ban.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Settings.Items.Ban.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Settings.Items.Ban.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -495,10 +489,7 @@ implements Listener {
     @EventHandler
     public void a(InventoryClickEvent inventoryClickEvent) {
         Player player = (Player)inventoryClickEvent.getWhoClicked();
-        if (!inventoryClickEvent.getView().getTitle().equals(this.a.getConfig().getString("GUI.Settings.Title").replace("&", "§"))) {
-            return;
-        }
-        if (inventoryClickEvent.getView() == null) {
+        if (!inventoryClickEvent.getView().getTitle().equals(Main.getPlugin().getConfig().getString("GUI.Settings.Title").replace("&", "§"))) {
             return;
         }
         if (inventoryClickEvent.getCurrentItem() == null) {
@@ -518,167 +509,167 @@ implements Listener {
         }
         String string = inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName();
         String string2 = this.b.get(player.getName());
-        if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.CLOCK)) {
-            this.a.r().a(player);
+        if (inventoryClickEvent.getCurrentItem().getType() == Main.F().a(MaterialManager.a.CLOCK)) {
+            Main.r().a(player);
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.WATER_BUCKET) {
-            this.a.s().a(player);
+            Main.s().a(player);
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BONE) {
-            this.a.o().a(player);
-        } else if (inventoryClickEvent.getCurrentItem().getType().toString().contains(this.a.F().a(MaterialManager.a.RED_BED).toString())) {
-            if (this.a.getConfig().getBoolean("Permissions.Set-Spawn-Location") && !player.hasPermission("PlayerWorldsPro.setSpawn")) {
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+            Main.o().a(player);
+        } else if (inventoryClickEvent.getCurrentItem().getType().toString().contains(Main.F().a(MaterialManager.a.RED_BED).toString())) {
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Set-Spawn-Location") && !player.hasPermission("PlayerWorldsPro.setSpawn")) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
             } else {
-                this.a.G().a(player, string2, true);
+                Main.G().a(player, string2, true);
             }
             player.closeInventory();
-            this.a.k().b().remove(player.getName());
+            Main.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.IRON_PICKAXE) {
             player.closeInventory();
-            if (this.a.getConfig().getBoolean("Permissions.Block-Breaking") && !player.hasPermission("PlayerWorldsPro.editBlockBreaking")) {
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Block-Breaking.Insufficient-Permission").replace("&", "§"));
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Block-Breaking") && !player.hasPermission("PlayerWorldsPro.editBlockBreaking")) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Block-Breaking.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Block-Breaking", (Object)true);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Block-Breaking.Allow").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Block-Breaking.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Block-Breaking", (Object)false);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Block-Breaking.Deny").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Block-Breaking.Deny").replace("&", "§"));
             }
-            this.a.k().b().remove(player.getName());
+            Main.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BRICK) {
             player.closeInventory();
-            if (this.a.getConfig().getBoolean("Permissions.Block-Placing") && !player.hasPermission("PlayerWorldsPro.editBlockPlacing")) {
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Block-Placing.Insufficient-Permission").replace("&", "§"));
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Block-Placing") && !player.hasPermission("PlayerWorldsPro.editBlockPlacing")) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Block-Placing.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Block-Placing", (Object)true);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Block-Placing.Allow").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Block-Placing.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Block-Placing", (Object)false);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Block-Placing.Deny").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Block-Placing.Deny").replace("&", "§"));
             }
-            this.a.k().b().remove(player.getName());
+            Main.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.IRON_SWORD) {
             player.closeInventory();
-            if (this.a.getConfig().getBoolean("Permissions.PvP") && !player.hasPermission("PlayerWorldsPro.editPvP")) {
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.PvP.Insufficient-Permission").replace("&", "§"));
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.PvP") && !player.hasPermission("PlayerWorldsPro.editPvP")) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.PvP.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".PvP", (Object)true);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.PvP.Allow").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.PvP.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".PvP", (Object)false);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.PvP.Deny").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.PvP.Deny").replace("&", "§"));
             }
-            this.a.k().b().remove(player.getName());
-        } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BARRIER && string.equals(this.a.getConfig().getString("GUI.Settings.Items.World-Border.Displayname").replace("&", "§"))) {
-            this.a.z().a(player);
+            Main.k().b().remove(player.getName());
+        } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BARRIER && string.equals(Main.getPlugin().getConfig().getString("GUI.Settings.Items.World-Border.Displayname").replace("&", "§"))) {
+            Main.z().a(player);
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.GOLDEN_APPLE) {
             player.closeInventory();
-            if (this.a.getConfig().getBoolean("Permissions.Item-Pickup") && !player.hasPermission("PlayerWorldsPro.editItemPickup")) {
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Pickup.Insufficient-Permission").replace("&", "§"));
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Item-Pickup") && !player.hasPermission("PlayerWorldsPro.editItemPickup")) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Pickup.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Pickup", (Object)true);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Pickup.Allow").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Pickup.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Pickup", (Object)false);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Pickup.Deny").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Pickup.Deny").replace("&", "§"));
             }
-            this.a.k().b().remove(player.getName());
+            Main.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.ROTTEN_FLESH) {
             player.closeInventory();
-            if (this.a.getConfig().getBoolean("Permissions.Drop-Item") && !player.hasPermission("PlayerWorldsPro.editDropItem")) {
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Drop.Insufficient-Permission").replace("&", "§"));
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Drop-Item") && !player.hasPermission("PlayerWorldsPro.editDropItem")) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Drop.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Drop", (Object)true);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Drop.Allow").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Drop.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Drop", (Object)false);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Drop.Deny").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Drop.Deny").replace("&", "§"));
             }
-            this.a.k().b().remove(player.getName());
+            Main.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.LEATHER_CHESTPLATE) {
             player.closeInventory();
-            if (this.a.getConfig().getBoolean("Permissions.Player-Damage") && !player.hasPermission("PlayerWorldsPro.editPlayerDamage")) {
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Damage.Insufficient-Permission").replace("&", "§"));
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Player-Damage") && !player.hasPermission("PlayerWorldsPro.editPlayerDamage")) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Damage.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Damage", (Object)true);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Damage.Allow").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Damage.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Damage", (Object)false);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Damage.Deny").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Damage.Deny").replace("&", "§"));
             }
-            this.a.k().b().remove(player.getName());
+            Main.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.APPLE) {
             player.closeInventory();
-            if (this.a.getConfig().getBoolean("Permissions.Hunger") && !player.hasPermission("PlayerWorldsPro.editHunger")) {
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Hunger.Insufficient-Permission").replace("&", "§"));
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Hunger") && !player.hasPermission("PlayerWorldsPro.editHunger")) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Hunger.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Hunger", (Object)true);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Hunger.Allow").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Hunger.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Hunger", (Object)false);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Hunger.Deny").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Hunger.Deny").replace("&", "§"));
             }
-            this.a.k().b().remove(player.getName());
+            Main.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BUCKET) {
             player.closeInventory();
-            if (this.a.getConfig().getBoolean("Permissions.Bucket") && !player.hasPermission("PlayerWorldsPro.editBucket")) {
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Bucket.Insufficient-Permission").replace("&", "§"));
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Bucket") && !player.hasPermission("PlayerWorldsPro.editBucket")) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Bucket.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Bucket", (Object)true);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Bucket.Allow").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Bucket.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Bucket", (Object)false);
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Bucket.Deny").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Bucket.Deny").replace("&", "§"));
             }
-            this.a.k().b().remove(player.getName());
+            Main.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.DIAMOND) {
             if (inventoryClickEvent.isLeftClick()) {
-                this.a.p().a(player);
+                Main.p().a(player);
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.n().a(player);
+                Main.n().a(player);
             }
-        } else if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.PLAYER_HEAD) && string.equals(this.a.getConfig().getString("GUI.Settings.Items.Teleport.Displayname").replace("&", "§"))) {
+        } else if (inventoryClickEvent.getCurrentItem().getType() == Main.F().a(MaterialManager.a.PLAYER_HEAD) && string.equals(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Teleport.Displayname").replace("&", "§"))) {
             if (inventoryClickEvent.isLeftClick()) {
-                this.a.w().a(player);
+                Main.w().a(player);
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.x().a(player);
+                Main.x().a(player);
             }
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.FEATHER) {
-            String string3 = this.a.getConfig().getString("Basic.World-Prefix") + string2;
+            String string3 = Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string2;
             if (!player.getWorld().getName().equals(string3)) {
                 player.closeInventory();
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
                 return;
             }
             if (inventoryClickEvent.isLeftClick()) {
@@ -689,58 +680,54 @@ implements Listener {
                     player.setAllowFlight(true);
                     player.setFlying(true);
                 }
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Fly").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Fly").replace("&", "§"));
                 player.closeInventory();
-                this.a.k().b().remove(player.getName());
+                Main.k().b().remove(player.getName());
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.t().a(player);
+                Main.t().a(player);
             }
-        } else if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.WRITABLE_BOOK)) {
-            if (this.a.getConfig().getBoolean("Permissions.Access") && !player.hasPermission("PlayerWorldsPro.access")) {
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Access.Insufficient-Permission").replace("&", "§"));
+        } else if (inventoryClickEvent.getCurrentItem().getType() == Main.F().a(MaterialManager.a.WRITABLE_BOOK)) {
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Access") && !player.hasPermission("PlayerWorldsPro.access")) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Access", (Object)"PUBLIC");
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Access.Public").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Public").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Access", (Object)"PRIVATE");
                 ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
                 ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Access.Private").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Private").replace("&", "§"));
                 for (Player player2 : Bukkit.getOnlinePlayers()) {
-                    if (!player2.getWorld().getName().equals(string2) || this.a.G().c(player2, string2)) continue;
-                    if (this.a.D().b()) {
-                        this.a.D().a(player2, this.a.D().c());
+                    if (!player2.getWorld().getName().equals(string2) || Main.G().c(player2, string2)) continue;
+                    if (Main.D().b()) {
+                        Main.D().a(player2, Main.D().c());
                         continue;
                     }
-                    player2.kickPlayer(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Lobby-Is-Not-Configured").replace("&", "§"));
+                    player2.kickPlayer(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Lobby-Is-Not-Configured").replace("&", "§"));
                 }
             }
             player.closeInventory();
-            this.a.k().b().remove(player.getName());
-        } else if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.PLAYER_HEAD) && string.equals(this.a.getConfig().getString("GUI.Settings.Items.Add-Member.Displayname").replace("&", "§"))) {
-            this.a.l().a(player);
-        } else if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.PLAYER_HEAD) && string.equals(this.a.getConfig().getString("GUI.Settings.Items.Remove-Member.Displayname").replace("&", "§"))) {
-            this.a.v().a(player);
+            Main.k().b().remove(player.getName());
+        } else if (inventoryClickEvent.getCurrentItem().getType() == Main.F().a(MaterialManager.a.PLAYER_HEAD) && string.equals(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Add-Member.Displayname").replace("&", "§"))) {
+            Main.l().a(player);
+        } else if (inventoryClickEvent.getCurrentItem().getType() == Main.F().a(MaterialManager.a.PLAYER_HEAD) && string.equals(Main.getPlugin().getConfig().getString("GUI.Settings.Items.Remove-Member.Displayname").replace("&", "§"))) {
+            Main.v().a(player);
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.GOLD_INGOT) {
-            this.a.h().a(player);
+            Main.h().a(player);
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.TNT && inventoryClickEvent.isShiftClick()) {
             player.closeInventory();
-            this.a.G().a((CommandSender)player, this.b.get(player.getName()));
+            Main.G().a((CommandSender)player, this.b.get(player.getName()));
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.LEATHER_BOOTS) {
-            this.a.u().a(player);
+            Main.u().a(player);
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BARRIER) {
             if (inventoryClickEvent.isLeftClick()) {
-                this.a.m().a(player);
+                Main.m().a(player);
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.y().a(player);
+                Main.y().a(player);
             }
         }
-    }
-
-    public Main a() {
-        return this.a;
     }
 
     public HashMap<String, String> b() {

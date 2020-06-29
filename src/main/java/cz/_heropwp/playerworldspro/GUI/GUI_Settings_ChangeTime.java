@@ -34,38 +34,33 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class GUI_Settings_ChangeTime
 implements Listener {
-    private final Main a;
-
-    public GUI_Settings_ChangeTime(Main main) {
-        this.a = main;
-    }
 
     public void a(Player player) {
-        if (!this.a.k().b().containsKey(player.getName()) || Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName()))) == null) {
+        if (!Main.k().b().containsKey(player.getName()) || Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))) == null) {
             player.closeInventory();
-            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
+            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
             return;
         }
-        if (this.a.getConfig().getBoolean("Permissions.Change-Time") && !player.hasPermission("PlayerWorldsPro.changeTime")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Change-Time") && !player.hasPermission("PlayerWorldsPro.changeTime")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Time.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Time.Insufficient-Permission").replace("&", "§"));
             return;
         }
-        Inventory inventory = Bukkit.createInventory(null, (int)27, (String)this.a.getConfig().getString("GUI.Change-Time.Title").replace("&", "§"));
+        Inventory inventory = Bukkit.createInventory(null, (int)27, (String)Main.getPlugin().getConfig().getString("GUI.Change-Time.Title").replace("&", "§"));
         player.openInventory(inventory);
         inventory.setItem(10, this.a());
         inventory.setItem(11, this.b());
         inventory.setItem(12, this.c());
         inventory.setItem(13, this.d());
-        inventory.setItem(16, this.a(Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName())))));
+        inventory.setItem(16, this.a(Bukkit.getWorld(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))));
     }
 
     private ItemStack a() {
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.CLOCK));
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.CLOCK));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Change-Time.Items.Day.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Time.Items.Day.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Change-Time.Items.Day.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Change-Time.Items.Day.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -75,11 +70,11 @@ implements Listener {
     }
 
     private ItemStack b() {
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.CLOCK));
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.CLOCK));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Change-Time.Items.Sunset.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Time.Items.Sunset.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Change-Time.Items.Sunset.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Change-Time.Items.Sunset.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -89,11 +84,11 @@ implements Listener {
     }
 
     private ItemStack c() {
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.CLOCK));
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.CLOCK));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Change-Time.Items.Night.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Time.Items.Night.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Change-Time.Items.Night.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Change-Time.Items.Night.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -103,11 +98,11 @@ implements Listener {
     }
 
     private ItemStack d() {
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.CLOCK));
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.CLOCK));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Change-Time.Items.Sunrise.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Time.Items.Sunrise.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Change-Time.Items.Sunrise.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Change-Time.Items.Sunrise.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -121,11 +116,11 @@ implements Listener {
         if (Boolean.parseBoolean(world.getGameRuleValue("doDaylightCycle"))) {
             string = "Lock";
         }
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.DEAD_BUSH));
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.DEAD_BUSH));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Change-Time.Items.Daylight-Cycle-" + string + ".Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Time.Items.Daylight-Cycle-" + string + ".Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string2 : this.a.getConfig().getStringList("GUI.Change-Time.Items.Daylight-Cycle-" + string + ".Lore")) {
+        for (String string2 : Main.getPlugin().getConfig().getStringList("GUI.Change-Time.Items.Daylight-Cycle-" + string + ".Lore")) {
             string2 = string2.replace("&", "§");
             arrayList.add(string2);
         }
@@ -137,10 +132,7 @@ implements Listener {
     @EventHandler
     public void a(InventoryClickEvent inventoryClickEvent) {
         Player player = (Player)inventoryClickEvent.getWhoClicked();
-        if (!inventoryClickEvent.getView().getTitle().equals(this.a.getConfig().getString("GUI.Change-Time.Title").replace("&", "§"))) {
-            return;
-        }
-        if (inventoryClickEvent.getView() == null) {
+        if (!inventoryClickEvent.getView().getTitle().equals(Main.getPlugin().getConfig().getString("GUI.Change-Time.Title").replace("&", "§"))) {
             return;
         }
         if (inventoryClickEvent.getCurrentItem() == null) {
@@ -154,38 +146,38 @@ implements Listener {
             return;
         }
         inventoryClickEvent.setCancelled(true);
-        if (this.a.k().b().containsKey(player.getName()) && Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName()))) != null) {
+        if (Main.k().b().containsKey(player.getName()) && Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))) != null) {
             String string = inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName();
-            World world = Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName())));
-            if (string.equals(this.a.getConfig().getString("GUI.Change-Time.Items.Day.Displayname").replace("&", "§"))) {
+            World world = Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName())));
+            if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Time.Items.Day.Displayname").replace("&", "§"))) {
                 player.closeInventory();
                 world.setTime(1000L);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Time.Day").replace("&", "§"));
-            } else if (string.equals(this.a.getConfig().getString("GUI.Change-Time.Items.Sunset.Displayname").replace("&", "§"))) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Time.Day").replace("&", "§"));
+            } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Time.Items.Sunset.Displayname").replace("&", "§"))) {
                 player.closeInventory();
                 world.setTime(12000L);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Time.Sunset").replace("&", "§"));
-            } else if (string.equals(this.a.getConfig().getString("GUI.Change-Time.Items.Night.Displayname").replace("&", "§"))) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Time.Sunset").replace("&", "§"));
+            } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Time.Items.Night.Displayname").replace("&", "§"))) {
                 player.closeInventory();
                 world.setTime(13000L);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Time.Night").replace("&", "§"));
-            } else if (string.equals(this.a.getConfig().getString("GUI.Change-Time.Items.Sunrise.Displayname").replace("&", "§"))) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Time.Night").replace("&", "§"));
+            } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Time.Items.Sunrise.Displayname").replace("&", "§"))) {
                 player.closeInventory();
                 world.setTime(23000L);
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Time.Sunrise").replace("&", "§"));
-            } else if (string.equals(this.a.getConfig().getString("GUI.Change-Time.Items.Daylight-Cycle-Lock.Displayname").replace("&", "§")) && Boolean.parseBoolean(world.getGameRuleValue("doDaylightCycle"))) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Time.Sunrise").replace("&", "§"));
+            } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Time.Items.Daylight-Cycle-Lock.Displayname").replace("&", "§")) && Boolean.parseBoolean(world.getGameRuleValue("doDaylightCycle"))) {
                 player.closeInventory();
                 world.setGameRuleValue("doDaylightCycle", "false");
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Daylight-Cycle.Lock").replace("&", "§"));
-            } else if (string.equals(this.a.getConfig().getString("GUI.Change-Time.Items.Daylight-Cycle-Unlock.Displayname").replace("&", "§")) && !Boolean.parseBoolean(world.getGameRuleValue("doDaylightCycle"))) {
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Daylight-Cycle.Lock").replace("&", "§"));
+            } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Time.Items.Daylight-Cycle-Unlock.Displayname").replace("&", "§")) && !Boolean.parseBoolean(world.getGameRuleValue("doDaylightCycle"))) {
                 player.closeInventory();
                 world.setGameRuleValue("doDaylightCycle", "true");
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Daylight-Cycle.Unlock").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Daylight-Cycle.Unlock").replace("&", "§"));
             }
         } else {
             player.closeInventory();
         }
-        this.a.k().b().remove(player.getName());
+        Main.k().b().remove(player.getName());
     }
 }
 

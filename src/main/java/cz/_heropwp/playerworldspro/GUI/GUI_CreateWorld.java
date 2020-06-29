@@ -35,24 +35,19 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class GUI_CreateWorld
 implements Listener {
-    private final Main a;
-
-    public GUI_CreateWorld(Main main) {
-        this.a = main;
-    }
 
     public void a(Player player) {
-        if (this.a.G().c(player.getName())) {
+        if (Main.G().c(player.getName())) {
             player.closeInventory();
-            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Already-Have").replace("&", "§"));
+            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Already-Have").replace("&", "§"));
             return;
         }
-        if (this.a.getConfig().getBoolean("Permissions.Create-World") && !player.hasPermission("PlayerWorldsPro.createWorld")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Create-World") && !player.hasPermission("PlayerWorldsPro.createWorld")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World").replace("&", "§"));
+            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Insufficient-Permission-Create-World").replace("&", "§"));
             return;
         }
-        Inventory inventory = Bukkit.createInventory(null, (int)27, (String)this.a.getConfig().getString("GUI.Create-World.Title").replace("&", "§"));
+        Inventory inventory = Bukkit.createInventory(null, (int)27, (String)Main.getPlugin().getConfig().getString("GUI.Create-World.Title").replace("&", "§"));
         player.openInventory(inventory);
         inventory.setItem(10, this.b(player));
         inventory.setItem(11, this.c(player));
@@ -62,14 +57,14 @@ implements Listener {
     }
 
     private ItemStack b(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Normal") && !player.hasPermission("PlayerWorldsPro.createWorld.normal") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Create-World-Type.Normal") && !player.hasPermission("PlayerWorldsPro.createWorld.normal") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.OAK_SAPLING));
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.OAK_SAPLING));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Create-World.Items.Normal.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Create-World.Items.Normal.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Create-World.Items.Normal.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Create-World.Items.Normal.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -79,14 +74,14 @@ implements Listener {
     }
 
     private ItemStack c(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Flat") && !player.hasPermission("PlayerWorldsPro.createWorld.flat") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Create-World-Type.Flat") && !player.hasPermission("PlayerWorldsPro.createWorld.flat") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.GRASS);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Create-World.Items.Flat.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Create-World.Items.Flat.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Create-World.Items.Flat.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Create-World.Items.Flat.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -96,14 +91,14 @@ implements Listener {
     }
 
     private ItemStack d(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Empty") && !player.hasPermission("PlayerWorldsPro.createWorld.empty") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Create-World-Type.Empty") && !player.hasPermission("PlayerWorldsPro.createWorld.empty") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.BARRIER);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Create-World.Items.Empty.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Create-World.Items.Empty.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Create-World.Items.Empty.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Create-World.Items.Empty.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -113,14 +108,14 @@ implements Listener {
     }
 
     private ItemStack e(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Pre-Built-Maps") && !player.hasPermission("PlayerWorldsPro.createWorld.preBuiltMaps") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Create-World-Type.Pre-Built-Maps") && !player.hasPermission("PlayerWorldsPro.createWorld.preBuiltMaps") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
         ItemStack itemStack = new ItemStack(Material.BRICK);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Create-World.Items.Pre-Built-Maps.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Create-World.Items.Pre-Built-Maps.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Create-World.Items.Pre-Built-Maps.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Create-World.Items.Pre-Built-Maps.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -130,14 +125,14 @@ implements Listener {
     }
 
     private ItemStack f(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Custom-Generators") && !player.hasPermission("PlayerWorldsPro.createWorld.customGenerators") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Create-World-Type.Custom-Generators") && !player.hasPermission("PlayerWorldsPro.createWorld.customGenerators") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.COMMAND_BLOCK));
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.COMMAND_BLOCK));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Create-World.Items.Custom-Generators.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Create-World.Items.Custom-Generators.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Create-World.Items.Custom-Generators.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Create-World.Items.Custom-Generators.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -149,7 +144,7 @@ implements Listener {
     @EventHandler
     public void a(InventoryClickEvent inventoryClickEvent) {
         Player player = (Player)inventoryClickEvent.getWhoClicked();
-        if (!inventoryClickEvent.getView().getTitle().equals(this.a.getConfig().getString("GUI.Create-World.Title").replace("&", "§"))) {
+        if (!inventoryClickEvent.getView().getTitle().equals(Main.getPlugin().getConfig().getString("GUI.Create-World.Title").replace("&", "§"))) {
             return;
         }
         if (inventoryClickEvent.getCurrentItem() == null) {
@@ -163,65 +158,65 @@ implements Listener {
             return;
         }
         inventoryClickEvent.setCancelled(true);
-        if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.OAK_SAPLING)) {
-            if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Normal") && !player.hasPermission("PlayerWorldsPro.createWorld.normal")) {
+        if (inventoryClickEvent.getCurrentItem().getType() == Main.F().a(MaterialManager.a.OAK_SAPLING)) {
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Create-World-Type.Normal") && !player.hasPermission("PlayerWorldsPro.createWorld.normal")) {
                 player.closeInventory();
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
                 return;
             }
-            if (this.a.G().b()) {
-                if (this.a.getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
-                    this.a.G().a(player, WorldManager.a.NORMAL, null, null, this.a.getConfig().getInt("Claim.Length"), null, true);
+            if (Main.G().b()) {
+                if (Main.getPlugin().getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
+                    Main.G().a(player, WorldManager.a.NORMAL, null, null, Main.getPlugin().getConfig().getInt("Claim.Length"), null, true);
                 } else {
                     GUI_Buy_PlayerWorld.a(player, WorldManager.a.NORMAL, null, null);
                 }
             } else {
-                this.a.G().a(player, WorldManager.a.NORMAL, null, null, null, null, false);
+                Main.G().a(player, WorldManager.a.NORMAL, null, null, null, null, false);
             }
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.GRASS) {
-            if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Flat") && !player.hasPermission("PlayerWorldsPro.createWorld.flat")) {
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Create-World-Type.Flat") && !player.hasPermission("PlayerWorldsPro.createWorld.flat")) {
                 player.closeInventory();
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
                 return;
             }
-            if (this.a.G().b()) {
-                if (this.a.getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
-                    this.a.G().a(player, WorldManager.a.FLAT, null, null, this.a.getConfig().getInt("Claim.Length"), null, true);
+            if (Main.G().b()) {
+                if (Main.getPlugin().getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
+                    Main.G().a(player, WorldManager.a.FLAT, null, null, Main.getPlugin().getConfig().getInt("Claim.Length"), null, true);
                 } else {
                     GUI_Buy_PlayerWorld.a(player, WorldManager.a.FLAT, null, null);
                 }
             } else {
-                this.a.G().a(player, WorldManager.a.FLAT, null, null, null, null, false);
+                Main.G().a(player, WorldManager.a.FLAT, null, null, null, null, false);
             }
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BARRIER) {
-            if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Empty") && !player.hasPermission("PlayerWorldsPro.createWorld.empty")) {
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Create-World-Type.Empty") && !player.hasPermission("PlayerWorldsPro.createWorld.empty")) {
                 player.closeInventory();
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
                 return;
             }
-            if (this.a.G().b()) {
-                if (this.a.getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
-                    this.a.G().a(player, WorldManager.a.EMPTY, null, null, this.a.getConfig().getInt("Claim.Length"), null, true);
+            if (Main.G().b()) {
+                if (Main.getPlugin().getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
+                    Main.G().a(player, WorldManager.a.EMPTY, null, null, Main.getPlugin().getConfig().getInt("Claim.Length"), null, true);
                 } else {
                     GUI_Buy_PlayerWorld.a(player, WorldManager.a.EMPTY, null, null);
                 }
             } else {
-                this.a.G().a(player, WorldManager.a.EMPTY, null, null, null, null, false);
+                Main.G().a(player, WorldManager.a.EMPTY, null, null, null, null, false);
             }
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BRICK) {
-            if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Pre-Built-Maps") && !player.hasPermission("PlayerWorldsPro.createWorld.preBuiltMaps")) {
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Create-World-Type.Pre-Built-Maps") && !player.hasPermission("PlayerWorldsPro.createWorld.preBuiltMaps")) {
                 player.closeInventory();
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
                 return;
             }
-            this.a.j().a(player);
-        } else if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.COMMAND_BLOCK)) {
-            if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Custom-Generators") && !player.hasPermission("PlayerWorldsPro.createWorld.customGenerators")) {
+            Main.j().a(player);
+        } else if (inventoryClickEvent.getCurrentItem().getType() == Main.F().a(MaterialManager.a.COMMAND_BLOCK)) {
+            if (Main.getPlugin().getConfig().getBoolean("Permissions.Create-World-Type.Custom-Generators") && !player.hasPermission("PlayerWorldsPro.createWorld.customGenerators")) {
                 player.closeInventory();
-                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
+                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
                 return;
             }
-            this.a.g().a(player);
+            GUI_CustomGenerators.a(player);
         }
     }
 }

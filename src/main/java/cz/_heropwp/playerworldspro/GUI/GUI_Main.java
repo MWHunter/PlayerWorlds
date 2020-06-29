@@ -23,6 +23,7 @@
  */
 package cz._heropwp.playerworldspro.GUI;
 
+import cz._heropwp.playerworldspro.CoreManagers.WorldManager;
 import cz._heropwp.playerworldspro.Main;
 import cz._heropwp.playerworldspro.CoreManagers.ConfigManager;
 import cz._heropwp.playerworldspro.CoreManagers.MaterialManager;
@@ -48,20 +49,12 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class GUI_Main
 implements Listener {
-    private final Main a;
-    private final HashMap<String, BukkitTask> b;
-    private final HashMap<String, Integer> c;
-    private final LinkedHashSet<String> d;
-
-    public GUI_Main(Main main) {
-        this.a = main;
-        this.b = new HashMap();
-        this.c = new HashMap();
-        this.d = new LinkedHashSet();
-    }
+    private final HashMap<String, BukkitTask> b = new HashMap<>();
+    private final HashMap<String, Integer> c = new HashMap<>();
+    private final LinkedHashSet<String> d = new LinkedHashSet<>();
 
     public void a(Player player) {
-        Inventory inventory = Bukkit.createInventory(null, (int)54, (String)this.a.getConfig().getString("GUI.Main.Title").replace("&", "§"));
+        Inventory inventory = Bukkit.createInventory(null, (int)54, (String)Main.getPlugin().getConfig().getString("GUI.Main.Title").replace("&", "§"));
         player.openInventory(inventory);
         this.c.put(player.getName(), 0);
         inventory.setItem(6, this.b(player));
@@ -69,7 +62,7 @@ implements Listener {
     }
 
     private void a(Player player, Inventory inventory) {
-        this.b.put(player.getName(), Bukkit.getScheduler().runTaskTimerAsynchronously((Plugin)this.a, () -> this.c(player, inventory), 0L, 10L));
+        this.b.put(player.getName(), Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getPlugin(), () -> this.c(player, inventory), 0L, 10L));
     }
 
     private void b(Player player, Inventory inventory) {
@@ -79,7 +72,7 @@ implements Listener {
     }
 
     private ItemStack a(String string) {
-        //ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.PLAYER_HEAD), 1, 3);
+        //ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.PLAYER_HEAD), 1, 3);
         ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
         UUID uUID = new UUID(string.hashCode(), string.hashCode());
         return Bukkit.getUnsafe().modifyItemStack(itemStack, "{SkullOwner:{Id:\"" + uUID + "\",Properties:{textures:[{Value:\"" + string + "\"}]}}}");
@@ -97,23 +90,23 @@ implements Listener {
                 if (this.c.containsKey(player.getName())) {
                     if (n >= inventory.getSize()) break;
                     if (n2 > this.c.get(player.getName()) * 45) {
-                        ItemStack itemStack = new ItemStack(/*this.a.F().a(MaterialManager.a.PLAYER_HEAD)*/ Material.PLAYER_HEAD, this.a.G().a(this.a.getConfig().getString("Basic.World-Prefix") + string, true), (short) 3);
+                        ItemStack itemStack = new ItemStack(/*Main.F().a(MaterialManager.a.PLAYER_HEAD)*/ Material.PLAYER_HEAD, Main.G().a(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string, true), (short) 3);
                         SkullMeta skullMeta = (SkullMeta)itemStack.getItemMeta();
                         if (this.d.contains(player.getName())) {
                             skullMeta.setOwner(string);
                         }
                         String string2 = "Player-World";
-                        if (this.a.G().b(player, string)) {
+                        if (Main.G().b(player, string)) {
                             string2 = string2 + "-Own";
                         }
-                        skullMeta.setDisplayName(this.a.getConfig().getString("GUI.Main.Items." + string2 + ".Displayname").replace("&", "§").replace("%player%", string));
+                        skullMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Main.Items." + string2 + ".Displayname").replace("&", "§").replace("%player%", string));
                         ArrayList<String> arrayList = new ArrayList<String>();
-                        for (String string3 : this.a.getConfig().getStringList("GUI.Main.Items." + string2 + ".Lore")) {
-                            if (!this.a.G().b() && string3.contains("%expiration%")) continue;
+                        for (String string3 : Main.getPlugin().getConfig().getStringList("GUI.Main.Items." + string2 + ".Lore")) {
+                            if (!Main.G().b() && string3.contains("%expiration%")) continue;
                             string3 = string3.replace("&", "§");
-                            string3 = string3.replace("%players%", String.valueOf(this.a.G().a(this.a.getConfig().getString("Basic.World-Prefix") + string, false)));
-                            string3 = string3.replace("%expiration%", this.a.G().r(string));
-                            string3 = string3.replace("%access%", this.a.getConfig().getString("Variables." + this.a.G().p(string)).replace("&", "§"));
+                            string3 = string3.replace("%players%", String.valueOf(Main.G().a(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string, false)));
+                            string3 = string3.replace("%expiration%", Main.G().r(string));
+                            string3 = string3.replace("%access%", Main.getPlugin().getConfig().getString("Variables." + Main.G().p(string)).replace("&", "§"));
                             arrayList.add(string3);
                         }
                         skullMeta.setLore(arrayList);
@@ -134,7 +127,7 @@ implements Listener {
     }
 
     public void a(int n, Inventory inventory) {
-        Bukkit.getScheduler().runTask((Plugin)this.a, () -> {
+        Bukkit.getScheduler().runTask(Main.getPlugin(), () -> {
             for (int i = n; i < inventory.getSize(); ++i) {
                 inventory.setItem(i, new ItemStack(Material.AIR));
             }
@@ -145,7 +138,7 @@ implements Listener {
         if (this.c.get(string) > 0) {
             ItemStack itemStack = new ItemStack(Material.ARROW);
             ItemMeta itemMeta = itemStack.getItemMeta();
-            itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Main.Items.Previous").replace("&", "§"));
+            itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Main.Items.Previous").replace("&", "§"));
             itemStack.setItemMeta(itemMeta);
             return itemStack;
         }
@@ -160,7 +153,7 @@ implements Listener {
         if (n > (this.c.get(string) + 1) * 45) {
             ItemStack itemStack = new ItemStack(Material.ARROW);
             ItemMeta itemMeta = itemStack.getItemMeta();
-            itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Main.Items.Next").replace("&", "§"));
+            itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Main.Items.Next").replace("&", "§"));
             itemStack.setItemMeta(itemMeta);
             return itemStack;
         }
@@ -170,12 +163,12 @@ implements Listener {
     private ItemStack e() {
         ItemStack itemStack = new ItemStack(Material.EMERALD);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Main.Items.Statistics.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Main.Items.Statistics.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Main.Items.Statistics.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Main.Items.Statistics.Lore")) {
             string = string.replace("&", "§");
-            string = string.replace("%total_player_worlds%", String.valueOf(this.a.G().d()));
-            string = string.replace("%total_players%", String.valueOf(this.a.G().e()));
+            string = string.replace("%total_player_worlds%", String.valueOf(Main.G().d()));
+            string = string.replace("%total_players%", String.valueOf(Main.G().e()));
             arrayList.add(string);
         }
         itemMeta.setLore(arrayList);
@@ -184,20 +177,20 @@ implements Listener {
     }
 
     private ItemStack d(String string) {
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.PLAYER_HEAD), this.a.G().a(this.a.getConfig().getString("Basic.World-Prefix") + string, true), (short)SkullType.PLAYER.ordinal());
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.PLAYER_HEAD), Main.G().a(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string, true), (short)SkullType.PLAYER.ordinal());
         SkullMeta skullMeta = (SkullMeta)itemStack.getItemMeta();
         skullMeta.setOwner(string);
         String string2 = "My-World";
-        if (!this.a.G().c(string)) {
+        if (!Main.G().c(string)) {
             string2 = string2 + "-Dont-Have";
         }
-        skullMeta.setDisplayName(this.a.getConfig().getString("GUI.Main.Items." + string2 + ".Displayname").replace("&", "§"));
+        skullMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Main.Items." + string2 + ".Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string3 : this.a.getConfig().getStringList("GUI.Main.Items." + string2 + ".Lore")) {
-            if (!this.a.G().b() && string3.contains("%expiration%")) continue;
+        for (String string3 : Main.getPlugin().getConfig().getStringList("GUI.Main.Items." + string2 + ".Lore")) {
+            if (!Main.G().b() && string3.contains("%expiration%")) continue;
             string3 = string3.replace("&", "§");
-            string3 = string3.replace("%players%", String.valueOf(this.a.G().a(this.a.getConfig().getString("Basic.World-Prefix") + string, false)));
-            string3 = string3.replace("%expiration%", this.a.G().r(string));
+            string3 = string3.replace("%players%", String.valueOf(Main.G().a(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string, false)));
+            string3 = string3.replace("%expiration%", Main.G().r(string));
             arrayList.add(string3);
         }
         skullMeta.setLore(arrayList);
@@ -206,14 +199,14 @@ implements Listener {
     }
 
     private ItemStack b(Player player) {
-        if (this.a.getConfig().getBoolean("Permissions.Create-World") && !player.hasPermission("PlayerWorldsPro.createWorld") && this.a.getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Create-World") && !player.hasPermission("PlayerWorldsPro.createWorld") && Main.getPlugin().getConfig().getBoolean("GUI.Basic.Hide-Without-Permission")) {
             return new ItemStack(Material.AIR);
         }
-        ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.COMMAND_BLOCK));
+        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.COMMAND_BLOCK));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Main.Items.Create-World.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Main.Items.Create-World.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Main.Items.Create-World.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Main.Items.Create-World.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -229,10 +222,7 @@ implements Listener {
     @EventHandler
     public void a(InventoryClickEvent inventoryClickEvent) {
         Player player = (Player)inventoryClickEvent.getWhoClicked();
-        if (!inventoryClickEvent.getView().getTitle().equals(this.a.getConfig().getString("GUI.Main.Title").replace("&", "§"))) {
-            return;
-        }
-        if (inventoryClickEvent.getView() == null) {
+        if (!inventoryClickEvent.getView().getTitle().equals(Main.getPlugin().getConfig().getString("GUI.Main.Title").replace("&", "§"))) {
             return;
         }
         if (inventoryClickEvent.getCurrentItem() == null) {
@@ -247,48 +237,45 @@ implements Listener {
         }
         inventoryClickEvent.setCancelled(true);
         String string = inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName();
-        if (inventoryClickEvent.getCurrentItem().getType() == Material.ARROW && this.a.getConfig().getString("GUI.Main.Items.Previous").replace("&", "§").contains(string)) {
+        if (inventoryClickEvent.getCurrentItem().getType() == Material.ARROW && Main.getPlugin().getConfig().getString("GUI.Main.Items.Previous").replace("&", "§").contains(string)) {
             this.c.put(player.getName(), this.c.get(player.getName()) - 1);
             this.b(player, player.getOpenInventory().getTopInventory());
-            return;
-        } else if (inventoryClickEvent.getCurrentItem().getType() == Material.ARROW && this.a.getConfig().getString("GUI.Main.Items.Next").replace("&", "§").contains(string)) {
+        } else if (inventoryClickEvent.getCurrentItem().getType() == Material.ARROW && Main.getPlugin().getConfig().getString("GUI.Main.Items.Next").replace("&", "§").contains(string)) {
             this.c.put(player.getName(), this.c.get(player.getName()) + 1);
             this.b(player, player.getOpenInventory().getTopInventory());
-            return;
-        } else if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.COMMAND_BLOCK)) {
-            this.a.f().a(player);
-            return;
+        } else if (inventoryClickEvent.getCurrentItem().getType() == Main.F().a(MaterialManager.a.COMMAND_BLOCK)) {
+            Main.f().a(player);
         } else {
             String string2;
-            if (inventoryClickEvent.getCurrentItem().getType() != this.a.F().a(MaterialManager.a.PLAYER_HEAD)) return;
-            boolean bl = this.a.G().c(player.getName());
+            if (inventoryClickEvent.getCurrentItem().getType() != Main.F().a(MaterialManager.a.PLAYER_HEAD)) return;
+            boolean bl = WorldManager.c(player.getName());
             String string3 = "My-World";
             if (!bl) {
                 string3 = string3 + "-Dont-Have";
             }
-            if (string.equals(this.a.getConfig().getString("GUI.Main.Items." + string3 + ".Displayname").replace("&", "§"))) {
+            if (string.equals(Main.getPlugin().getConfig().getString("GUI.Main.Items." + string3 + ".Displayname").replace("&", "§"))) {
                 if (!bl) return;
                 string2 = player.getName();
             } else {
                 string3 = "GUI.Main.Items.Player-World.Displayname";
                 string2 = this.a(string3, string);
-                if (!this.a.G().c(string2)) {
+                if (!WorldManager.c(string2)) {
                     string3 = "GUI.Main.Items.Player-World-Own.Displayname";
                 }
                 string2 = this.a(string3, string);
             }
-            if (inventoryClickEvent.isRightClick() && this.a.G().b(player, string2)) {
-                this.a.k().a(player, string2);
+            if (inventoryClickEvent.isRightClick() && WorldManager.b(player, string2)) {
+                Main.k().a(player, string2);
                 return;
             }
             player.closeInventory();
-            this.a.G().a(player, string2);
+            WorldManager.a(player, string2);
         }
     }
 
     public String a(String string, String string2) {
         String string3;
-        String string4 = this.a.getConfig().getString(string).replace("&", "§");
+        String string4 = Main.getPlugin().getConfig().getString(string).replace("&", "§");
         String[] arrstring = string4.split("%player%");
         if (arrstring.length > 0) {
             String string5 = arrstring[0];
@@ -306,7 +293,7 @@ implements Listener {
     @EventHandler
     public void a(InventoryCloseEvent inventoryCloseEvent) {
         Player player = (Player)inventoryCloseEvent.getPlayer();
-        if (inventoryCloseEvent.getView().getTitle().equals(this.a.getConfig().getString("GUI.Main.Title").replace("&", "§"))) {
+        if (inventoryCloseEvent.getView().getTitle().equals(Main.getPlugin().getConfig().getString("GUI.Main.Title").replace("&", "§"))) {
             this.a(player.getName(), true);
         }
     }
@@ -320,10 +307,6 @@ implements Listener {
             this.b.remove(string);
             this.c.remove(string);
         }
-    }
-
-    public Main a() {
-        return this.a;
     }
 
     public HashMap<String, BukkitTask> b() {

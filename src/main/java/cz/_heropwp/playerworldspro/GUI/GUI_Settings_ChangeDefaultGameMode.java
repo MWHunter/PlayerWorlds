@@ -33,23 +33,18 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class GUI_Settings_ChangeDefaultGameMode
 implements Listener {
-    private final Main a;
-
-    public GUI_Settings_ChangeDefaultGameMode(Main main) {
-        this.a = main;
-    }
 
     public void a(Player player) {
-        if (!this.a.k().b().containsKey(player.getName())) {
+        if (!Main.k().b().containsKey(player.getName())) {
             player.closeInventory();
             return;
         }
-        if (this.a.getConfig().getBoolean("Permissions.Change-Default-GameMode") && !player.hasPermission("PlayerWorldsPro.changeGameMode.default")) {
+        if (Main.getPlugin().getConfig().getBoolean("Permissions.Change-Default-GameMode") && !player.hasPermission("PlayerWorldsPro.changeGameMode.default")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Default-GameMode.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Default-GameMode.Insufficient-Permission").replace("&", "§"));
             return;
         }
-        Inventory inventory = Bukkit.createInventory(null, (int)27, (String)this.a.getConfig().getString("GUI.Change-Default-GameMode.Title").replace("&", "§"));
+        Inventory inventory = Bukkit.createInventory(null, (int)27, (String)Main.getPlugin().getConfig().getString("GUI.Change-Default-GameMode.Title").replace("&", "§"));
         player.openInventory(inventory);
         inventory.setItem(10, this.a());
         inventory.setItem(12, this.b());
@@ -60,9 +55,9 @@ implements Listener {
     private ItemStack a() {
         ItemStack itemStack = new ItemStack(Material.STONE_PICKAXE);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Change-Default-GameMode.Items.Survival.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Default-GameMode.Items.Survival.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Change-Default-GameMode.Items.Survival.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Change-Default-GameMode.Items.Survival.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -74,9 +69,9 @@ implements Listener {
     private ItemStack b() {
         ItemStack itemStack = new ItemStack(Material.BRICK);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Change-Default-GameMode.Items.Creative.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Default-GameMode.Items.Creative.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Change-Default-GameMode.Items.Creative.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Change-Default-GameMode.Items.Creative.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -88,9 +83,9 @@ implements Listener {
     private ItemStack c() {
         ItemStack itemStack = new ItemStack(Material.LEATHER_BOOTS);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Change-Default-GameMode.Items.Adventure.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Default-GameMode.Items.Adventure.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Change-Default-GameMode.Items.Adventure.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Change-Default-GameMode.Items.Adventure.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -102,9 +97,9 @@ implements Listener {
     private ItemStack d() {
         ItemStack itemStack = new ItemStack(Material.BARRIER);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(this.a.getConfig().getString("GUI.Change-Default-GameMode.Items.Spectator.Displayname").replace("&", "§"));
+        itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Default-GameMode.Items.Spectator.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
-        for (String string : this.a.getConfig().getStringList("GUI.Change-Default-GameMode.Items.Spectator.Lore")) {
+        for (String string : Main.getPlugin().getConfig().getStringList("GUI.Change-Default-GameMode.Items.Spectator.Lore")) {
             string = string.replace("&", "§");
             arrayList.add(string);
         }
@@ -116,10 +111,7 @@ implements Listener {
     @EventHandler
     public void a(InventoryClickEvent inventoryClickEvent) {
         Player player = (Player)inventoryClickEvent.getWhoClicked();
-        if (!inventoryClickEvent.getView().getTitle().equals(this.a.getConfig().getString("GUI.Change-Default-GameMode.Title").replace("&", "§"))) {
-            return;
-        }
-        if (inventoryClickEvent.getView() == null) {
+        if (!inventoryClickEvent.getView().getTitle().equals(Main.getPlugin().getConfig().getString("GUI.Change-Default-GameMode.Title").replace("&", "§"))) {
             return;
         }
         if (inventoryClickEvent.getCurrentItem() == null) {
@@ -133,28 +125,28 @@ implements Listener {
             return;
         }
         inventoryClickEvent.setCancelled(true);
-        if (this.a.k().b().containsKey(player.getName())) {
+        if (Main.k().b().containsKey(player.getName())) {
             String string = inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName();
-            String string2 = this.a.k().b().get(player.getName());
-            if (string.equals(this.a.getConfig().getString("GUI.Change-Default-GameMode.Items.Survival.Displayname").replace("&", "§"))) {
+            String string2 = Main.k().b().get(player.getName());
+            if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Default-GameMode.Items.Survival.Displayname").replace("&", "§"))) {
                 this.a(player, string2, "Survival");
-            } else if (string.equals(this.a.getConfig().getString("GUI.Change-Default-GameMode.Items.Creative.Displayname").replace("&", "§"))) {
+            } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Default-GameMode.Items.Creative.Displayname").replace("&", "§"))) {
                 this.a(player, string2, "Creative");
-            } else if (string.equals(this.a.getConfig().getString("GUI.Change-Default-GameMode.Items.Adventure.Displayname").replace("&", "§"))) {
+            } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Default-GameMode.Items.Adventure.Displayname").replace("&", "§"))) {
                 this.a(player, string2, "Adventure");
-            } else if (string.equals(this.a.getConfig().getString("GUI.Change-Default-GameMode.Items.Spectator.Displayname").replace("&", "§"))) {
+            } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Default-GameMode.Items.Spectator.Displayname").replace("&", "§"))) {
                 this.a(player, string2, "Spectator");
             }
         }
         player.closeInventory();
-        this.a.k().b().remove(player.getName());
+        Main.k().b().remove(player.getName());
     }
 
     private void a(Player player, String string, String string2) {
         ConfigManager.getDataConfig().set("Worlds." + string + ".GameMode", (Object)string2.toUpperCase());
         ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
         ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Default-GameMode." + string2).replace("&", "§"));
+        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Default-GameMode." + string2).replace("&", "§"));
     }
 }
 
