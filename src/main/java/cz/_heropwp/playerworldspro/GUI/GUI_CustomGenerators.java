@@ -17,6 +17,7 @@
  */
 package cz._heropwp.playerworldspro.GUI;
 
+import cz._heropwp.playerworldspro.CoreManagers.BasicManager;
 import cz._heropwp.playerworldspro.Main;
 import cz._heropwp.playerworldspro.CoreManagers.ConfigManager;
 import cz._heropwp.playerworldspro.CoreManagers.WorldManager;
@@ -38,7 +39,7 @@ implements Listener {
     public static void a(Player player) {
         if (WorldManager.c(player.getName())) {
             player.closeInventory();
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Already-Have").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Already-Have").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)54, (String)Main.getPlugin().getConfig().getString("GUI.Custom-Generators.Title").replace("&", "§"));
@@ -87,14 +88,14 @@ implements Listener {
         if (inventoryClickEvent.getCurrentItem().getType() == Material.PAPER) {
             String string = (String)Main.getPlugin().getConfig().getStringList("Custom-Generators").get(inventoryClickEvent.getSlot());
             if (Main.getPlugin().getConfig().getStringList("Custom-Generators").contains(string)) {
-                if (Main.G().b()) {
+                if (WorldManager.b()) {
                     if (Main.getPlugin().getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
-                        Main.G().a(player, WorldManager.a.CUSTOM, null, string, Main.getPlugin().getConfig().getInt("Claim.Length"), null, true);
+                        WorldManager.a(player, WorldManager.a.CUSTOM, null, string, Main.getPlugin().getConfig().getInt("Claim.Length"), null, true);
                     } else {
                         GUI_Buy_PlayerWorld.a(player, WorldManager.a.CUSTOM, null, string);
                     }
                 } else {
-                    Main.G().a(player, WorldManager.a.CUSTOM, null, string, null, null, false);
+                    WorldManager.a(player, WorldManager.a.CUSTOM, null, string, null, null, false);
                 }
             }
         }

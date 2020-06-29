@@ -19,6 +19,7 @@
  */
 package cz._heropwp.playerworldspro.GUI;
 
+import cz._heropwp.playerworldspro.CoreManagers.BasicManager;
 import cz._heropwp.playerworldspro.Main;
 
 import java.util.ArrayList;
@@ -37,26 +38,26 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class GUI_Settings_ChangeGameMode
 implements Listener {
 
-    public void a(Player player) {
-        if (!Main.k().b().containsKey(player.getName()) || Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))) == null) {
+    public static void a(Player player) {
+        if (!GUI_Settings.b().containsKey(player.getName()) || Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + GUI_Settings.b().get(player.getName()))) == null) {
             player.closeInventory();
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
             return;
         }
         if (Main.getPlugin().getConfig().getBoolean("Permissions.Change-GameMode") && !player.hasPermission("PlayerWorldsPro.changeGameMode")) {
             player.closeInventory();
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)27, (String)Main.getPlugin().getConfig().getString("GUI.Change-GameMode.Title").replace("&", "§"));
         player.openInventory(inventory);
-        inventory.setItem(10, this.a());
-        inventory.setItem(12, this.b());
-        inventory.setItem(14, this.c());
-        inventory.setItem(16, this.d());
+        inventory.setItem(10, a());
+        inventory.setItem(12, b());
+        inventory.setItem(14, c());
+        inventory.setItem(16, d());
     }
 
-    private ItemStack a() {
+    private static ItemStack a() {
         ItemStack itemStack = new ItemStack(Material.STONE_PICKAXE);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-GameMode.Items.Survival.Displayname").replace("&", "§"));
@@ -70,7 +71,7 @@ implements Listener {
         return itemStack;
     }
 
-    private ItemStack b() {
+    private static ItemStack b() {
         ItemStack itemStack = new ItemStack(Material.BRICK);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-GameMode.Items.Creative.Displayname").replace("&", "§"));
@@ -84,7 +85,7 @@ implements Listener {
         return itemStack;
     }
 
-    private ItemStack c() {
+    private static ItemStack c() {
         ItemStack itemStack = new ItemStack(Material.LEATHER_BOOTS);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-GameMode.Items.Adventure.Displayname").replace("&", "§"));
@@ -98,7 +99,7 @@ implements Listener {
         return itemStack;
     }
 
-    private ItemStack d() {
+    private static ItemStack d() {
         ItemStack itemStack = new ItemStack(Material.BARRIER);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-GameMode.Items.Spectator.Displayname").replace("&", "§"));
@@ -129,68 +130,68 @@ implements Listener {
             return;
         }
         inventoryClickEvent.setCancelled(true);
-        if (Main.k().b().containsKey(player.getName()) && Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))) != null) {
+        if (GUI_Settings.b().containsKey(player.getName()) && Bukkit.getWorld(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + GUI_Settings.b().get(player.getName())) != null) {
             String string = inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName();
             if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-GameMode.Items.Survival.Displayname").replace("&", "§"))) {
                 if (inventoryClickEvent.isLeftClick()) {
-                    if (player.getWorld().getName().equals(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))) {
+                    if (player.getWorld().getName().equals(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + GUI_Settings.b().get(player.getName()))) {
                         player.closeInventory();
                         player.setGameMode(GameMode.SURVIVAL);
-                        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode.Survival").replace("&", "§"));
+                        player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode.Survival").replace("&", "§"));
                     } else {
                         player.closeInventory();
-                        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
+                        player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
                     }
-                    Main.k().b().remove(player.getName());
+                    GUI_Settings.b().remove(player.getName());
                 } else if (inventoryClickEvent.isRightClick()) {
-                    Main.q().a(player, GameMode.SURVIVAL);
+                    GUI_Settings_ChangeGameMode_SelectPlayer.a(player, GameMode.SURVIVAL);
                 }
             } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-GameMode.Items.Creative.Displayname").replace("&", "§"))) {
                 if (inventoryClickEvent.isLeftClick()) {
-                    if (player.getWorld().getName().equals(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))) {
+                    if (player.getWorld().getName().equals(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + GUI_Settings.b().get(player.getName()))) {
                         player.closeInventory();
                         player.setGameMode(GameMode.CREATIVE);
-                        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode.Creative").replace("&", "§"));
+                        player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode.Creative").replace("&", "§"));
                     } else {
                         player.closeInventory();
-                        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
+                        player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
                     }
-                    Main.k().b().remove(player.getName());
+                    GUI_Settings.b().remove(player.getName());
                 } else if (inventoryClickEvent.isRightClick()) {
-                    Main.q().a(player, GameMode.CREATIVE);
+                    GUI_Settings_ChangeGameMode_SelectPlayer.a(player, GameMode.CREATIVE);
                 }
             } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-GameMode.Items.Adventure.Displayname").replace("&", "§"))) {
                 if (inventoryClickEvent.isLeftClick()) {
-                    if (player.getWorld().getName().equals(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))) {
+                    if (player.getWorld().getName().equals(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + GUI_Settings.b().get(player.getName()))) {
                         player.closeInventory();
                         player.setGameMode(GameMode.ADVENTURE);
-                        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode.Adventure").replace("&", "§"));
+                        player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode.Adventure").replace("&", "§"));
                     } else {
                         player.closeInventory();
-                        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
+                        player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
                     }
-                    Main.k().b().remove(player.getName());
+                    GUI_Settings.b().remove(player.getName());
                 } else if (inventoryClickEvent.isRightClick()) {
-                    Main.q().a(player, GameMode.ADVENTURE);
+                    GUI_Settings_ChangeGameMode_SelectPlayer.a(player, GameMode.ADVENTURE);
                 }
             } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-GameMode.Items.Spectator.Displayname").replace("&", "§"))) {
                 if (inventoryClickEvent.isLeftClick()) {
-                    if (player.getWorld().getName().equals(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))) {
+                    if (player.getWorld().getName().equals(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + GUI_Settings.b().get(player.getName()))) {
                         player.closeInventory();
                         player.setGameMode(GameMode.SPECTATOR);
-                        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode.Spectator").replace("&", "§"));
+                        player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode.Spectator").replace("&", "§"));
                     } else {
                         player.closeInventory();
-                        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
+                        player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
                     }
-                    Main.k().b().remove(player.getName());
+                    GUI_Settings.b().remove(player.getName());
                 } else if (inventoryClickEvent.isRightClick()) {
-                    Main.q().a(player, GameMode.SPECTATOR);
+                    GUI_Settings_ChangeGameMode_SelectPlayer.a(player, GameMode.SPECTATOR);
                 }
             }
         } else {
             player.closeInventory();
-            Main.k().b().remove(player.getName());
+            GUI_Settings.b().remove(player.getName());
         }
     }
 }

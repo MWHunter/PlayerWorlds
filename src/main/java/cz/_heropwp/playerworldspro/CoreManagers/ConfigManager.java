@@ -23,7 +23,7 @@ public class ConfigManager {
     private static FileConfiguration playersConfig;
     private static FileConfiguration dataConfig;
 
-    public void createFoldersAndLoadFiles() {
+    public static void createFoldersAndLoadFiles() {
         if (!(new File(Main.getPlugin().getDataFolder(),"maps")).exists()) new File(Main.getPlugin().getDataFolder(), "maps").mkdirs();
         if (!playersFile.exists()) Main.getPlugin().saveResource("players.yml", false);
         if (!dataFile.exists()) Main.getPlugin().saveResource("data.yml", false);

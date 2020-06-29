@@ -19,6 +19,7 @@
  */
 package cz._heropwp.playerworldspro.GUI;
 
+import cz._heropwp.playerworldspro.CoreManagers.BasicManager;
 import cz._heropwp.playerworldspro.Main;
 import cz._heropwp.playerworldspro.CoreManagers.ConfigManager;
 import cz._heropwp.playerworldspro.CoreManagers.MaterialManager;
@@ -39,25 +40,25 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class GUI_Settings_ChangeDifficulty
 implements Listener {
 
-    public void a(Player player) {
-        if (!Main.k().b().containsKey(player.getName())) {
+    public static void a(Player player) {
+        if (!GUI_Settings.b().containsKey(player.getName())) {
             player.closeInventory();
             return;
         }
         if (Main.getPlugin().getConfig().getBoolean("Permissions.Change-Difficulty") && !player.hasPermission("PlayerWorldsPro.changeDifficulty")) {
             player.closeInventory();
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Difficulty.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Difficulty.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)27, (String)Main.getPlugin().getConfig().getString("GUI.Change-Difficulty.Title").replace("&", "§"));
         player.openInventory(inventory);
-        inventory.setItem(10, this.a());
-        inventory.setItem(12, this.b());
-        inventory.setItem(14, this.c());
-        inventory.setItem(16, this.d());
+        inventory.setItem(10, a());
+        inventory.setItem(12, b());
+        inventory.setItem(14, c());
+        inventory.setItem(16, d());
     }
 
-    private ItemStack a() {
+    private static ItemStack a() {
         ItemStack itemStack = new ItemStack(Material.GOLDEN_APPLE);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Difficulty.Items.Peaceful.Displayname").replace("&", "§"));
@@ -71,8 +72,8 @@ implements Listener {
         return itemStack;
     }
 
-    private ItemStack b() {
-        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.WOODEN_SWORD));
+    private static ItemStack b() {
+        ItemStack itemStack = new ItemStack(MaterialManager.a(MaterialManager.a.WOODEN_SWORD));
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Difficulty.Items.Easy.Displayname").replace("&", "§"));
         ArrayList<String> arrayList = new ArrayList<String>();
@@ -85,7 +86,7 @@ implements Listener {
         return itemStack;
     }
 
-    private ItemStack c() {
+    private static ItemStack c() {
         ItemStack itemStack = new ItemStack(Material.IRON_SWORD);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Difficulty.Items.Normal.Displayname").replace("&", "§"));
@@ -99,7 +100,7 @@ implements Listener {
         return itemStack;
     }
 
-    private ItemStack d() {
+    private static ItemStack d() {
         ItemStack itemStack = new ItemStack(Material.DIAMOND_SWORD);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-Difficulty.Items.Hard.Displayname").replace("&", "§"));
@@ -131,39 +132,39 @@ implements Listener {
         }
         inventoryClickEvent.setCancelled(true);
         player.closeInventory();
-        if (Main.k().b().containsKey(player.getName())) {
+        if (GUI_Settings.b().containsKey(player.getName())) {
             String string = inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName();
-            String string2 = Main.k().b().get(player.getName());
+            String string2 = GUI_Settings.b().get(player.getName());
             World world = Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string2));
             if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Difficulty.Items.Peaceful.Displayname").replace("&", "§"))) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Difficulty", (Object)"PEACEFUL");
                 if (world != null) {
                     world.setDifficulty(Difficulty.PEACEFUL);
                 }
-                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Difficulty.Peaceful").replace("&", "§"));
+                player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Difficulty.Peaceful").replace("&", "§"));
             } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Difficulty.Items.Easy.Displayname").replace("&", "§"))) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Difficulty", (Object)"EASY");
                 if (world != null) {
                     world.setDifficulty(Difficulty.EASY);
                 }
-                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Difficulty.Easy").replace("&", "§"));
+                player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Difficulty.Easy").replace("&", "§"));
             } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Difficulty.Items.Normal.Displayname").replace("&", "§"))) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Difficulty", (Object)"NORMAL");
                 if (world != null) {
                     world.setDifficulty(Difficulty.NORMAL);
                 }
-                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Difficulty.Hard").replace("&", "§"));
+                player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Difficulty.Hard").replace("&", "§"));
             } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.Change-Difficulty.Items.Hard.Displayname").replace("&", "§"))) {
                 ConfigManager.getDataConfig().set("Worlds." + string2 + ".Difficulty", (Object)"HARD");
                 if (world != null) {
                     world.setDifficulty(Difficulty.HARD);
                 }
-                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Difficulty.Hard").replace("&", "§"));
+                player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-Difficulty.Hard").replace("&", "§"));
             }
             ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
             ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
         }
-        Main.k().b().remove(player.getName());
+        GUI_Settings.b().remove(player.getName());
     }
 }
 

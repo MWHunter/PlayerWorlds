@@ -27,6 +27,7 @@ import cz._heropwp.playerworldspro.EventsListener.SettingsEvents;
 import cz._heropwp.playerworldspro.CoreManagers.*;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -34,7 +35,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
     private static Economy economy = null;
-    private static API a;
+    /*private static API a;
     private static PlayerWorldsPro b;
     private static GUI_Buy_PlayerWorld c;
     private static GUI_CreateWorld d;
@@ -63,7 +64,7 @@ public class Main extends JavaPlugin {
     private static BasicManager B;
     private static ConfigManager C;
     private static MaterialManager D;
-    private static WorldManager E;
+    private static WorldManager E;*/
     private static boolean isFAWEEnabled;
     private static Plugin plugin;
 
@@ -75,7 +76,7 @@ public class Main extends JavaPlugin {
         plugin = this;
 
         this.saveDefaultConfig();
-        a = new API();
+        /*a = new API();
         b = new PlayerWorldsPro();
         c = new GUI_Buy_PlayerWorld();
         d = new GUI_CreateWorld();
@@ -105,13 +106,18 @@ public class Main extends JavaPlugin {
         C = new ConfigManager();
         C.createFoldersAndLoadFiles();
         D = new MaterialManager();
-        E = new WorldManager();
+        E = new WorldManager();*/
+        ConfigManager.createFoldersAndLoadFiles();
+        checkFAWEEnabled();
+
         this.setCommandExecutor();
         this.registerEvents();
-        checkFAWEEnabled();
-        E.a();
         this.isEconomyEnabled();
-        E.c();
+
+        WorldManager.a();
+        WorldManager.c();
+        WorldManager.c();
+
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlaceholderHook(this).register();
         }
@@ -127,35 +133,35 @@ public class Main extends JavaPlugin {
     }
 
     private void setCommandExecutor() {
-        this.getCommand("PlayerWorldsPro").setExecutor(b);
+        this.getCommand("PlayerWorldsPro").setExecutor(new PlayerWorldsPro());
     }
 
     private void registerEvents() {
         PluginManager pluginManager = Bukkit.getPluginManager();
-        pluginManager.registerEvents(c, this);
-        pluginManager.registerEvents(d, this);
-        pluginManager.registerEvents(e, this);
-        pluginManager.registerEvents(f, this);
-        pluginManager.registerEvents(g, this);
-        pluginManager.registerEvents(h, this);
-        pluginManager.registerEvents(i, this);
-        pluginManager.registerEvents(j, this);
-        pluginManager.registerEvents(k, this);
-        pluginManager.registerEvents(l, this);
-        pluginManager.registerEvents(m, this);
-        pluginManager.registerEvents(n, this);
-        pluginManager.registerEvents(o, this);
-        pluginManager.registerEvents(p, this);
-        pluginManager.registerEvents(q, this);
-        pluginManager.registerEvents(r, this);
-        pluginManager.registerEvents(s, this);
-        pluginManager.registerEvents(t, this);
-        pluginManager.registerEvents(u, this);
-        pluginManager.registerEvents(v, this);
-        pluginManager.registerEvents(w, this);
-        pluginManager.registerEvents(x, this);
-        pluginManager.registerEvents(y, this);
-        pluginManager.registerEvents(z, this);
+        pluginManager.registerEvents(new GUI_Buy_PlayerWorld(), this);
+        pluginManager.registerEvents(new GUI_CreateWorld(), this);
+        pluginManager.registerEvents(new GUI_CustomGenerators(), this);
+        pluginManager.registerEvents(new GUI_Extend_PlayerWorld(), this);
+        pluginManager.registerEvents(new GUI_Main(), this);
+        pluginManager.registerEvents(new GUI_PreBuiltMaps(), this);
+        pluginManager.registerEvents(new GUI_Settings(), this);
+        pluginManager.registerEvents(new GUI_Settings_AddMember(), this);
+        pluginManager.registerEvents(new GUI_Settings_BanPlayer(), this);
+        pluginManager.registerEvents(new GUI_Settings_ChangeDefaultGameMode(), this);
+        pluginManager.registerEvents(new GUI_Settings_ChangeDifficulty(), this);
+        pluginManager.registerEvents(new GUI_Settings_ChangeGameMode(), this);
+        pluginManager.registerEvents(new GUI_Settings_ChangeGameMode_SelectPlayer(), this);
+        pluginManager.registerEvents(new GUI_Settings_ChangeGameMode(), this);
+        pluginManager.registerEvents(new GUI_Settings_ChangeWeather(), this);
+        pluginManager.registerEvents(new GUI_Settings_Fly(), this);
+        pluginManager.registerEvents(new GUI_Settings_KickPlayer(), this);
+        pluginManager.registerEvents(new GUI_Settings_RemoveMember(), this);
+        pluginManager.registerEvents(new GUI_Settings_Teleport(), this);
+        pluginManager.registerEvents(new GUI_Settings_TeleportHere(), this);
+        pluginManager.registerEvents(new GUI_Settings_UnbanPlayer(), this);
+        pluginManager.registerEvents(new GUI_Settings_WorldBorder(), this);
+        pluginManager.registerEvents(new BasicEvents(), this);
+        pluginManager.registerEvents(new SettingsEvents(), this);
     }
 
     private boolean isEconomyEnabled() {
@@ -170,7 +176,7 @@ public class Main extends JavaPlugin {
         return economy != null;
     }
 
-    public static API c() {
+    /*public static API c() {
         return a;
     }
 
@@ -288,7 +294,7 @@ public class Main extends JavaPlugin {
 
     public static WorldManager G() {
         return E;
-    }
+    }*/
 
     public static boolean H() {
         return isFAWEEnabled;

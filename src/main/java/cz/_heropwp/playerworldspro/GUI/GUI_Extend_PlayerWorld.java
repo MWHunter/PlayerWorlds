@@ -18,6 +18,7 @@
  */
 package cz._heropwp.playerworldspro.GUI;
 
+import cz._heropwp.playerworldspro.CoreManagers.WorldManager;
 import cz._heropwp.playerworldspro.Main;
 
 import java.util.ArrayList;
@@ -36,19 +37,19 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class GUI_Extend_PlayerWorld
 implements Listener {
 
-    public void a(Player player) {
-        if (!Main.k().b().containsKey(player.getName())) {
+    public static void a(Player player) {
+        if (!GUI_Settings.b().containsKey(player.getName())) {
             player.closeInventory();
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)27, (String)Main.getPlugin().getConfig().getString("GUI.Extend-Player-World.Title").replace("&", "§"));
         player.openInventory(inventory);
-        inventory.setItem(11, this.a("First"));
-        inventory.setItem(13, this.a("Second"));
-        inventory.setItem(15, this.a("Third"));
+        inventory.setItem(11, a("First"));
+        inventory.setItem(13, a("Second"));
+        inventory.setItem(15, a("Third"));
     }
 
-    private ItemStack a(String string) {
+    private static ItemStack a(String string) {
         ItemStack itemStack = new ItemStack(Material.GOLD_INGOT);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Extend-Player-World.Items." + string + ".Displayname").replace("&", "§").replace("%length%", Main.getPlugin().getConfig().getString("GUI.Extend-Player-World.Items." + string + ".Length")));
@@ -80,23 +81,23 @@ implements Listener {
             return;
         }
         inventoryClickEvent.setCancelled(true);
-        if (Main.k().b().containsKey(player.getName())) {
+        if (GUI_Settings.b().containsKey(player.getName())) {
             switch (inventoryClickEvent.getSlot()) {
                 case 11: {
-                    Main.G().a((CommandSender)player, Main.k().b().get(player.getName()), "First", true);
+                    WorldManager.a((CommandSender)player, GUI_Settings.b().get(player.getName()), "First", true);
                     break;
                 }
                 case 13: {
-                    Main.G().a((CommandSender)player, Main.k().b().get(player.getName()), "Second", true);
+                    WorldManager.a((CommandSender)player, GUI_Settings.b().get(player.getName()), "Second", true);
                     break;
                 }
                 case 15: {
-                    Main.G().a((CommandSender)player, Main.k().b().get(player.getName()), "Third", true);
+                    WorldManager.a((CommandSender)player, GUI_Settings.b().get(player.getName()), "Third", true);
                 }
             }
         }
         player.closeInventory();
-        Main.k().b().remove(player.getName());
+        GUI_Settings.b().remove(player.getName());
     }
 }
 

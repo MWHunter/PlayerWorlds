@@ -24,6 +24,7 @@
  */
 package cz._heropwp.playerworldspro.GUI;
 
+import cz._heropwp.playerworldspro.CoreManagers.BasicManager;
 import cz._heropwp.playerworldspro.Main;
 import cz._heropwp.playerworldspro.CoreManagers.MaterialManager;
 import java.util.ArrayList;
@@ -46,42 +47,42 @@ import org.bukkit.plugin.Plugin;
 
 public class GUI_Settings_ChangeGameMode_SelectPlayer
 implements Listener {
-    private final HashMap<String, GameMode> b = new HashMap<>();
+    private static final HashMap<String, GameMode> b = new HashMap<>();
 
-    public void a(Player player, GameMode gameMode) {
-        this.b.put(player.getName(), gameMode);
+    public static void a(Player player, GameMode gameMode) {
+        b.put(player.getName(), gameMode);
         Inventory inventory = Bukkit.createInventory(null, (int)54, (String)Main.getPlugin().getConfig().getString("GUI.Change-GameMode-SelectPlayer.Title").replace("&", "§"));
         player.openInventory(inventory);
-        Main.i().c().put(player.getName(), 0);
-        this.a(player, inventory);
+        GUI_Main.c().put(player.getName(), 0);
+        a(player, inventory);
     }
 
-    private void a(Player player, Inventory inventory) {
-        Main.i().b().put(player.getName(), Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getPlugin(), () -> this.c(player, inventory), 0L, 10L));
+    private static void a(Player player, Inventory inventory) {
+        GUI_Main.b().put(player.getName(), Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getPlugin(), () -> c(player, inventory), 0L, 10L));
     }
 
     private void b(Player player, Inventory inventory) {
-        Main.i().a(player.getName(), false);
-        Main.i().a(9, inventory);
+        GUI_Main.a(player.getName(), false);
+        GUI_Main.a(9, inventory);
         this.a(player, inventory);
     }
 
-    private void c(Player player, Inventory inventory) {
-        inventory.setItem(0, this.a(player.getName()));
-        inventory.setItem(8, this.b(player.getName()));
+    private static void c(Player player, Inventory inventory) {
+        inventory.setItem(0, a(player.getName()));
+        inventory.setItem(8, b(player.getName()));
         int n = 9;
         int n2 = 1;
-        if (Main.k().b().containsKey(player.getName()) && Main.i().c().containsKey(player.getName())) {
+        if (GUI_Settings.b().containsKey(player.getName()) && GUI_Main.c().containsKey(player.getName())) {
             String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
-            String string2 = Main.k().b().get(player.getName());
+            String string2 = GUI_Settings.b().get(player.getName());
             for (Player player2 : Bukkit.getOnlinePlayers()) {
                 if (player2.getName().equals(player.getName()) || !player2.getWorld().getName().equals(string + string2)) continue;
                 if (n >= inventory.getSize()) break;
-                if (Main.i().c().containsKey(player.getName())) {
-                    if (n2 > Main.i().c().get(player.getName()) * 45) {
-                        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.PLAYER_HEAD), 1, (short)SkullType.PLAYER.ordinal());
+                if (GUI_Main.c().containsKey(player.getName())) {
+                    if (n2 > GUI_Main.c().get(player.getName()) * 45) {
+                        ItemStack itemStack = new ItemStack(MaterialManager.a(MaterialManager.a.PLAYER_HEAD), 1, (short)SkullType.PLAYER.ordinal());
                         SkullMeta skullMeta = (SkullMeta)itemStack.getItemMeta();
-                        if (Main.i().d().contains(player.getName())) {
+                        if (GUI_Main.d().contains(player.getName())) {
                             skullMeta.setOwner(player2.getName());
                         }
                         skullMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-GameMode-SelectPlayer.Items.Player.Displayname").replace("&", "§").replace("%player%", player2.getName()));
@@ -96,18 +97,18 @@ implements Listener {
                         ++n;
                     }
                 } else {
-                    Main.i().a(player.getName(), true);
+                    GUI_Main.a(player.getName(), true);
                     return;
                 }
                 ++n2;
             }
         }
-        Main.i().d().add(player.getName());
-        Main.i().a(n, inventory);
+        GUI_Main.d().add(player.getName());
+        GUI_Main.a(n, inventory);
     }
 
-    private ItemStack a(String string) {
-        if (Main.i().c().get(string) > 0) {
+    private static ItemStack a(String string) {
+        if (GUI_Main.c().get(string) > 0) {
             ItemStack itemStack = new ItemStack(Material.ARROW);
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Change-GameMode-SelectPlayer.Items.Previous").replace("&", "§"));
@@ -117,15 +118,15 @@ implements Listener {
         return new ItemStack(Material.AIR);
     }
 
-    private ItemStack b(String string) {
+    private static ItemStack b(String string) {
         int n = 0;
         String string2 = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
-        String string3 = Main.k().b().get(string);
+        String string3 = GUI_Settings.b().get(string);
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (player.getName().equals(string) || !player.getWorld().getName().equals(string2 + string3)) continue;
             ++n;
         }
-        if (n > (Main.i().c().get(string) + 1) * 45) {
+        if (n > (GUI_Main.c().get(string) + 1) * 45) {
             //Player player;
             ItemStack itemStack = new ItemStack(Material.ARROW);
             ItemMeta itemMeta = itemStack.getItemMeta();
@@ -153,19 +154,19 @@ implements Listener {
             return;
         }
         inventoryClickEvent.setCancelled(true);
-        if (!Main.k().b().containsKey(player.getName()) || !this.b.containsKey(player.getName())) {
+        if (!GUI_Settings.b().containsKey(player.getName()) || !this.b.containsKey(player.getName())) {
             player.closeInventory();
             return;
         }
         String string = inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName();
         if (inventoryClickEvent.getCurrentItem().getType() == Material.ARROW && Main.getPlugin().getConfig().getString("GUI.Change-GameMode-SelectPlayer.Items.Previous").replace("&", "§").contains(string)) {
-            Main.i().c().put(player.getName(), Main.i().c().get(player.getName()) - 1);
+            GUI_Main.c().put(player.getName(), GUI_Main.c().get(player.getName()) - 1);
             this.b(player, player.getOpenInventory().getTopInventory());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.ARROW && Main.getPlugin().getConfig().getString("GUI.Change-GameMode-SelectPlayer.Items.Next").replace("&", "§").contains(string)) {
-            Main.i().c().put(player.getName(), Main.i().c().get(player.getName()) + 1);
+            GUI_Main.c().put(player.getName(), GUI_Main.c().get(player.getName()) + 1);
             this.b(player, player.getOpenInventory().getTopInventory());
-        } else if (inventoryClickEvent.getCurrentItem().getType() == Main.F().a(MaterialManager.a.PLAYER_HEAD)) {
-            Player player2 = Bukkit.getPlayer((String)Main.i().a("GUI.Change-GameMode-SelectPlayer.Items.Player.Displayname", string));
+        } else if (inventoryClickEvent.getCurrentItem().getType() == MaterialManager.a(MaterialManager.a.PLAYER_HEAD)) {
+            Player player2 = Bukkit.getPlayer((String)GUI_Main.a("GUI.Change-GameMode-SelectPlayer.Items.Player.Displayname", string));
             if (player2 == null || !player2.isOnline()) {
                 player.closeInventory();
                 return;
@@ -173,23 +174,23 @@ implements Listener {
             player2.setGameMode(this.b.get(player.getName()));
             switch (this.b.get(player.getName())) {
                 case SURVIVAL: {
-                    player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode-Other.Survival").replace("&", "§").replace("%player%", player2.getName()));
+                    player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode-Other.Survival").replace("&", "§").replace("%player%", player2.getName()));
                     break;
                 }
                 case CREATIVE: {
-                    player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode-Other.Creative").replace("&", "§").replace("%player%", player2.getName()));
+                    player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode-Other.Creative").replace("&", "§").replace("%player%", player2.getName()));
                     break;
                 }
                 case ADVENTURE: {
-                    player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode-Other.Adventure").replace("&", "§").replace("%player%", player2.getName()));
+                    player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode-Other.Adventure").replace("&", "§").replace("%player%", player2.getName()));
                     break;
                 }
                 case SPECTATOR: {
-                    player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode-Other.Spectator").replace("&", "§").replace("%player%", player2.getName()));
+                    player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Change-GameMode-Other.Spectator").replace("&", "§").replace("%player%", player2.getName()));
                 }
             }
             player.closeInventory();
-            Main.k().b().remove(player.getName());
+            GUI_Settings.b().remove(player.getName());
         }
     }
 
@@ -197,7 +198,7 @@ implements Listener {
     public void a(InventoryCloseEvent inventoryCloseEvent) {
         Player player = (Player)inventoryCloseEvent.getPlayer();
         if (inventoryCloseEvent.getView().getTitle().equals(Main.getPlugin().getConfig().getString("GUI.Change-GameMode-SelectPlayer.Title").replace("&", "§"))) {
-            Main.i().a(player.getName(), true);
+            GUI_Main.a(player.getName(), true);
             this.b.remove(player.getName());
         }
     }

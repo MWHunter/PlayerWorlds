@@ -45,10 +45,10 @@ extends PlaceholderExpansion {
             return "";
         }
         if (string.equals("worlds")) {
-            return String.valueOf(Main.G().d());
+            return String.valueOf(WorldManager.d());
         }
         if (string.equals("online_players")) {
-            return String.valueOf(Main.G().e());
+            return String.valueOf(WorldManager.e());
         }
         return null;
     }

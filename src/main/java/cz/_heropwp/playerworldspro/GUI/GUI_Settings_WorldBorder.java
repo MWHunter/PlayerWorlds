@@ -20,6 +20,7 @@
  */
 package cz._heropwp.playerworldspro.GUI;
 
+import cz._heropwp.playerworldspro.CoreManagers.BasicManager;
 import cz._heropwp.playerworldspro.Main;
 
 import java.util.ArrayList;
@@ -39,28 +40,28 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class GUI_Settings_WorldBorder
 implements Listener {
 
-    public void a(Player player) {
-        if (!Main.k().b().containsKey(player.getName()) || Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))) == null) {
+    public static void a(Player player) {
+        if (!GUI_Settings.b().containsKey(player.getName()) || Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + GUI_Settings.b().get(player.getName()))) == null) {
             player.closeInventory();
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
             return;
         }
         if (Main.getPlugin().getConfig().getBoolean("Permissions.World-Border") && !player.hasPermission("PlayerWorldsPro.worldBorder")) {
             player.closeInventory();
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Border.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Border.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)27, (String)Main.getPlugin().getConfig().getString("GUI.World-Border.Title").replace("&", "§"));
-        World world = Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName())));
+        World world = Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + GUI_Settings.b().get(player.getName())));
         double d2 = world.getWorldBorder().getSize();
         player.openInventory(inventory);
-        inventory.setItem(10, this.a(d2));
-        inventory.setItem(12, this.a());
-        inventory.setItem(14, this.b());
-        inventory.setItem(16, this.c());
+        inventory.setItem(10, a(d2));
+        inventory.setItem(12, a());
+        inventory.setItem(14, b());
+        inventory.setItem(16, c());
     }
 
-    private ItemStack a(double d2) {
+    private static ItemStack a(double d2) {
         ItemStack itemStack = new ItemStack(Material.ARROW);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Change.Displayname").replace("&", "§").replace("%size%", String.valueOf(d2)));
@@ -74,7 +75,7 @@ implements Listener {
         return itemStack;
     }
 
-    private ItemStack a() {
+    private static ItemStack a() {
         ItemStack itemStack = new ItemStack(Material.COMPASS);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Center.Displayname").replace("&", "§"));
@@ -88,7 +89,7 @@ implements Listener {
         return itemStack;
     }
 
-    private ItemStack b() {
+    private static ItemStack b() {
         ItemStack itemStack = new ItemStack(Material.PAPER);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Set.Displayname").replace("&", "§"));
@@ -102,7 +103,7 @@ implements Listener {
         return itemStack;
     }
 
-    private ItemStack c() {
+    private static ItemStack c() {
         ItemStack itemStack = new ItemStack(Material.BARRIER);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Reset.Displayname").replace("&", "§"));
@@ -133,9 +134,9 @@ implements Listener {
             return;
         }
         inventoryClickEvent.setCancelled(true);
-        if (Main.k().b().containsKey(player.getName()) && Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + Main.k().b().get(player.getName()))) != null) {
+        if (GUI_Settings.b().containsKey(player.getName()) && Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + GUI_Settings.b().get(player.getName()))) != null) {
             String string = inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName();
-            String string2 = Main.k().b().get(player.getName());
+            String string2 = GUI_Settings.b().get(player.getName());
             World world = Bukkit.getWorld((String)(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string2));
             WorldBorder worldBorder = world.getWorldBorder();
             double d2 = worldBorder.getSize();
@@ -156,20 +157,20 @@ implements Listener {
                 player.closeInventory();
                 if (world.getName().equals(player.getWorld().getName())) {
                     worldBorder.setCenter(player.getLocation());
-                    player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Border.Center").replace("&", "§"));
+                    player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Border.Center").replace("&", "§"));
                 } else {
-                    player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
+                    player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
                 }
             } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Set.Displayname").replace("&", "§"))) {
                 worldBorder.setSize(100.0);
-                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Border.Set").replace("&", "§").replace("%size%", "100"));
+                player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Border.Set").replace("&", "§").replace("%size%", "100"));
             } else if (string.equals(Main.getPlugin().getConfig().getString("GUI.World-Border.Items.Reset.Displayname").replace("&", "§"))) {
                 worldBorder.setSize(2.9999984E7);
-                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Border.Reset").replace("&", "§"));
+                player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Border.Reset").replace("&", "§"));
             }
         }
         player.closeInventory();
-        Main.k().b().remove(player.getName());
+        GUI_Settings.b().remove(player.getName());
     }
 }
 

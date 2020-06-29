@@ -17,6 +17,7 @@
  */
 package cz._heropwp.playerworldspro.GUI;
 
+import cz._heropwp.playerworldspro.CoreManagers.BasicManager;
 import cz._heropwp.playerworldspro.Main;
 import cz._heropwp.playerworldspro.CoreManagers.ConfigManager;
 import cz._heropwp.playerworldspro.CoreManagers.WorldManager;
@@ -36,10 +37,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class GUI_PreBuiltMaps
 implements Listener {
 
-    public void a(Player player) {
+    public static void a(Player player) {
         if (WorldManager.c(player.getName())) {
             player.closeInventory();
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Already-Have").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Already-Have").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)54, (String)Main.getPlugin().getConfig().getString("GUI.Pre-Built-Maps.Title").replace("&", "§"));
@@ -50,13 +51,13 @@ implements Listener {
             for (File file2 : file.listFiles()) {
                 if (n >= inventory.getSize()) break;
                 if (!file2.isDirectory()) continue;
-                inventory.setItem(n, this.a(file2.getName()));
+                inventory.setItem(n, a(file2.getName()));
                 ++n;
             }
         }
     }
 
-    private ItemStack a(String string) {
+    private static ItemStack a(String string) {
         ItemStack itemStack = new ItemStack(Material.PAPER);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Pre-Built-Maps.Items.Map.Displayname").replace("&", "§").replace("%name%", string));
@@ -91,15 +92,15 @@ implements Listener {
         if (inventoryClickEvent.getCurrentItem().getType() == Material.PAPER && (file = new File(Main.getPlugin().getDataFolder(), "maps")).exists()) {
             for (File file2 : file.listFiles()) {
                 if (!file2.isDirectory() || !inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName().equals(Main.getPlugin().getConfig().getString("GUI.Pre-Built-Maps.Items.Map.Displayname").replace("&", "§").replace("%name%", file2.getName()))) continue;
-                if (Main.G().b()) {
+                if (WorldManager.b()) {
                     if (Main.getPlugin().getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
-                        Main.G().a(player, WorldManager.a.EMPTY, file2.getName(), null, Main.getPlugin().getConfig().getInt("Claim.Length"), null, true);
+                        WorldManager.a(player, WorldManager.a.EMPTY, file2.getName(), null, Main.getPlugin().getConfig().getInt("Claim.Length"), null, true);
                         break;
                     }
                     GUI_Buy_PlayerWorld.a(player, WorldManager.a.EMPTY, file2.getName(), null);
                     break;
                 }
-                Main.G().a(player, WorldManager.a.EMPTY, file2.getName(), null, null, null, false);
+                WorldManager.a(player, WorldManager.a.EMPTY, file2.getName(), null, null, null, false);
                 break;
             }
         }

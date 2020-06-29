@@ -9,10 +9,10 @@ package cz._heropwp.playerworldspro.CoreManagers;
 import org.bukkit.Material;
 
 public class MaterialManager {
-    private final boolean a = Material.getMaterial((String)"RED_WOOL") != null;
+    private static final boolean a = Material.getMaterial("RED_WOOL") != null;
     private final String b = "1752137859";
 
-    private String b(a a2) {
+    private static String b(a a2) {
         switch (a2) {
             case OAK_SAPLING: {
                 return "SAPLING";
@@ -42,11 +42,11 @@ public class MaterialManager {
         return "BEDROCK";
     }
 
-    public Material a(a a2) {
-        if (this.a) {
-            return Material.getMaterial((String)String.valueOf((Object)a2));
+    public static Material a(a a2) {
+        if (a) {
+            return Material.getMaterial(String.valueOf(a2));
         }
-        return Material.getMaterial((String)this.b(a2));
+        return Material.getMaterial(b(a2));
     }
 
     public static enum a {

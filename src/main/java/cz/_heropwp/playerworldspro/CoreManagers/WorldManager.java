@@ -28,6 +28,7 @@ package cz._heropwp.playerworldspro.CoreManagers;
 
 import com.boydti.fawe.bukkit.wrapper.AsyncWorld;
 import com.boydti.fawe.util.TaskManager;
+import cz._heropwp.playerworldspro.GUI.GUI_Settings;
 import cz._heropwp.playerworldspro.Main;
 
 import java.io.File;
@@ -53,7 +54,7 @@ import org.bukkit.plugin.Plugin;
 public class WorldManager {
     private static final HashMap<String, Long> b = new HashMap<>();
 
-    public int a(String string, boolean bl) {
+    public static int a(String string, boolean bl) {
         int n = Bukkit.getWorld(string) != null ? Bukkit.getWorld(string).getPlayers().size() : 0;
         if (bl && n < 1) {
             return 1;
@@ -61,8 +62,8 @@ public class WorldManager {
         return n;
     }
 
-    public void a() {
-        if (/*ConfigManager.a(ConfigManager.dataOrPlayers.DATA).contains("Worlds") &&*/ Main.getPlugin().getConfig().getBoolean("Basic.Load-On-Startup")) {
+    public static void a() {
+        if (ConfigManager.getDataConfig().contains("Worlds") && Main.getPlugin().getConfig().getBoolean("Basic.Load-On-Startup")) {
             Bukkit.getConsoleSender().sendMessage(BasicManager.f() + "§eLoading player worlds...");
             for (String string : ConfigManager.getDataConfig().getConfigurationSection("Worlds").getKeys(false)) {
                 c(string, false);
@@ -118,12 +119,12 @@ public class WorldManager {
         long l;
         player.closeInventory();
         if (c(player.getName())) {
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Already-Have").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Already-Have").replace("&", "§"));
             return;
         }
         if (n2 != null) {
             if (Main.b().getBalance((OfflinePlayer)player) < (double)n2.intValue()) {
-                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Not-Enough-Money").replace("&", "§"));
+                player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Not-Enough-Money").replace("&", "§"));
                 return;
             }
             Main.b().withdrawPlayer((OfflinePlayer)player, (double)n2.intValue());
@@ -132,7 +133,7 @@ public class WorldManager {
             l = System.currentTimeMillis() - b.get(player.getName());
             cooldown = Main.getPlugin().getConfig().getInt("Cooldown.Interval");
             if (TimeUnit.MILLISECONDS.toSeconds(l) < cooldown) {
-                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Create-Cooldown").replace("&", "§").replace("%time%", String.valueOf((long)cooldown - TimeUnit.MILLISECONDS.toSeconds(l))));
+                player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Create-Cooldown").replace("&", "§").replace("%time%", String.valueOf((long)cooldown - TimeUnit.MILLISECONDS.toSeconds(l))));
                 return;
             }
         }
@@ -189,11 +190,11 @@ public class WorldManager {
                 iOException.printStackTrace();
             }
         }
-        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Creating-World").replace("&", "§"));
+        player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Creating-World").replace("&", "§"));
         //bl2 = a2 == a.EMPTY && string == null;
         //c(player.getName());
-        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Created").replace("&", "§"));
-        Main.k().b().remove(player.getName());
+        player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Created").replace("&", "§"));
+        GUI_Settings.b().remove(player.getName());
         Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
             World world;
             int m;
@@ -213,13 +214,13 @@ public class WorldManager {
         }, 20L);
     }
 
-    public void a(CommandSender commandSender, String string, String string2, boolean bl) {
+    public static void a(CommandSender commandSender, String string, String string2, boolean bl) {
         if (!b()) {
-            commandSender.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Expiration-Disabled").replace("&", "§"));
+            commandSender.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Expiration-Disabled").replace("&", "§"));
             return;
         }
         if (!c(string)) {
-            commandSender.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-NotFound").replace("&", "§").replace("%player%", string));
+            commandSender.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-NotFound").replace("&", "§").replace("%player%", string));
             return;
         }
         Integer n = null;
@@ -228,7 +229,7 @@ public class WorldManager {
                 Player player = (Player)commandSender;
                 int n2 = Main.getPlugin().getConfig().getInt("GUI.Extend-Player-World.Items." + string2 + ".Price");
                 if (Main.b().getBalance(player) < (double)n2) {
-                    commandSender.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Not-Enough-Money").replace("&", "§"));
+                    commandSender.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Not-Enough-Money").replace("&", "§"));
                     return;
                 }
                 Main.b().withdrawPlayer(player, n2);
@@ -242,15 +243,15 @@ public class WorldManager {
             ConfigManager.getDataConfig().set("Worlds." + string + ".Expiration", (Object)l);
             ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
             ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-            commandSender.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Successfully-Extended").replace("&", "§").replace("%length%", String.valueOf(n)));
+            commandSender.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Successfully-Extended").replace("&", "§").replace("%length%", String.valueOf(n)));
         }
     }
 
-    public void a(CommandSender commandSender, String string) {
+    public static void a(CommandSender commandSender, String string) {
         if (c(string)) {
             String string2 = Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string;
             if (commandSender instanceof Player) {
-                Main.k().b().remove(commandSender.getName());
+                GUI_Settings.b().remove(commandSender.getName());
             }
             if (Bukkit.getWorld(string2) != null) {
                 b(string2);
@@ -261,7 +262,7 @@ public class WorldManager {
             Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
                 if (Bukkit.getWorld(string2) != null && !Bukkit.unloadWorld(string2, true)) {
                     if (commandSender != null) {
-                        commandSender.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Delete-Error").replace("&", "§"));
+                        commandSender.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Delete-Error").replace("&", "§"));
                     }
                     return;
                 }
@@ -272,14 +273,14 @@ public class WorldManager {
                     }
                     catch (IOException iOException) {
                         if (commandSender != null) {
-                            commandSender.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Delete-Error").replace("&", "§"));
+                            commandSender.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Delete-Error").replace("&", "§"));
                         }
                         iOException.printStackTrace();
                         return;
                     }
                 }
                 if (commandSender != null) {
-                    commandSender.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Deleted").replace("&", "§"));
+                    commandSender.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-Deleted").replace("&", "§"));
                 }
                 if (Main.getPlugin().getConfig().getBoolean("Commands.Delete.Enabled")) {
                     for (String string3 : Main.getPlugin().getConfig().getStringList("Commands.Delete.List")) {
@@ -290,43 +291,43 @@ public class WorldManager {
                 }
             }, 3L);
         } else if (commandSender != null) {
-            commandSender.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-NotFound").replace("&", "§").replace("%player%", string));
+            commandSender.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.World-NotFound").replace("&", "§").replace("%player%", string));
         }
     }
 
     public static void a(Player player, String string) {
         String string2 = Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string;
         if (!c(string)) {
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Doesnt-Have").replace("&", "§").replace("%player%", string));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Doesnt-Have").replace("&", "§").replace("%player%", string));
             return;
         }
         if (d(player, string)) {
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Banned-Teleport").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Banned-Teleport").replace("&", "§"));
             return;
         }
         if (p(string).equals("PRIVATE") && !c(player, string)) {
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Only-For-Members").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Only-For-Members").replace("&", "§"));
             return;
         }
-        if (Bukkit.getWorld((String)string2) == null) {
+        if (Bukkit.getWorld(string2) == null) {
             c(string, false);
-            Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> a(player, Bukkit.getWorld((String)string2), string), 20L);
+            Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> a(player, Bukkit.getWorld(string2), string), 20L);
         } else {
-            a(player, Bukkit.getWorld((String)string2), string);
+            a(player, Bukkit.getWorld(string2), string);
         }
     }
 
     private static void a(Player player, World world, String string) {
         if (world != null) {
-            Main.D().a(player, a(string));
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Teleported").replace("&", "§"));
+            BasicManager.a(player, a(string));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Teleported").replace("&", "§"));
             player.setGameMode(GameMode.valueOf(j(string)));
         } else {
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
         }
     }
 
-    public void a(Player player, String string, boolean bl) {
+    public static void a(Player player, String string, boolean bl) {
         String string2 = Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string;
         if (string2.equals(player.getWorld().getName())) {
             double d2 = player.getLocation().getX();
@@ -338,10 +339,10 @@ public class WorldManager {
             ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
             ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
             if (bl) {
-                player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Spawn-Setup").replace("&", "§"));
+                player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Spawn-Setup").replace("&", "§"));
             }
         } else if (bl) {
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Same-World").replace("&", "§"));
         }
     }
 
@@ -365,14 +366,14 @@ public class WorldManager {
     }
 
     public static void b(String string) {
-        if (Bukkit.getWorld((String)string) != null) {
+        if (Bukkit.getWorld(string) != null) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (!player.getWorld().getName().equals(string)) continue;
-                if (Main.D().b()) {
-                    Main.D().a(player, Main.D().c());
+                if (BasicManager.b()) {
+                    BasicManager.a(player, BasicManager.c());
                     continue;
                 }
-                player.kickPlayer(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Lobby-Is-Not-Configured").replace("&", "§"));
+                player.kickPlayer(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Lobby-Is-Not-Configured").replace("&", "§"));
             }
         }
     }
@@ -381,7 +382,7 @@ public class WorldManager {
         return ConfigManager.getDataConfig().contains("Worlds." + string);
     }
 
-    public String d(String string) {
+    public static String d(String string) {
         String string2;
         String string3 = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
         if (string.startsWith(string3) && c(string2 = string.split(string3)[1])) {
@@ -410,18 +411,18 @@ public class WorldManager {
         return false;
     }
 
-    public boolean b() {
+    public static boolean b() {
         return Main.getPlugin().getConfig().getBoolean("Expiration.Enabled") && Main.b() != null;
     }
 
-    public boolean e(String string) {
+    public static boolean e(String string) {
         if (c(string) && ConfigManager.getDataConfig().contains("Worlds." + string + ".WeatherCycle")) {
             return ConfigManager.getDataConfig().getBoolean("Worlds." + string + ".WeatherCycle");
         }
         return true;
     }
 
-    public void b(String string, boolean bl) {
+    public static void b(String string, boolean bl) {
         if (c(string)) {
             ConfigManager.getDataConfig().set("Worlds." + string + ".WeatherCycle", (Object)bl);
             ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
@@ -429,28 +430,28 @@ public class WorldManager {
         }
     }
 
-    public String f(String string) {
+    public static String f(String string) {
         if (c(string) && ConfigManager.getDataConfig().contains("Worlds." + string + ".Difficulty")) {
             return ConfigManager.getDataConfig().getString("Worlds." + string + ".Difficulty");
         }
         return "NORMAL";
     }
 
-    public boolean g(String string) {
+    public static boolean g(String string) {
         if (c(string) && ConfigManager.getDataConfig().contains("Worlds." + string + ".Block-Breaking")) {
             return ConfigManager.getDataConfig().getBoolean("Worlds." + string + ".Block-Breaking");
         }
         return true;
     }
 
-    public boolean h(String string) {
+    public static boolean h(String string) {
         if (c(string) && ConfigManager.getDataConfig().contains("Worlds." + string + ".Block-Placing")) {
             return ConfigManager.getDataConfig().getBoolean("Worlds." + string + ".Block-Placing");
         }
         return true;
     }
 
-    public boolean i(String string) {
+    public static boolean i(String string) {
         if (c(string) && ConfigManager.getDataConfig().contains("Worlds." + string + ".PvP")) {
             return ConfigManager.getDataConfig().getBoolean("Worlds." + string + ".PvP");
         }
@@ -464,35 +465,35 @@ public class WorldManager {
         return "SURVIVAL";
     }
 
-    public boolean k(String string) {
+    public static boolean k(String string) {
         if (c(string) && ConfigManager.getDataConfig().contains("Worlds." + string + ".Pickup")) {
             return ConfigManager.getDataConfig().getBoolean("Worlds." + string + ".Pickup");
         }
         return true;
     }
 
-    public boolean l(String string) {
+    public static boolean l(String string) {
         if (c(string) && ConfigManager.getDataConfig().contains("Worlds." + string + ".Drop")) {
             return ConfigManager.getDataConfig().getBoolean("Worlds." + string + ".Drop");
         }
         return true;
     }
 
-    public boolean m(String string) {
+    public static boolean m(String string) {
         if (c(string) && ConfigManager.getDataConfig().contains("Worlds." + string + ".Damage")) {
             return ConfigManager.getDataConfig().getBoolean("Worlds." + string + ".Damage");
         }
         return true;
     }
 
-    public boolean n(String string) {
+    public static boolean n(String string) {
         if (c(string) && ConfigManager.getDataConfig().contains("Worlds." + string + ".Hunger")) {
             return ConfigManager.getDataConfig().getBoolean("Worlds." + string + ".Hunger");
         }
         return true;
     }
 
-    public boolean o(String string) {
+    public static boolean o(String string) {
         if (c(string) && ConfigManager.getDataConfig().contains("Worlds." + string + ".Bucket")) {
             return ConfigManager.getDataConfig().getBoolean("Worlds." + string + ".Bucket");
         }
@@ -506,14 +507,14 @@ public class WorldManager {
         return "PUBLIC";
     }
 
-    public Long q(String string) {
+    public static Long q(String string) {
         if (c(string) && ConfigManager.getDataConfig().contains("Worlds." + string + ".Expiration")) {
             return ConfigManager.getDataConfig().getLong("Worlds." + string + ".Expiration");
         }
         return 0L;
     }
 
-    public String r(String string) {
+    public static String r(String string) {
         Long l = q(string);
         if (l > 0L) {
             try {
@@ -528,12 +529,12 @@ public class WorldManager {
         return "-";
     }
 
-    public void c() {
+    public static void c() {
         Bukkit.getScheduler().runTaskTimer(Main.getPlugin(), () -> {
             if (b() && ConfigManager.getDataConfig().contains("Worlds")) {
                 for (String string : ConfigManager.getDataConfig().getConfigurationSection("Worlds").getKeys(false)) {
                     if (q(string) >= System.currentTimeMillis()) continue;
-                    a((CommandSender)null, string);
+                    a(null, string);
                 }
             }
         }, 60L, 1200L);
@@ -546,7 +547,7 @@ public class WorldManager {
         return false;
     }
 
-    public int d() {
+    public static int d() {
         int n = 0;
         if (ConfigManager.getDataConfig().contains("Worlds")) {
             n = ConfigManager.getDataConfig().getConfigurationSection("Worlds").getKeys(false).size();
@@ -554,11 +555,11 @@ public class WorldManager {
         return n;
     }
 
-    public int e() {
+    public static int e() {
         int n = 0;
         if (ConfigManager.getDataConfig().contains("Worlds")) {
             for (String string : ConfigManager.getDataConfig().getConfigurationSection("Worlds").getKeys(false)) {
-                n += Main.G().a(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string, false);
+                n += WorldManager.a(Main.getPlugin().getConfig().getString("Basic.World-Prefix") + string, false);
             }
         }
         return n;

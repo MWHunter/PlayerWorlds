@@ -27,7 +27,10 @@
  */
 package cz._heropwp.playerworldspro.EventsListener;
 
+import cz._heropwp.playerworldspro.CoreManagers.BasicManager;
 import cz._heropwp.playerworldspro.CoreManagers.WorldManager;
+import cz._heropwp.playerworldspro.GUI.GUI_Main;
+import cz._heropwp.playerworldspro.GUI.GUI_Settings;
 import cz._heropwp.playerworldspro.Main;
 import cz._heropwp.playerworldspro.CoreManagers.ConfigManager;
 
@@ -73,8 +76,8 @@ implements Listener {
     @EventHandler
     public void a(PlayerQuitEvent playerQuitEvent) {
         Player player = playerQuitEvent.getPlayer();
-        Main.i().a(player.getName(), true);
-        Main.k().b().remove(player.getName());
+        GUI_Main.a(player.getName(), true);
+        GUI_Settings.b().remove(player.getName());
         this.b.remove(player.getName());
     }
 
@@ -88,11 +91,11 @@ implements Listener {
                 String string2 = world.getName().split(string)[1];
                 if (WorldManager.c(string2)) {
                     if (ConfigManager.getDataConfig().getStringList("Worlds." + string2 + ".Banned").contains(player.getName())) {
-                        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Banned-Teleport").replace("&", "§"));
+                        player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Banned-Teleport").replace("&", "§"));
                         return;
                     }
                     if (WorldManager.p(string2).equals("PRIVATE") && !WorldManager.c(player, string2)) {
-                        player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Only-For-Members").replace("&", "§"));
+                        player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Only-For-Members").replace("&", "§"));
                         return;
                     }
                     Location location = WorldManager.a(string2);
@@ -119,9 +122,9 @@ implements Listener {
         String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
         if (world.getName().startsWith(string)) {
             String string2 = world.getName().split(string)[1];
-            if (Main.G().c(string2)) {
+            if (WorldManager.c(string2)) {
                 worldInitEvent.getWorld().setKeepSpawnInMemory(Main.getPlugin().getConfig().getBoolean("Basic.Keep-Spawn-In-Memory"));
-                world.setDifficulty(Difficulty.valueOf((String)Main.G().f(string2)));
+                world.setDifficulty(Difficulty.valueOf(WorldManager.f(string2)));
             }
         }
     }
@@ -132,23 +135,23 @@ implements Listener {
         String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
         if (world.getName().startsWith(string)) {
             String string2 = world.getName().split(string)[1];
-            if (Main.G().c(string2)) {
+            if (WorldManager.c(string2)) {
                 Player player = playerTeleportEvent.getPlayer();
                 if (playerTeleportEvent.getCause() == PlayerTeleportEvent.TeleportCause.SPECTATE) {
                     playerTeleportEvent.setCancelled(!playerTeleportEvent.getFrom().getWorld().getName().equals(playerTeleportEvent.getTo().getWorld().getName()));
                     return;
                 }
-                if (Main.G().d(player, string2)) {
-                    player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Banned-Teleport").replace("&", "§"));
+                if (WorldManager.d(player, string2)) {
+                    player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Banned-Teleport").replace("&", "§"));
                     playerTeleportEvent.setCancelled(true);
                     if (playerTeleportEvent.getFrom().getWorld() == world) {
-                        Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> Main.D().a(player, Main.D().c()), 1L);
+                        Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> BasicManager.a(player, BasicManager.c()), 1L);
                     }
-                } else if (Main.G().p(string2).equals("PRIVATE") && !Main.G().c(player, string2)) {
-                    player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Only-For-Members").replace("&", "§"));
+                } else if (WorldManager.p(string2).equals("PRIVATE") && !WorldManager.c(player, string2)) {
+                    player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Only-For-Members").replace("&", "§"));
                     playerTeleportEvent.setCancelled(true);
                     if (playerTeleportEvent.getFrom().getWorld() == world) {
-                        Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> Main.D().a(player, Main.D().c()), 1L);
+                        Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> BasicManager.a(player, BasicManager.c()), 1L);
                     }
                 }
             }
@@ -162,7 +165,7 @@ implements Listener {
         String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
         if (world.getName().startsWith(string)) {
             String string2 = world.getName().split(string)[1];
-            if (Main.G().c(string2)) {
+            if (WorldManager.c(string2)) {
                 boolean bl = Main.getPlugin().getConfig().getBoolean("Basic.Portals");
                 if (playerPortalEvent.getCause() == PlayerTeleportEvent.TeleportCause.NETHER_PORTAL) {
                     if (!bl) {
@@ -204,7 +207,7 @@ implements Listener {
         String string2 = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
         if (world2.getName().startsWith(string2)) {
             string = world2.getName().split(string2)[1];
-            if (Main.G().c(string)) {
+            if (WorldManager.c(string)) {
                 for (Player player2 : world.getPlayers()) {
                     if (player2 == player) continue;
                     player2.sendMessage(Main.getPlugin().getConfig().getString("JoinAndLeaveMSG.Messages.Leave").replace("&", "§").replace("%player%", player.getName()));
@@ -217,7 +220,7 @@ implements Listener {
             }
             if (world.getName().startsWith(string2)) {
                 string = world.getName().split(string2)[1];
-                if (Main.G().c(string)) {
+                if (WorldManager.c(string)) {
                     for (Player player2 : world.getPlayers()) {
                         player2.sendMessage(Main.getPlugin().getConfig().getString("JoinAndLeaveMSG.Messages.Join").replace("&", "§").replace("%player%", player.getName()));
                     }

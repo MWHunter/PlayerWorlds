@@ -23,16 +23,16 @@ public class BasicManager {
     private static String pluginPrefix = Main.getPlugin().getConfig().getString("Messages.Prefix").replace("&", "§");
     private static final String c = "§8[§6PlayerWorldsPro§8] §r";
 
-    public void a() {
+    public static void a() {
         pluginPrefix = Main.getPlugin().getConfig().getString("Messages.Prefix").replace("&", "§");
     }
 
-    public boolean b() {
+    public static boolean b() {
         return ConfigManager.getDataConfig().contains("Lobby");
     }
 
-    public Location c() {
-        if (this.b()) {
+    public static Location c() {
+        if (b()) {
             String string = ConfigManager.getDataConfig().getString("Lobby");
             String[] arrstring = string.split(";");
             World world = Bukkit.getWorld((String)arrstring[0]);
@@ -46,7 +46,7 @@ public class BasicManager {
         return null;
     }
 
-    public void a(Player player, Location location) {
+    public static void a(Player player, Location location) {
         if (Main.getPlugin().getConfig().getBoolean("Basic.Async.Paper")) {
             PaperLib.teleportAsync((Entity)player, location);
         } else {
@@ -54,7 +54,7 @@ public class BasicManager {
         }
     }
 
-    public String getPluginPrefix() {
+    public static String getPluginPrefix() {
         return pluginPrefix;
     }
 

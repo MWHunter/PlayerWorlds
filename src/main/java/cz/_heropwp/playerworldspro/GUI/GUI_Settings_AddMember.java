@@ -22,6 +22,7 @@
  */
 package cz._heropwp.playerworldspro.GUI;
 
+import cz._heropwp.playerworldspro.CoreManagers.BasicManager;
 import cz._heropwp.playerworldspro.Main;
 import cz._heropwp.playerworldspro.CoreManagers.ConfigManager;
 import cz._heropwp.playerworldspro.CoreManagers.MaterialManager;
@@ -44,47 +45,47 @@ import org.bukkit.plugin.Plugin;
 public class GUI_Settings_AddMember
 implements Listener {
 
-    public void a(Player player) {
-        if (!Main.k().b().containsKey(player.getName())) {
+    public static void a(Player player) {
+        if (!GUI_Settings.b().containsKey(player.getName())) {
             player.closeInventory();
             return;
         }
         if (Main.getPlugin().getConfig().getBoolean("Permissions.Access") && !player.hasPermission("PlayerWorldsPro.access")) {
             player.closeInventory();
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)54, (String)Main.getPlugin().getConfig().getString("GUI.Add-Member.Title").replace("&", "§"));
         player.openInventory(inventory);
-        Main.i().c().put(player.getName(), 0);
-        this.a(player, inventory);
+        GUI_Main.c().put(player.getName(), 0);
+        a(player, inventory);
     }
 
-    private void a(Player player, Inventory inventory) {
-        Main.i().b().put(player.getName(), Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getPlugin(), () -> this.c(player, inventory), 0L, 10L));
+    private static void a(Player player, Inventory inventory) {
+        GUI_Main.b().put(player.getName(), Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getPlugin(), () -> c(player, inventory), 0L, 10L));
     }
 
     private void b(Player player, Inventory inventory) {
-        Main.i().a(player.getName(), false);
-        Main.i().a(9, inventory);
+        GUI_Main.a(player.getName(), false);
+        GUI_Main.a(9, inventory);
         this.a(player, inventory);
     }
 
-    private void c(Player player, Inventory inventory) {
-        inventory.setItem(0, this.a(player.getName()));
-        inventory.setItem(8, this.b(player.getName()));
+    private static void c(Player player, Inventory inventory) {
+        inventory.setItem(0, a(player.getName()));
+        inventory.setItem(8, b(player.getName()));
         int n = 9;
         int n2 = 1;
-        if (Main.k().b().containsKey(player.getName()) && Main.i().c().containsKey(player.getName())) {
-            String string = Main.k().b().get(player.getName());
+        if (GUI_Settings.b().containsKey(player.getName()) && GUI_Main.c().containsKey(player.getName())) {
+            String string = GUI_Settings.b().get(player.getName());
             for (Player player2 : Bukkit.getOnlinePlayers()) {
                 if (player2.getName().equals(string) || ConfigManager.getDataConfig().getStringList("Worlds." + string + ".Members").contains(player2.getName())) continue;
                 if (n >= inventory.getSize()) break;
-                if (Main.i().c().containsKey(player.getName())) {
-                    if (n2 > Main.i().c().get(player.getName()) * 45) {
-                        ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.PLAYER_HEAD), 1, (short)SkullType.PLAYER.ordinal());
+                if (GUI_Main.c().containsKey(player.getName())) {
+                    if (n2 > GUI_Main.c().get(player.getName()) * 45) {
+                        ItemStack itemStack = new ItemStack(MaterialManager.a(MaterialManager.a.PLAYER_HEAD), 1, (short)SkullType.PLAYER.ordinal());
                         SkullMeta skullMeta = (SkullMeta)itemStack.getItemMeta();
-                        if (Main.i().d().contains(player.getName())) {
+                        if (GUI_Main.d().contains(player.getName())) {
                             skullMeta.setOwner(player2.getName());
                         }
                         skullMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Add-Member.Items.Player.Displayname").replace("&", "§").replace("%player%", player2.getName()));
@@ -99,18 +100,18 @@ implements Listener {
                         ++n;
                     }
                 } else {
-                    Main.i().a(player.getName(), true);
+                    GUI_Main.a(player.getName(), true);
                     return;
                 }
                 ++n2;
             }
         }
-        Main.i().d().add(player.getName());
-        Main.i().a(n, inventory);
+        GUI_Main.d().add(player.getName());
+        GUI_Main.a(n, inventory);
     }
 
-    private ItemStack a(String string) {
-        if (Main.i().c().get(string) > 0) {
+    private static ItemStack a(String string) {
+        if (GUI_Main.c().get(string) > 0) {
             ItemStack itemStack = new ItemStack(Material.ARROW);
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Add-Member.Items.Previous").replace("&", "§"));
@@ -120,18 +121,18 @@ implements Listener {
         return new ItemStack(Material.AIR);
     }
 
-    private ItemStack b(String string) {
+    private static ItemStack b(String string) {
         String string2;
         //ItemStack string2;
         int n = 0;
-        if (Main.k().b().containsKey(string)) {
-            string2 = Main.k().b().get(string);
+        if (GUI_Settings.b().containsKey(string)) {
+            string2 = GUI_Settings.b().get(string);
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (player.getName().equals(string2) || ConfigManager.getDataConfig().getStringList("Worlds." + string2 + ".Members").contains(player.getName())) continue;
                 ++n;
             }
         }
-        if (n > (Main.i().c().get(string) + 1) * 45) {
+        if (n > (GUI_Main.c().get(string) + 1) * 45) {
             ItemStack stringStack = new ItemStack(Material.ARROW);
             ItemMeta itemMeta = stringStack.getItemMeta();
             itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Add-Member.Items.Next").replace("&", "§"));
@@ -158,20 +159,20 @@ implements Listener {
             return;
         }
         inventoryClickEvent.setCancelled(true);
-        if (!Main.k().b().containsKey(player.getName())) {
+        if (!GUI_Settings.b().containsKey(player.getName())) {
             player.closeInventory();
             return;
         }
         String string = inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName();
         if (inventoryClickEvent.getCurrentItem().getType() == Material.ARROW && Main.getPlugin().getConfig().getString("GUI.Add-Member.Items.Previous").replace("&", "§").contains(string)) {
-            Main.i().c().put(player.getName(), Main.i().c().get(player.getName()) - 1);
+            GUI_Main.c().put(player.getName(), GUI_Main.c().get(player.getName()) - 1);
             this.b(player, player.getOpenInventory().getTopInventory());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.ARROW && Main.getPlugin().getConfig().getString("GUI.Add-Member.Items.Next").replace("&", "§").contains(string)) {
-            Main.i().c().put(player.getName(), Main.i().c().get(player.getName()) + 1);
+            GUI_Main.c().put(player.getName(), GUI_Main.c().get(player.getName()) + 1);
             this.b(player, player.getOpenInventory().getTopInventory());
-        } else if (inventoryClickEvent.getCurrentItem().getType() == Main.F().a(MaterialManager.a.PLAYER_HEAD)) {
-            Player player2 = Bukkit.getPlayer((String)Main.i().a("GUI.Add-Member.Items.Player.Displayname", string));
-            String string2 = Main.k().b().get(player.getName());
+        } else if (inventoryClickEvent.getCurrentItem().getType() == MaterialManager.a(MaterialManager.a.PLAYER_HEAD)) {
+            Player player2 = Bukkit.getPlayer((String)GUI_Main.a("GUI.Add-Member.Items.Player.Displayname", string));
+            String string2 = GUI_Settings.b().get(player.getName());
             if (player2 == null || !player2.isOnline()) {
                 player.closeInventory();
                 return;
@@ -181,9 +182,9 @@ implements Listener {
             ConfigManager.getDataConfig().set("Worlds." + string2 + ".Members", list);
             ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
             ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Add-Member").replace("&", "§").replace("%player%", player2.getName()));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Access.Add-Member").replace("&", "§").replace("%player%", player2.getName()));
             player.closeInventory();
-            Main.k().b().remove(player.getName());
+            GUI_Settings.b().remove(player.getName());
         }
     }
 
@@ -191,7 +192,7 @@ implements Listener {
     public void a(InventoryCloseEvent inventoryCloseEvent) {
         Player player = (Player)inventoryCloseEvent.getPlayer();
         if (inventoryCloseEvent.getView().getTitle().equals(Main.getPlugin().getConfig().getString("GUI.Add-Member.Title").replace("&", "§"))) {
-            Main.i().a(player.getName(), true);
+            GUI_Main.a(player.getName(), true);
         }
     }
 }

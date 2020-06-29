@@ -23,6 +23,7 @@
  */
 package cz._heropwp.playerworldspro.GUI;
 
+import cz._heropwp.playerworldspro.CoreManagers.BasicManager;
 import cz._heropwp.playerworldspro.Main;
 import cz._heropwp.playerworldspro.CoreManagers.ConfigManager;
 import cz._heropwp.playerworldspro.CoreManagers.MaterialManager;
@@ -45,47 +46,47 @@ import org.bukkit.plugin.Plugin;
 public class GUI_Settings_UnbanPlayer
 implements Listener {
 
-    public void a(Player player) {
-        if (!Main.k().b().containsKey(player.getName())) {
+    public static void a(Player player) {
+        if (!GUI_Settings.b().containsKey(player.getName())) {
             player.closeInventory();
             return;
         }
         if (Main.getPlugin().getConfig().getBoolean("Permissions.Ban") && !player.hasPermission("PlayerWorldsPro.ban")) {
             player.closeInventory();
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)54, (String)Main.getPlugin().getConfig().getString("GUI.Unban-Player.Title").replace("&", "§"));
         player.openInventory(inventory);
-        Main.i().c().put(player.getName(), 0);
-        this.a(player, inventory);
+        GUI_Main.c().put(player.getName(), 0);
+        a(player, inventory);
     }
 
-    private void a(Player player, Inventory inventory) {
-        Main.i().b().put(player.getName(), Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getPlugin(), () -> this.c(player, inventory), 0L, 10L));
+    private static void a(Player player, Inventory inventory) {
+        GUI_Main.b().put(player.getName(), Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getPlugin(), () -> c(player, inventory), 0L, 10L));
     }
 
     private void b(Player player, Inventory inventory) {
-        Main.i().a(player.getName(), false);
-        Main.i().a(9, inventory);
+        GUI_Main.a(player.getName(), false);
+        GUI_Main.a(9, inventory);
         this.a(player, inventory);
     }
 
-    private void c(Player player, Inventory inventory) {
-        inventory.setItem(0, this.a(player.getName()));
-        inventory.setItem(8, this.b(player.getName()));
+    private static void c(Player player, Inventory inventory) {
+        inventory.setItem(0, a(player.getName()));
+        inventory.setItem(8, b(player.getName()));
         int n = 9;
         int n2 = 1;
-        if (Main.k().b().containsKey(player.getName()) && Main.i().c().containsKey(player.getName())) {
-            String string = Main.k().b().get(player.getName());
+        if (GUI_Settings.b().containsKey(player.getName()) && GUI_Main.c().containsKey(player.getName())) {
+            String string = GUI_Settings.b().get(player.getName());
             if (ConfigManager.getDataConfig().contains("Worlds." + string + ".Banned")) {
                 for (String string2 : ConfigManager.getDataConfig().getStringList("Worlds." + string + ".Banned")) {
                     if (n >= inventory.getSize()) break;
-                    if (Main.i().c().containsKey(player.getName())) {
-                        if (n2 > Main.i().c().get(player.getName()) * 45) {
-                            ItemStack itemStack = new ItemStack(Main.F().a(MaterialManager.a.PLAYER_HEAD), 1, (short)SkullType.PLAYER.ordinal());
+                    if (GUI_Main.c().containsKey(player.getName())) {
+                        if (n2 > GUI_Main.c().get(player.getName()) * 45) {
+                            ItemStack itemStack = new ItemStack(MaterialManager.a(MaterialManager.a.PLAYER_HEAD), 1, (short)SkullType.PLAYER.ordinal());
                             SkullMeta skullMeta = (SkullMeta)itemStack.getItemMeta();
-                            if (Main.i().d().contains(player.getName())) {
+                            if (GUI_Main.d().contains(player.getName())) {
                                 skullMeta.setOwner(string2);
                             }
                             skullMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Unban-Player.Items.Player.Displayname").replace("&", "§").replace("%player%", string2));
@@ -100,19 +101,19 @@ implements Listener {
                             ++n;
                         }
                     } else {
-                        Main.i().a(player.getName(), true);
+                        GUI_Main.a(player.getName(), true);
                         return;
                     }
                     ++n2;
                 }
             }
         }
-        Main.i().d().add(player.getName());
-        Main.i().a(n, inventory);
+        GUI_Main.d().add(player.getName());
+        GUI_Main.a(n, inventory);
     }
 
-    private ItemStack a(String string) {
-        if (Main.i().c().get(string) > 0) {
+    private static ItemStack a(String string) {
+        if (GUI_Main.c().get(string) > 0) {
             ItemStack itemStack = new ItemStack(Material.ARROW);
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Unban-Player.Items.Previous").replace("&", "§"));
@@ -122,16 +123,16 @@ implements Listener {
         return new ItemStack(Material.AIR);
     }
 
-    private ItemStack b(String string) {
+    private static ItemStack b(String string) {
         String string2;
         int n = 0;
-        if (Main.k().b().containsKey(string)) {
-            string2 = Main.k().b().get(string);
+        if (GUI_Settings.b().containsKey(string)) {
+            string2 = GUI_Settings.b().get(string);
             if (ConfigManager.getDataConfig().contains("Worlds." + string2 + ".Banned")) {
                 n = ConfigManager.getDataConfig().getStringList("Worlds." + string2 + ".Banned").size();
             }
         }
-        if (n > (Main.i().c().get(string) + 1) * 45) {
+        if (n > (GUI_Main.c().get(string) + 1) * 45) {
             ItemStack itemStack = new ItemStack(Material.ARROW);
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("GUI.Unban-Player.Items.Next").replace("&", "§"));
@@ -158,20 +159,20 @@ implements Listener {
             return;
         }
         inventoryClickEvent.setCancelled(true);
-        if (!Main.k().b().containsKey(player.getName())) {
+        if (!GUI_Settings.b().containsKey(player.getName())) {
             player.closeInventory();
             return;
         }
         String string = inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName();
         if (inventoryClickEvent.getCurrentItem().getType() == Material.ARROW && Main.getPlugin().getConfig().getString("GUI.Unban-Player.Items.Previous").replace("&", "§").contains(string)) {
-            Main.i().c().put(player.getName(), Main.i().c().get(player.getName()) - 1);
+            GUI_Main.c().put(player.getName(), GUI_Main.c().get(player.getName()) - 1);
             this.b(player, player.getOpenInventory().getTopInventory());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.ARROW && Main.getPlugin().getConfig().getString("GUI.Unban-Player.Items.Next").replace("&", "§").contains(string)) {
-            Main.i().c().put(player.getName(), Main.i().c().get(player.getName()) + 1);
+            GUI_Main.c().put(player.getName(), GUI_Main.c().get(player.getName()) + 1);
             this.b(player, player.getOpenInventory().getTopInventory());
-        } else if (inventoryClickEvent.getCurrentItem().getType() == Main.F().a(MaterialManager.a.PLAYER_HEAD)) {
-            String string2 = Main.i().a("GUI.Unban-Player.Items.Player.Displayname", string);
-            String string3 = Main.k().b().get(player.getName());
+        } else if (inventoryClickEvent.getCurrentItem().getType() == MaterialManager.a(MaterialManager.a.PLAYER_HEAD)) {
+            String string2 = GUI_Main.a("GUI.Unban-Player.Items.Player.Displayname", string);
+            String string3 = GUI_Settings.b().get(player.getName());
             List<String> list = ConfigManager.getDataConfig().getStringList("Worlds." + string3 + ".Banned");
             list.remove(string2);
             ConfigManager.getDataConfig().set("Worlds." + string3 + ".Banned", (Object)list);
@@ -184,11 +185,11 @@ implements Listener {
                 string5 = string5.replace("&", "§");
                 string5 = string5.replace("%player%", string2);
                 string5 = string5.replace("%executor%", player.getName());
-                player2.sendMessage(Main.D().getPluginPrefix() + string5);
+                player2.sendMessage(BasicManager.getPluginPrefix() + string5);
             }
-            player.sendMessage(Main.D().getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Unban-Player").replace("&", "§").replace("%player%", string2));
+            player.sendMessage(BasicManager.getPluginPrefix() + Main.getPlugin().getConfig().getString("Messages.Unban-Player").replace("&", "§").replace("%player%", string2));
             player.closeInventory();
-            Main.k().b().remove(player.getName());
+            GUI_Settings.b().remove(player.getName());
         }
     }
 
@@ -196,7 +197,7 @@ implements Listener {
     public void a(InventoryCloseEvent inventoryCloseEvent) {
         Player player = (Player)inventoryCloseEvent.getPlayer();
         if (inventoryCloseEvent.getView().getTitle().equals(Main.getPlugin().getConfig().getString("GUI.Unban-Player.Title").replace("&", "§"))) {
-            Main.i().a(player.getName(), true);
+            GUI_Main.a(player.getName(), true);
         }
     }
 }

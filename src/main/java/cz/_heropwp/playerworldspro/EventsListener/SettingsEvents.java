@@ -28,6 +28,7 @@
  */
 package cz._heropwp.playerworldspro.EventsListener;
 
+import cz._heropwp.playerworldspro.CoreManagers.BasicManager;
 import cz._heropwp.playerworldspro.CoreManagers.WorldManager;
 import cz._heropwp.playerworldspro.Main;
 import org.bukkit.World;
@@ -57,7 +58,7 @@ implements Listener {
         String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
         if (world.getName().startsWith(string)) {
             String string2 = world.getName().split(string)[1];
-            if (Main.G().c(string2) && !Main.G().e(string2)) {
+            if (WorldManager.c(string2) && !WorldManager.e(string2)) {
                 weatherChangeEvent.setCancelled(true);
             }
         }
@@ -70,7 +71,7 @@ implements Listener {
         String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
         if (world.getName().startsWith(string)) {
             String string2 = world.getName().split(string)[1];
-            if (WorldManager.c(string2) && !WorldManager.b(player, string2) && !Main.G().g(string2)) {
+            if (WorldManager.c(string2) && !WorldManager.b(player, string2) && !WorldManager.g(string2)) {
                 blockBreakEvent.setCancelled(true);
             }
         }
@@ -83,7 +84,7 @@ implements Listener {
         String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
         if (world.getName().startsWith(string)) {
             String string2 = world.getName().split(string)[1];
-            if (WorldManager.c(string2) && !WorldManager.b(player, string2) && !Main.G().h(string2)) {
+            if (WorldManager.c(string2) && !WorldManager.b(player, string2) && !WorldManager.h(string2)) {
                 blockPlaceEvent.setCancelled(true);
             }
         }
@@ -97,7 +98,7 @@ implements Listener {
             String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
             if (world.getName().startsWith(string)) {
                 String string2 = world.getName().split(string)[1];
-                if (WorldManager.c(string2) && !Main.G().i(string2)) {
+                if (WorldManager.c(string2) && !WorldManager.i(string2)) {
                     entityDamageByEntityEvent.setCancelled(true);
                 }
             }
@@ -112,7 +113,7 @@ implements Listener {
             String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
             if (world.getName().startsWith(string)) {
                 String string2 = world.getName().split(string)[1];
-                if (WorldManager.c(string2) && !Main.G().i(string2)) {
+                if (WorldManager.c(string2) && !WorldManager.i(string2)) {
                     entityDamageByEntityEvent.setCancelled(true);
                 }
             }
@@ -127,7 +128,7 @@ implements Listener {
             String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
             if (world.getName().startsWith(string)) {
                 String string2 = world.getName().split(string)[1];
-                if (WorldManager.c(string2) && !Main.G().i(string2)) {
+                if (WorldManager.c(string2) && !WorldManager.i(string2)) {
                     entityDamageByEntityEvent.setCancelled(true);
                 }
             }
@@ -142,7 +143,7 @@ implements Listener {
             String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
             if (world.getName().startsWith(string)) {
                 String string2 = world.getName().split(string)[1];
-                if (WorldManager.c(string2) && !Main.G().i(string2)) {
+                if (WorldManager.c(string2) && !WorldManager.i(string2)) {
                     entityDamageByEntityEvent.setCancelled(true);
                 }
             }
@@ -156,7 +157,7 @@ implements Listener {
         String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
         if (world.getName().startsWith(string)) {
             String string2 = world.getName().split(string)[1];
-            if (WorldManager.c(string2) && !WorldManager.b(player, string2) && !Main.G().k(string2)) {
+            if (WorldManager.c(string2) && !WorldManager.b(player, string2) && !WorldManager.k(string2)) {
                 playerPickupItemEvent.setCancelled(true);
             }
         }
@@ -169,7 +170,7 @@ implements Listener {
         String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
         if (world.getName().startsWith(string)) {
             String string2 = world.getName().split(string)[1];
-            if (WorldManager.c(string2) && !WorldManager.b(player, string2) && !Main.G().l(string2)) {
+            if (WorldManager.c(string2) && !WorldManager.b(player, string2) && !WorldManager.l(string2)) {
                 playerDropItemEvent.setCancelled(true);
             }
         }
@@ -183,10 +184,10 @@ implements Listener {
             String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
             if (world.getName().startsWith(string)) {
                 String string2 = world.getName().split(string)[1];
-                if (WorldManager.c(string2) && !Main.G().m(string2)) {
+                if (WorldManager.c(string2) && !WorldManager.m(string2)) {
                     entityDamageEvent.setCancelled(true);
                     if (entityDamageEvent.getCause() == EntityDamageEvent.DamageCause.VOID) {
-                        Main.D().a(player, WorldManager.a(string2));
+                        BasicManager.a(player, WorldManager.a(string2));
                     }
                 }
             }
@@ -201,7 +202,7 @@ implements Listener {
             String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
             if (world.getName().startsWith(string)) {
                 String string2 = world.getName().split(string)[1];
-                if (WorldManager.c(string2) && !Main.G().n(string2)) {
+                if (WorldManager.c(string2) && !WorldManager.n(string2)) {
                     foodLevelChangeEvent.setCancelled(true);
                     if (player.getFoodLevel() < 19) {
                         player.setFoodLevel(20);
@@ -218,7 +219,7 @@ implements Listener {
         String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
         if (world.getName().startsWith(string)) {
             String string2 = world.getName().split(string)[1];
-            if (WorldManager.c(string2) && !WorldManager.b(player, string2) && !Main.G().o(string2)) {
+            if (WorldManager.c(string2) && !WorldManager.b(player, string2) && !WorldManager.o(string2)) {
                 playerBucketFillEvent.setCancelled(true);
             }
         }
@@ -231,7 +232,7 @@ implements Listener {
         String string = Main.getPlugin().getConfig().getString("Basic.World-Prefix");
         if (world.getName().startsWith(string)) {
             String string2 = world.getName().split(string)[1];
-            if (WorldManager.c(string2) && !WorldManager.b(player, string2) && !Main.G().o(string2)) {
+            if (WorldManager.c(string2) && !WorldManager.b(player, string2) && !WorldManager.o(string2)) {
                 playerBucketEmptyEvent.setCancelled(true);
             }
         }
