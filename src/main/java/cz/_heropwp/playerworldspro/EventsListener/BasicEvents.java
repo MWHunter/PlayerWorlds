@@ -92,12 +92,12 @@ implements Listener {
             if (world.getName().startsWith(string)) {
                 String string2 = world.getName().split(string)[1];
                 if (this.a.G().c(string2)) {
-                    if (this.a.E().a(ConfigManager.dataOrPlayers.DATA).getStringList("Worlds." + string2 + ".Banned").contains(player.getName())) {
-                        player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Banned-Teleport").replace("&", "§"));
+                    if (ConfigManager.getDataConfig().getStringList("Worlds." + string2 + ".Banned").contains(player.getName())) {
+                        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Banned-Teleport").replace("&", "§"));
                         return;
                     }
                     if (this.a.G().p(string2).equals("PRIVATE") && !this.a.G().c(player, string2)) {
-                        player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Access.Only-For-Members").replace("&", "§"));
+                        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Access.Only-For-Members").replace("&", "§"));
                         return;
                     }
                     Location location = this.a.G().a(string2);
@@ -144,13 +144,13 @@ implements Listener {
                     return;
                 }
                 if (this.a.G().d(player, string2)) {
-                    player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Banned-Teleport").replace("&", "§"));
+                    player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Banned-Teleport").replace("&", "§"));
                     playerTeleportEvent.setCancelled(true);
                     if (playerTeleportEvent.getFrom().getWorld() == world) {
                         Bukkit.getScheduler().runTaskLater((Plugin)this.a, () -> this.a.D().a(player, this.a.D().c()), 1L);
                     }
                 } else if (this.a.G().p(string2).equals("PRIVATE") && !this.a.G().c(player, string2)) {
-                    player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Access.Only-For-Members").replace("&", "§"));
+                    player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Access.Only-For-Members").replace("&", "§"));
                     playerTeleportEvent.setCancelled(true);
                     if (playerTeleportEvent.getFrom().getWorld() == world) {
                         Bukkit.getScheduler().runTaskLater((Plugin)this.a, () -> this.a.D().a(player, this.a.D().c()), 1L);

@@ -46,12 +46,12 @@ implements Listener {
     public void a(Player player) {
         if (!this.a.k().b().containsKey(player.getName()) || Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName()))) == null) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
             return;
         }
         if (this.a.getConfig().getBoolean("Permissions.Change-Weather") && !player.hasPermission("PlayerWorldsPro.changeWeather")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Weather.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Weather.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)27, (String)this.a.getConfig().getString("GUI.Change-Weather.Title").replace("&", "§"));
@@ -106,7 +106,7 @@ implements Listener {
 
     private ItemStack a(String string) {
         String string2 = "Unlock";
-        if (this.a.E().a(ConfigManager.dataOrPlayers.DATA).getBoolean("Worlds." + string + ".WeatherCycle")) {
+        if (ConfigManager.getDataConfig().getBoolean("Worlds." + string + ".WeatherCycle")) {
             string2 = "Lock";
         }
         ItemStack itemStack = new ItemStack(this.a.F().a(MaterialManager.a.DEAD_BUSH));
@@ -157,7 +157,7 @@ implements Listener {
                 if (!bl) {
                     this.a.G().b(string2, false);
                 }
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Weather.Clear").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Weather.Clear").replace("&", "§"));
             } else if (string.equals(this.a.getConfig().getString("GUI.Change-Weather.Items.Rain.Displayname").replace("&", "§"))) {
                 if (!bl) {
                     this.a.G().b(string2, true);
@@ -167,7 +167,7 @@ implements Listener {
                 if (!bl) {
                     this.a.G().b(string2, false);
                 }
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Weather.Rain").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Weather.Rain").replace("&", "§"));
             } else if (string.equals(this.a.getConfig().getString("GUI.Change-Weather.Items.Thunder.Displayname").replace("&", "§"))) {
                 if (!bl) {
                     this.a.G().b(string2, true);
@@ -177,17 +177,17 @@ implements Listener {
                 if (!bl) {
                     this.a.G().b(string2, false);
                 }
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Weather.Thunder").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Weather.Thunder").replace("&", "§"));
             } else if (string.equals(this.a.getConfig().getString("GUI.Change-Weather.Items.Weather-Cycle-Lock.Displayname").replace("&", "§")) && this.a.G().e(string2)) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".WeatherCycle", (Object)false);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Weather-Cycle.Lock").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".WeatherCycle", (Object)false);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Weather-Cycle.Lock").replace("&", "§"));
             } else if (string.equals(this.a.getConfig().getString("GUI.Change-Weather.Items.Weather-Cycle-Unlock.Displayname").replace("&", "§")) && !this.a.G().e(string2)) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".WeatherCycle", (Object)true);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Weather-Cycle.Unlock").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".WeatherCycle", (Object)true);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Weather-Cycle.Unlock").replace("&", "§"));
             }
         } else {
             player.closeInventory();

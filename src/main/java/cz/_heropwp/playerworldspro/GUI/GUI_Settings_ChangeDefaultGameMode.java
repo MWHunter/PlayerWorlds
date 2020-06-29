@@ -46,7 +46,7 @@ implements Listener {
         }
         if (this.a.getConfig().getBoolean("Permissions.Change-Default-GameMode") && !player.hasPermission("PlayerWorldsPro.changeGameMode.default")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Default-GameMode.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Default-GameMode.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)27, (String)this.a.getConfig().getString("GUI.Change-Default-GameMode.Title").replace("&", "§"));
@@ -151,10 +151,10 @@ implements Listener {
     }
 
     private void a(Player player, String string, String string2) {
-        this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string + ".GameMode", (Object)string2.toUpperCase());
-        this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-        this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-        player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Default-GameMode." + string2).replace("&", "§"));
+        ConfigManager.getDataConfig().set("Worlds." + string + ".GameMode", (Object)string2.toUpperCase());
+        ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+        ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Default-GameMode." + string2).replace("&", "§"));
     }
 }
 

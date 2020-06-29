@@ -53,14 +53,14 @@ implements Listener {
     public void a(Player player) {
         if (this.a.getConfig().getBoolean("Permissions.Teleport") && !player.hasPermission("PlayerWorldsPro.teleport")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
             return;
         }
         String string = this.a.getConfig().getString("Basic.World-Prefix");
         String string2 = this.a.k().b().get(player.getName());
         if (!player.getWorld().getName().equals(string + string2)) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)54, (String)this.a.getConfig().getString("GUI.Teleport-Here.Title").replace("&", "§"));
@@ -187,7 +187,7 @@ implements Listener {
                 return;
             }
             this.a.D().a(player2, player.getLocation());
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Teleport-Here").replace("&", "§").replace("%player%", player2.getName()));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Teleport-Here").replace("&", "§").replace("%player%", player2.getName()));
             player.closeInventory();
             this.a.k().b().remove(player.getName());
         }

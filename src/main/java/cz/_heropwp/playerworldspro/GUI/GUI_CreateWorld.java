@@ -44,12 +44,12 @@ implements Listener {
     public void a(Player player) {
         if (this.a.G().c(player.getName())) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Already-Have").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Already-Have").replace("&", "§"));
             return;
         }
         if (this.a.getConfig().getBoolean("Permissions.Create-World") && !player.hasPermission("PlayerWorldsPro.createWorld")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)27, (String)this.a.getConfig().getString("GUI.Create-World.Title").replace("&", "§"));
@@ -152,9 +152,6 @@ implements Listener {
         if (!inventoryClickEvent.getView().getTitle().equals(this.a.getConfig().getString("GUI.Create-World.Title").replace("&", "§"))) {
             return;
         }
-        if (inventoryClickEvent.getView() == null) {
-            return;
-        }
         if (inventoryClickEvent.getCurrentItem() == null) {
             return;
         }
@@ -169,14 +166,14 @@ implements Listener {
         if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.OAK_SAPLING)) {
             if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Normal") && !player.hasPermission("PlayerWorldsPro.createWorld.normal")) {
                 player.closeInventory();
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
                 return;
             }
             if (this.a.G().b()) {
-                if (this.a.getConfig().getBoolean("Claim.Enabled") && !this.a.E().a(ConfigManager.dataOrPlayers.PLAYERS).contains("Claim." + player.getName())) {
+                if (this.a.getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
                     this.a.G().a(player, WorldManager.a.NORMAL, null, null, this.a.getConfig().getInt("Claim.Length"), null, true);
                 } else {
-                    this.a.e().a(player, WorldManager.a.NORMAL, null, null);
+                    GUI_Buy_PlayerWorld.a(player, WorldManager.a.NORMAL, null, null);
                 }
             } else {
                 this.a.G().a(player, WorldManager.a.NORMAL, null, null, null, null, false);
@@ -184,14 +181,14 @@ implements Listener {
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.GRASS) {
             if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Flat") && !player.hasPermission("PlayerWorldsPro.createWorld.flat")) {
                 player.closeInventory();
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
                 return;
             }
             if (this.a.G().b()) {
-                if (this.a.getConfig().getBoolean("Claim.Enabled") && !this.a.E().a(ConfigManager.dataOrPlayers.PLAYERS).contains("Claim." + player.getName())) {
+                if (this.a.getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
                     this.a.G().a(player, WorldManager.a.FLAT, null, null, this.a.getConfig().getInt("Claim.Length"), null, true);
                 } else {
-                    this.a.e().a(player, WorldManager.a.FLAT, null, null);
+                    GUI_Buy_PlayerWorld.a(player, WorldManager.a.FLAT, null, null);
                 }
             } else {
                 this.a.G().a(player, WorldManager.a.FLAT, null, null, null, null, false);
@@ -199,14 +196,14 @@ implements Listener {
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BARRIER) {
             if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Empty") && !player.hasPermission("PlayerWorldsPro.createWorld.empty")) {
                 player.closeInventory();
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
                 return;
             }
             if (this.a.G().b()) {
-                if (this.a.getConfig().getBoolean("Claim.Enabled") && !this.a.E().a(ConfigManager.dataOrPlayers.PLAYERS).contains("Claim." + player.getName())) {
+                if (this.a.getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
                     this.a.G().a(player, WorldManager.a.EMPTY, null, null, this.a.getConfig().getInt("Claim.Length"), null, true);
                 } else {
-                    this.a.e().a(player, WorldManager.a.EMPTY, null, null);
+                    GUI_Buy_PlayerWorld.a(player, WorldManager.a.EMPTY, null, null);
                 }
             } else {
                 this.a.G().a(player, WorldManager.a.EMPTY, null, null, null, null, false);
@@ -214,14 +211,14 @@ implements Listener {
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BRICK) {
             if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Pre-Built-Maps") && !player.hasPermission("PlayerWorldsPro.createWorld.preBuiltMaps")) {
                 player.closeInventory();
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
                 return;
             }
             this.a.j().a(player);
         } else if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.COMMAND_BLOCK)) {
             if (this.a.getConfig().getBoolean("Permissions.Create-World-Type.Custom-Generators") && !player.hasPermission("PlayerWorldsPro.createWorld.customGenerators")) {
                 player.closeInventory();
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission-Create-World.Type").replace("&", "§"));
                 return;
             }
             this.a.g().a(player);

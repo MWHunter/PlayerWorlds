@@ -56,7 +56,7 @@ implements Listener {
         }
         if (this.a.getConfig().getBoolean("Permissions.Access") && !player.hasPermission("PlayerWorldsPro.access")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Access.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Access.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)54, (String)this.a.getConfig().getString("GUI.Remove-Member.Title").replace("&", "§"));
@@ -82,8 +82,8 @@ implements Listener {
         int n2 = 1;
         if (this.a.k().b().containsKey(player.getName()) && this.a.i().c().containsKey(player.getName())) {
             String string = this.a.k().b().get(player.getName());
-            if (this.a.E().a(ConfigManager.dataOrPlayers.DATA).contains("Worlds." + string + ".Members")) {
-                for (String string2 : this.a.E().a(ConfigManager.dataOrPlayers.DATA).getStringList("Worlds." + string + ".Members")) {
+            if (ConfigManager.getDataConfig().contains("Worlds." + string + ".Members")) {
+                for (String string2 : ConfigManager.getDataConfig().getStringList("Worlds." + string + ".Members")) {
                     if (n >= inventory.getSize()) break;
                     if (this.a.i().c().containsKey(player.getName())) {
                         if (n2 > this.a.i().c().get(player.getName()) * 45) {
@@ -131,8 +131,8 @@ implements Listener {
         int n = 0;
         if (this.a.k().b().containsKey(string)) {
             string2 = this.a.k().b().get(string);
-            if (this.a.E().a(ConfigManager.dataOrPlayers.DATA).contains("Worlds." + string2 + ".Members")) {
-                n = this.a.E().a(ConfigManager.dataOrPlayers.DATA).getStringList("Worlds." + string2 + ".Members").size();
+            if (ConfigManager.getDataConfig().contains("Worlds." + string2 + ".Members")) {
+                n = ConfigManager.getDataConfig().getStringList("Worlds." + string2 + ".Members").size();
             }
         }
         if (n > (this.a.i().c().get(string) + 1) * 45) {
@@ -179,12 +179,12 @@ implements Listener {
         } else if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.PLAYER_HEAD)) {
             String string2 = this.a.i().a("GUI.Remove-Member.Items.Player.Displayname", string);
             String string3 = this.a.k().b().get(player.getName());
-            List list = this.a.E().a(ConfigManager.dataOrPlayers.DATA).getStringList("Worlds." + string3 + ".Members");
+            List list = ConfigManager.getDataConfig().getStringList("Worlds." + string3 + ".Members");
             list.remove(string2);
-            this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string3 + ".Members", (Object)list);
-            this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-            this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Access.Remove-Member").replace("&", "§").replace("%player%", string2));
+            ConfigManager.getDataConfig().set("Worlds." + string3 + ".Members", (Object)list);
+            ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+            ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Access.Remove-Member").replace("&", "§").replace("%player%", string2));
             player.closeInventory();
             this.a.k().b().remove(player.getName());
         }

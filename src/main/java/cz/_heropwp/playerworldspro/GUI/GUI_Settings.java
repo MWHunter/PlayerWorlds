@@ -526,7 +526,7 @@ implements Listener {
             this.a.o().a(player);
         } else if (inventoryClickEvent.getCurrentItem().getType().toString().contains(this.a.F().a(MaterialManager.a.RED_BED).toString())) {
             if (this.a.getConfig().getBoolean("Permissions.Set-Spawn-Location") && !player.hasPermission("PlayerWorldsPro.setSpawn")) {
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
             } else {
                 this.a.G().a(player, string2, true);
             }
@@ -535,49 +535,49 @@ implements Listener {
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.IRON_PICKAXE) {
             player.closeInventory();
             if (this.a.getConfig().getBoolean("Permissions.Block-Breaking") && !player.hasPermission("PlayerWorldsPro.editBlockBreaking")) {
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Block-Breaking.Insufficient-Permission").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Block-Breaking.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Block-Breaking", (Object)true);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Block-Breaking.Allow").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Block-Breaking", (Object)true);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Block-Breaking.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Block-Breaking", (Object)false);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Block-Breaking.Deny").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Block-Breaking", (Object)false);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Block-Breaking.Deny").replace("&", "§"));
             }
             this.a.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BRICK) {
             player.closeInventory();
             if (this.a.getConfig().getBoolean("Permissions.Block-Placing") && !player.hasPermission("PlayerWorldsPro.editBlockPlacing")) {
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Block-Placing.Insufficient-Permission").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Block-Placing.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Block-Placing", (Object)true);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Block-Placing.Allow").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Block-Placing", (Object)true);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Block-Placing.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Block-Placing", (Object)false);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Block-Placing.Deny").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Block-Placing", (Object)false);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Block-Placing.Deny").replace("&", "§"));
             }
             this.a.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.IRON_SWORD) {
             player.closeInventory();
             if (this.a.getConfig().getBoolean("Permissions.PvP") && !player.hasPermission("PlayerWorldsPro.editPvP")) {
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.PvP.Insufficient-Permission").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.PvP.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".PvP", (Object)true);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.PvP.Allow").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".PvP", (Object)true);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.PvP.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".PvP", (Object)false);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.PvP.Deny").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".PvP", (Object)false);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.PvP.Deny").replace("&", "§"));
             }
             this.a.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BARRIER && string.equals(this.a.getConfig().getString("GUI.Settings.Items.World-Border.Displayname").replace("&", "§"))) {
@@ -585,81 +585,81 @@ implements Listener {
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.GOLDEN_APPLE) {
             player.closeInventory();
             if (this.a.getConfig().getBoolean("Permissions.Item-Pickup") && !player.hasPermission("PlayerWorldsPro.editItemPickup")) {
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Pickup.Insufficient-Permission").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Pickup.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Pickup", (Object)true);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Pickup.Allow").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Pickup", (Object)true);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Pickup.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Pickup", (Object)false);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Pickup.Deny").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Pickup", (Object)false);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Pickup.Deny").replace("&", "§"));
             }
             this.a.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.ROTTEN_FLESH) {
             player.closeInventory();
             if (this.a.getConfig().getBoolean("Permissions.Drop-Item") && !player.hasPermission("PlayerWorldsPro.editDropItem")) {
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Drop.Insufficient-Permission").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Drop.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Drop", (Object)true);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Drop.Allow").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Drop", (Object)true);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Drop.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Drop", (Object)false);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Drop.Deny").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Drop", (Object)false);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Drop.Deny").replace("&", "§"));
             }
             this.a.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.LEATHER_CHESTPLATE) {
             player.closeInventory();
             if (this.a.getConfig().getBoolean("Permissions.Player-Damage") && !player.hasPermission("PlayerWorldsPro.editPlayerDamage")) {
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Damage.Insufficient-Permission").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Damage.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Damage", (Object)true);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Damage.Allow").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Damage", (Object)true);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Damage.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Damage", (Object)false);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Damage.Deny").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Damage", (Object)false);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Damage.Deny").replace("&", "§"));
             }
             this.a.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.APPLE) {
             player.closeInventory();
             if (this.a.getConfig().getBoolean("Permissions.Hunger") && !player.hasPermission("PlayerWorldsPro.editHunger")) {
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Hunger.Insufficient-Permission").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Hunger.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Hunger", (Object)true);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Hunger.Allow").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Hunger", (Object)true);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Hunger.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Hunger", (Object)false);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Hunger.Deny").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Hunger", (Object)false);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Hunger.Deny").replace("&", "§"));
             }
             this.a.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.BUCKET) {
             player.closeInventory();
             if (this.a.getConfig().getBoolean("Permissions.Bucket") && !player.hasPermission("PlayerWorldsPro.editBucket")) {
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Bucket.Insufficient-Permission").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Bucket.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Bucket", (Object)true);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Bucket.Allow").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Bucket", (Object)true);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Bucket.Allow").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Bucket", (Object)false);
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Bucket.Deny").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Bucket", (Object)false);
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Bucket.Deny").replace("&", "§"));
             }
             this.a.k().b().remove(player.getName());
         } else if (inventoryClickEvent.getCurrentItem().getType() == Material.DIAMOND) {
@@ -678,7 +678,7 @@ implements Listener {
             String string3 = this.a.getConfig().getString("Basic.World-Prefix") + string2;
             if (!player.getWorld().getName().equals(string3)) {
                 player.closeInventory();
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
                 return;
             }
             if (inventoryClickEvent.isLeftClick()) {
@@ -689,7 +689,7 @@ implements Listener {
                     player.setAllowFlight(true);
                     player.setFlying(true);
                 }
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Fly").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Fly").replace("&", "§"));
                 player.closeInventory();
                 this.a.k().b().remove(player.getName());
             } else if (inventoryClickEvent.isRightClick()) {
@@ -697,24 +697,24 @@ implements Listener {
             }
         } else if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.WRITABLE_BOOK)) {
             if (this.a.getConfig().getBoolean("Permissions.Access") && !player.hasPermission("PlayerWorldsPro.access")) {
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Access.Insufficient-Permission").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Access.Insufficient-Permission").replace("&", "§"));
             } else if (inventoryClickEvent.isLeftClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Access", (Object)"PUBLIC");
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Access.Public").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Access", (Object)"PUBLIC");
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Access.Public").replace("&", "§"));
             } else if (inventoryClickEvent.isRightClick()) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Access", (Object)"PRIVATE");
-                this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Access.Private").replace("&", "§"));
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Access", (Object)"PRIVATE");
+                ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Access.Private").replace("&", "§"));
                 for (Player player2 : Bukkit.getOnlinePlayers()) {
                     if (!player2.getWorld().getName().equals(string2) || this.a.G().c(player2, string2)) continue;
                     if (this.a.D().b()) {
                         this.a.D().a(player2, this.a.D().c());
                         continue;
                     }
-                    player2.kickPlayer(this.a.D().e() + this.a.getConfig().getString("Messages.Lobby-Is-Not-Configured").replace("&", "§"));
+                    player2.kickPlayer(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Lobby-Is-Not-Configured").replace("&", "§"));
                 }
             }
             player.closeInventory();

@@ -53,7 +53,7 @@ implements Listener {
     public void a(Player player) {
         if (this.a.getConfig().getBoolean("Permissions.Teleport") && !player.hasPermission("PlayerWorldsPro.teleport")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)54, (String)this.a.getConfig().getString("GUI.Teleport.Title").replace("&", "§"));
@@ -180,7 +180,7 @@ implements Listener {
                 return;
             }
             this.a.D().a(player, player2.getLocation());
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Teleport").replace("&", "§").replace("%player%", player2.getName()));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Teleport").replace("&", "§").replace("%player%", player2.getName()));
             player.closeInventory();
             this.a.k().b().remove(player.getName());
         }

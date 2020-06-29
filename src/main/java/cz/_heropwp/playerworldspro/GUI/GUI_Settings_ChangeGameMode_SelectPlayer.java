@@ -182,19 +182,19 @@ implements Listener {
             player2.setGameMode(this.b.get(player.getName()));
             switch (this.b.get(player.getName())) {
                 case SURVIVAL: {
-                    player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-GameMode-Other.Survival").replace("&", "§").replace("%player%", player2.getName()));
+                    player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-GameMode-Other.Survival").replace("&", "§").replace("%player%", player2.getName()));
                     break;
                 }
                 case CREATIVE: {
-                    player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-GameMode-Other.Creative").replace("&", "§").replace("%player%", player2.getName()));
+                    player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-GameMode-Other.Creative").replace("&", "§").replace("%player%", player2.getName()));
                     break;
                 }
                 case ADVENTURE: {
-                    player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-GameMode-Other.Adventure").replace("&", "§").replace("%player%", player2.getName()));
+                    player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-GameMode-Other.Adventure").replace("&", "§").replace("%player%", player2.getName()));
                     break;
                 }
                 case SPECTATOR: {
-                    player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-GameMode-Other.Spectator").replace("&", "§").replace("%player%", player2.getName()));
+                    player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-GameMode-Other.Spectator").replace("&", "§").replace("%player%", player2.getName()));
                 }
             }
             player.closeInventory();

@@ -52,7 +52,7 @@ implements Listener {
     public void a(Player player) {
         if (this.a.getConfig().getBoolean("Permissions.Fly") && !player.hasPermission("PlayerWorldsPro.fly")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)54, (String)this.a.getConfig().getString("GUI.Fly.Title").replace("&", "§"));
@@ -185,7 +185,7 @@ implements Listener {
                 player2.setAllowFlight(true);
                 player2.setFlying(true);
             }
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Fly-Other").replace("&", "§").replace("%player%", player2.getName()));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Fly-Other").replace("&", "§").replace("%player%", player2.getName()));
             player.closeInventory();
             this.a.k().b().remove(player.getName());
         }

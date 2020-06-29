@@ -44,7 +44,7 @@ implements Listener {
     public void a(Player player) {
         if (this.a.G().c(player.getName())) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Already-Have").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Already-Have").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)54, (String)this.a.getConfig().getString("GUI.Pre-Built-Maps.Title").replace("&", "§"));
@@ -100,11 +100,11 @@ implements Listener {
             for (File file2 : file.listFiles()) {
                 if (!file2.isDirectory() || !inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName().equals(this.a.getConfig().getString("GUI.Pre-Built-Maps.Items.Map.Displayname").replace("&", "§").replace("%name%", file2.getName()))) continue;
                 if (this.a.G().b()) {
-                    if (this.a.getConfig().getBoolean("Claim.Enabled") && !this.a.E().a(ConfigManager.dataOrPlayers.PLAYERS).contains("Claim." + player.getName())) {
+                    if (this.a.getConfig().getBoolean("Claim.Enabled") && !ConfigManager.getPlayersConfig().contains("Claim." + player.getName())) {
                         this.a.G().a(player, WorldManager.a.EMPTY, file2.getName(), null, this.a.getConfig().getInt("Claim.Length"), null, true);
                         break;
                     }
-                    this.a.e().a(player, WorldManager.a.EMPTY, file2.getName(), null);
+                    GUI_Buy_PlayerWorld.a(player, WorldManager.a.EMPTY, file2.getName(), null);
                     break;
                 }
                 this.a.G().a(player, WorldManager.a.EMPTY, file2.getName(), null, null, null, false);

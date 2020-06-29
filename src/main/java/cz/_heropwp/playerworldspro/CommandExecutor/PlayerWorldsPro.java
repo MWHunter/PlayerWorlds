@@ -36,28 +36,28 @@ implements CommandExecutor {
 
     public boolean onCommand(CommandSender commandSender, Command command, String string, String[] arrstring) {
         if (arrstring.length == 0) {
-            commandSender.sendMessage(this.a.D().e() + "§2§lPlayerWorldsPro §cv" + this.a.getDescription().getVersion());
-            commandSender.sendMessage(this.a.D().e());
-            commandSender.sendMessage(this.a.D().e() + "§6§lCommands:");
-            commandSender.sendMessage(this.a.D().e() + "§a/PlayerWorldsPro menu §fOpen menu");
-            commandSender.sendMessage(this.a.D().e() + "§a/PlayerWorldsPro join <player> §fTeleport to the player world of the player.");
-            commandSender.sendMessage(this.a.D().e() + "§a/PlayerWorldsPro spawn §fTeleport to spawn in a player world.");
-            commandSender.sendMessage(this.a.D().e() + "§a/PlayerWorldsPro settings §fOpen your player world settings.");
-            commandSender.sendMessage(this.a.D().e() + "§a/PlayerWorldsPro setLobby §fSet Lobby location §c[PlayerWorldsPro.setLobby]");
-            commandSender.sendMessage(this.a.D().e() + "§a/PlayerWorldsPro reload §fReload configuration file §c[PlayerWorldsPro.reload]");
-            commandSender.sendMessage(this.a.D().e() + "§a/PlayerWorldsPro setWorldBorder <player> <size> §fSet the size of the World Border §c[PlayerWorldsPro.setWorldBorder]");
-            commandSender.sendMessage(this.a.D().e() + "§a/PlayerWorldsPro expiration <set/extend> <player> <length_in_days> §fSet the expiration of the player world §c[PlayerWorldsPro.expiration.<set/extend>]");
-            commandSender.sendMessage(this.a.D().e() + "§a/PlayerWorldsPro delete <player> §fDelete player world of the player §c[PlayerWorldsPro.delete]");
-            commandSender.sendMessage(this.a.D().e());
-            commandSender.sendMessage(this.a.D().e() + "§fOriginally created with §4\u2764 §fby §a_HeroPwP");
-            commandSender.sendMessage(this.a.D().e() + "§fModified with §4\u2764 §fby DefineOutside");
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§2§lPlayerWorldsPro §cv" + this.a.getDescription().getVersion());
+            commandSender.sendMessage(this.a.D().getPluginPrefix());
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§6§lCommands:");
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§a/PlayerWorldsPro menu §fOpen menu");
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§a/PlayerWorldsPro join <player> §fTeleport to the player world of the player.");
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§a/PlayerWorldsPro spawn §fTeleport to spawn in a player world.");
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§a/PlayerWorldsPro settings §fOpen your player world settings.");
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§a/PlayerWorldsPro setLobby §fSet Lobby location §c[PlayerWorldsPro.setLobby]");
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§a/PlayerWorldsPro reload §fReload configuration file §c[PlayerWorldsPro.reload]");
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§a/PlayerWorldsPro setWorldBorder <player> <size> §fSet the size of the World Border §c[PlayerWorldsPro.setWorldBorder]");
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§a/PlayerWorldsPro expiration <set/extend> <player> <length_in_days> §fSet the expiration of the player world §c[PlayerWorldsPro.expiration.<set/extend>]");
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§a/PlayerWorldsPro delete <player> §fDelete player world of the player §c[PlayerWorldsPro.delete]");
+            commandSender.sendMessage(this.a.D().getPluginPrefix());
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§fOriginally created with §4\u2764 §fby §a_HeroPwP");
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + "§fModified with §4\u2764 §fby DefineOutside");
         } else {
             if (arrstring[0].equalsIgnoreCase("menu")) {
                 if (commandSender instanceof Player) {
                     Player player = (Player)commandSender;
                     this.a.i().a(player);
                 } else {
-                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Send-From-Game").replace("&", "§"));
+                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Send-From-Game").replace("&", "§"));
                 }
                 return false;
             }
@@ -67,10 +67,10 @@ implements CommandExecutor {
                     if (arrstring.length >= 2) {
                         this.a.G().a(player, arrstring[1]);
                     } else {
-                        commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Usage.Join").replace("&", "§"));
+                        commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Usage.Join").replace("&", "§"));
                     }
                 } else {
-                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Send-From-Game").replace("&", "§"));
+                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Send-From-Game").replace("&", "§"));
                 }
                 return false;
             }
@@ -83,13 +83,13 @@ implements CommandExecutor {
                         String string3 = world.getName().split(string2)[1];
                         if (this.a.G().c(string3)) {
                             this.a.D().a(player, this.a.G().a(string3));
-                            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Teleported").replace("&", "§"));
+                            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Teleported").replace("&", "§"));
                             return false;
                         }
                     }
-                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.In-Player-World").replace("&", "§"));
+                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.In-Player-World").replace("&", "§"));
                 } else {
-                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Send-From-Game").replace("&", "§"));
+                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Send-From-Game").replace("&", "§"));
                 }
                 return false;
             }
@@ -99,10 +99,10 @@ implements CommandExecutor {
                     if (this.a.G().c(player.getName())) {
                         this.a.k().a(player, player.getName());
                     } else {
-                        player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Dont-Have").replace("&", "§"));
+                        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Dont-Have").replace("&", "§"));
                     }
                 } else {
-                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Send-From-Game").replace("&", "§"));
+                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Send-From-Game").replace("&", "§"));
                 }
                 return false;
             }
@@ -116,15 +116,15 @@ implements CommandExecutor {
                         double d4 = player.getLocation().getZ();
                         float f2 = player.getLocation().getYaw();
                         float f3 = player.getLocation().getPitch();
-                        this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Lobby", (Object)(world.getName() + ";" + d2 + ";" + d3 + ";" + d4 + ";" + f2 + ";" + f3));
-                        this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                        this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                        commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Lobby-Setup").replace("&", "§"));
+                        ConfigManager.getDataConfig().set("Lobby", (world.getName() + ";" + d2 + ";" + d3 + ";" + d4 + ";" + f2 + ";" + f3));
+                        ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                        ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                        commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Lobby-Setup").replace("&", "§"));
                     } else {
-                        commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+                        commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
                     }
                 } else {
-                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Send-From-Game").replace("&", "§"));
+                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Send-From-Game").replace("&", "§"));
                 }
                 return false;
             }
@@ -133,9 +133,9 @@ implements CommandExecutor {
                     this.a.reloadConfig();
                     this.a.D().a();
                     this.a.checkFAWEEnabled();
-                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Configuration-Reloaded").replace("&", "§"));
+                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Configuration-Reloaded").replace("&", "§"));
                 } else {
-                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
                 }
                 return false;
             }
@@ -149,23 +149,23 @@ implements CommandExecutor {
                                     int n = Integer.parseInt(arrstring[2]);
                                     World world = Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + string4));
                                     if (world == null) {
-                                        commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
+                                        commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
                                         break block65;
                                     }
                                     world.getWorldBorder().setSize((double)n);
-                                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.World-Border.Set").replace("&", "§").replace("%size%", String.valueOf(n)));
+                                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.World-Border.Set").replace("&", "§").replace("%size%", String.valueOf(n)));
                                 }
                                 catch (NumberFormatException numberFormatException) {
-                                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Invalid-Number").replace("&", "§").replace("%number%", arrstring[2]));
+                                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Invalid-Number").replace("&", "§").replace("%number%", arrstring[2]));
                                 }
                             } else {
-                                commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Doesnt-Have").replace("&", "§").replace("%player%", string4));
+                                commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Doesnt-Have").replace("&", "§").replace("%player%", string4));
                             }
                         } else {
-                            commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Usage.SetWorldBorder").replace("&", "§"));
+                            commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Usage.SetWorldBorder").replace("&", "§"));
                         }
                     } else {
-                        commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+                        commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
                     }
                 }
                 return false;
@@ -183,28 +183,28 @@ implements CommandExecutor {
                                             if (this.a.G().b()) {
                                                 if (this.a.G().c(string5)) {
                                                     long l = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(n);
-                                                    this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string5 + ".Expiration", (Object)l);
-                                                    this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-                                                    this.a.E().c(ConfigManager.dataOrPlayers.DATA);
-                                                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Successfully-Set-Expiration").replace("&", "§").replace("%length%", String.valueOf(n)).replace("%player%", string5));
+                                                    ConfigManager.getDataConfig().set("Worlds." + string5 + ".Expiration", (Object)l);
+                                                    ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+                                                    ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
+                                                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Successfully-Set-Expiration").replace("&", "§").replace("%length%", String.valueOf(n)).replace("%player%", string5));
                                                 } else {
-                                                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.World-NotFound").replace("&", "§").replace("%player%", string5));
+                                                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.World-NotFound").replace("&", "§").replace("%player%", string5));
                                                 }
                                             } else {
-                                                commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Expiration-Disabled").replace("&", "§"));
+                                                commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Expiration-Disabled").replace("&", "§"));
                                             }
                                             break block66;
                                         }
-                                        commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Positive-Number").replace("&", "§").replace("%number%", arrstring[3]));
+                                        commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Positive-Number").replace("&", "§").replace("%number%", arrstring[3]));
                                     }
                                     catch (NumberFormatException numberFormatException) {
-                                        commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Invalid-Number").replace("&", "§").replace("%number%", arrstring[3]));
+                                        commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Invalid-Number").replace("&", "§").replace("%number%", arrstring[3]));
                                     }
                                 } else {
-                                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Doesnt-Have").replace("&", "§").replace("%player%", string5));
+                                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Doesnt-Have").replace("&", "§").replace("%player%", string5));
                                 }
                             } else {
-                                commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+                                commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
                             }
                         }
                         return false;
@@ -220,22 +220,22 @@ implements CommandExecutor {
                                             this.a.G().a(commandSender, string6, String.valueOf(n), false);
                                             break block67;
                                         }
-                                        commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Positive-Number").replace("&", "§").replace("%number%", arrstring[3]));
+                                        commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Positive-Number").replace("&", "§").replace("%number%", arrstring[3]));
                                     }
                                     catch (NumberFormatException numberFormatException) {
-                                        commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Invalid-Number").replace("&", "§").replace("%number%", arrstring[3]));
+                                        commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Invalid-Number").replace("&", "§").replace("%number%", arrstring[3]));
                                     }
                                 } else {
-                                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Doesnt-Have").replace("&", "§").replace("%player%", string6));
+                                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Doesnt-Have").replace("&", "§").replace("%player%", string6));
                                 }
                             } else {
-                                commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+                                commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
                             }
                         }
                         return false;
                     }
                 }
-                commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Usage.Expiration").replace("&", "§"));
+                commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Usage.Expiration").replace("&", "§"));
                 return false;
             }
             if (arrstring[0].equalsIgnoreCase("delete")) {
@@ -243,14 +243,14 @@ implements CommandExecutor {
                     if (arrstring.length > 1) {
                         this.a.G().a(commandSender, arrstring[1]);
                     } else {
-                        commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Usage.Delete").replace("&", "§"));
+                        commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Usage.Delete").replace("&", "§"));
                     }
                 } else {
-                    commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+                    commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
                 }
                 return false;
             }
-            commandSender.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Unknown-Argument").replace("&", "§").replace("%argument%", arrstring[0]));
+            commandSender.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Unknown-Argument").replace("&", "§").replace("%argument%", arrstring[0]));
         }
         return false;
     }

@@ -51,7 +51,7 @@ implements Listener {
         }
         if (this.a.getConfig().getBoolean("Permissions.Change-Difficulty") && !player.hasPermission("PlayerWorldsPro.changeDifficulty")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Difficulty.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Difficulty.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)27, (String)this.a.getConfig().getString("GUI.Change-Difficulty.Title").replace("&", "§"));
@@ -144,32 +144,32 @@ implements Listener {
             String string2 = this.a.k().b().get(player.getName());
             World world = Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + string2));
             if (string.equals(this.a.getConfig().getString("GUI.Change-Difficulty.Items.Peaceful.Displayname").replace("&", "§"))) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Difficulty", (Object)"PEACEFUL");
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Difficulty", (Object)"PEACEFUL");
                 if (world != null) {
                     world.setDifficulty(Difficulty.PEACEFUL);
                 }
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Difficulty.Peaceful").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Difficulty.Peaceful").replace("&", "§"));
             } else if (string.equals(this.a.getConfig().getString("GUI.Change-Difficulty.Items.Easy.Displayname").replace("&", "§"))) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Difficulty", (Object)"EASY");
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Difficulty", (Object)"EASY");
                 if (world != null) {
                     world.setDifficulty(Difficulty.EASY);
                 }
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Difficulty.Easy").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Difficulty.Easy").replace("&", "§"));
             } else if (string.equals(this.a.getConfig().getString("GUI.Change-Difficulty.Items.Normal.Displayname").replace("&", "§"))) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Difficulty", (Object)"NORMAL");
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Difficulty", (Object)"NORMAL");
                 if (world != null) {
                     world.setDifficulty(Difficulty.NORMAL);
                 }
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Difficulty.Hard").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Difficulty.Hard").replace("&", "§"));
             } else if (string.equals(this.a.getConfig().getString("GUI.Change-Difficulty.Items.Hard.Displayname").replace("&", "§"))) {
-                this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string2 + ".Difficulty", (Object)"HARD");
+                ConfigManager.getDataConfig().set("Worlds." + string2 + ".Difficulty", (Object)"HARD");
                 if (world != null) {
                     world.setDifficulty(Difficulty.HARD);
                 }
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Difficulty.Hard").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Difficulty.Hard").replace("&", "§"));
             }
-            this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-            this.a.E().c(ConfigManager.dataOrPlayers.DATA);
+            ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+            ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
         }
         this.a.k().b().remove(player.getName());
     }

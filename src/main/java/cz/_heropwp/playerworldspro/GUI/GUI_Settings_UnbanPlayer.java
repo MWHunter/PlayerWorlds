@@ -57,7 +57,7 @@ implements Listener {
         }
         if (this.a.getConfig().getBoolean("Permissions.Ban") && !player.hasPermission("PlayerWorldsPro.ban")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)54, (String)this.a.getConfig().getString("GUI.Unban-Player.Title").replace("&", "§"));
@@ -83,8 +83,8 @@ implements Listener {
         int n2 = 1;
         if (this.a.k().b().containsKey(player.getName()) && this.a.i().c().containsKey(player.getName())) {
             String string = this.a.k().b().get(player.getName());
-            if (this.a.E().a(ConfigManager.dataOrPlayers.DATA).contains("Worlds." + string + ".Banned")) {
-                for (String string2 : this.a.E().a(ConfigManager.dataOrPlayers.DATA).getStringList("Worlds." + string + ".Banned")) {
+            if (ConfigManager.getDataConfig().contains("Worlds." + string + ".Banned")) {
+                for (String string2 : ConfigManager.getDataConfig().getStringList("Worlds." + string + ".Banned")) {
                     if (n >= inventory.getSize()) break;
                     if (this.a.i().c().containsKey(player.getName())) {
                         if (n2 > this.a.i().c().get(player.getName()) * 45) {
@@ -132,8 +132,8 @@ implements Listener {
         int n = 0;
         if (this.a.k().b().containsKey(string)) {
             string2 = this.a.k().b().get(string);
-            if (this.a.E().a(ConfigManager.dataOrPlayers.DATA).contains("Worlds." + string2 + ".Banned")) {
-                n = this.a.E().a(ConfigManager.dataOrPlayers.DATA).getStringList("Worlds." + string2 + ".Banned").size();
+            if (ConfigManager.getDataConfig().contains("Worlds." + string2 + ".Banned")) {
+                n = ConfigManager.getDataConfig().getStringList("Worlds." + string2 + ".Banned").size();
             }
         }
         if (n > (this.a.i().c().get(string) + 1) * 45) {
@@ -180,11 +180,11 @@ implements Listener {
         } else if (inventoryClickEvent.getCurrentItem().getType() == this.a.F().a(MaterialManager.a.PLAYER_HEAD)) {
             String string2 = this.a.i().a("GUI.Unban-Player.Items.Player.Displayname", string);
             String string3 = this.a.k().b().get(player.getName());
-            List list = this.a.E().a(ConfigManager.dataOrPlayers.DATA).getStringList("Worlds." + string3 + ".Banned");
+            List list = ConfigManager.getDataConfig().getStringList("Worlds." + string3 + ".Banned");
             list.remove(string2);
-            this.a.E().a(ConfigManager.dataOrPlayers.DATA).set("Worlds." + string3 + ".Banned", (Object)list);
-            this.a.E().b(ConfigManager.dataOrPlayers.DATA);
-            this.a.E().c(ConfigManager.dataOrPlayers.DATA);
+            ConfigManager.getDataConfig().set("Worlds." + string3 + ".Banned", (Object)list);
+            ConfigManager.saveConfig(ConfigManager.dataOrPlayers.DATA);
+            ConfigManager.saveFile(ConfigManager.dataOrPlayers.DATA);
             String string4 = this.a.getConfig().getString("Basic.World-Prefix") + string3;
             for (Player player2 : Bukkit.getOnlinePlayers()) {
                 if (!player2.getWorld().getName().equals(string4)) continue;
@@ -192,9 +192,9 @@ implements Listener {
                 string5 = string5.replace("&", "§");
                 string5 = string5.replace("%player%", string2);
                 string5 = string5.replace("%executor%", player.getName());
-                player2.sendMessage(this.a.D().e() + string5);
+                player2.sendMessage(this.a.D().getPluginPrefix() + string5);
             }
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Unban-Player").replace("&", "§").replace("%player%", string2));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Unban-Player").replace("&", "§").replace("%player%", string2));
             player.closeInventory();
             this.a.k().b().remove(player.getName());
         }

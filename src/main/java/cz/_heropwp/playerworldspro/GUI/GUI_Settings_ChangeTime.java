@@ -43,12 +43,12 @@ implements Listener {
     public void a(Player player) {
         if (!this.a.k().b().containsKey(player.getName()) || Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName()))) == null) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
             return;
         }
         if (this.a.getConfig().getBoolean("Permissions.Change-Time") && !player.hasPermission("PlayerWorldsPro.changeTime")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Time.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Time.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)27, (String)this.a.getConfig().getString("GUI.Change-Time.Title").replace("&", "§"));
@@ -160,27 +160,27 @@ implements Listener {
             if (string.equals(this.a.getConfig().getString("GUI.Change-Time.Items.Day.Displayname").replace("&", "§"))) {
                 player.closeInventory();
                 world.setTime(1000L);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Time.Day").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Time.Day").replace("&", "§"));
             } else if (string.equals(this.a.getConfig().getString("GUI.Change-Time.Items.Sunset.Displayname").replace("&", "§"))) {
                 player.closeInventory();
                 world.setTime(12000L);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Time.Sunset").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Time.Sunset").replace("&", "§"));
             } else if (string.equals(this.a.getConfig().getString("GUI.Change-Time.Items.Night.Displayname").replace("&", "§"))) {
                 player.closeInventory();
                 world.setTime(13000L);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Time.Night").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Time.Night").replace("&", "§"));
             } else if (string.equals(this.a.getConfig().getString("GUI.Change-Time.Items.Sunrise.Displayname").replace("&", "§"))) {
                 player.closeInventory();
                 world.setTime(23000L);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-Time.Sunrise").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-Time.Sunrise").replace("&", "§"));
             } else if (string.equals(this.a.getConfig().getString("GUI.Change-Time.Items.Daylight-Cycle-Lock.Displayname").replace("&", "§")) && Boolean.parseBoolean(world.getGameRuleValue("doDaylightCycle"))) {
                 player.closeInventory();
                 world.setGameRuleValue("doDaylightCycle", "false");
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Daylight-Cycle.Lock").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Daylight-Cycle.Lock").replace("&", "§"));
             } else if (string.equals(this.a.getConfig().getString("GUI.Change-Time.Items.Daylight-Cycle-Unlock.Displayname").replace("&", "§")) && !Boolean.parseBoolean(world.getGameRuleValue("doDaylightCycle"))) {
                 player.closeInventory();
                 world.setGameRuleValue("doDaylightCycle", "true");
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Daylight-Cycle.Unlock").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Daylight-Cycle.Unlock").replace("&", "§"));
             }
         } else {
             player.closeInventory();

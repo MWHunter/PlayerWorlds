@@ -27,87 +27,91 @@ import cz._heropwp.playerworldspro.EventsListener.SettingsEvents;
 import cz._heropwp.playerworldspro.CoreManagers.*;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Main extends JavaPlugin {
-    private static Economy G = null;
+public class Main extends JavaPlugin {
+    private static Economy economy = null;
     private API a;
-    private PlayerWorldsPro b;
-    private GUI_Buy_PlayerWorld c;
-    private GUI_CreateWorld d;
-    private GUI_CustomGenerators e;
-    private GUI_Extend_PlayerWorld f;
-    private GUI_Main g;
-    private GUI_PreBuiltMaps h;
-    private GUI_Settings i;
-    private GUI_Settings_AddMember j;
-    private GUI_Settings_BanPlayer k;
-    private GUI_Settings_ChangeDefaultGameMode l;
-    private GUI_Settings_ChangeDifficulty m;
-    private GUI_Settings_ChangeGameMode n;
-    private GUI_Settings_ChangeGameMode_SelectPlayer o;
-    private GUI_Settings_ChangeTime p;
-    private GUI_Settings_ChangeWeather q;
-    private GUI_Settings_Fly r;
-    private GUI_Settings_KickPlayer s;
-    private GUI_Settings_RemoveMember t;
-    private GUI_Settings_Teleport u;
-    private GUI_Settings_TeleportHere v;
-    private GUI_Settings_UnbanPlayer w;
-    private GUI_Settings_WorldBorder x;
-    private BasicEvents y;
-    private SettingsEvents z;
-    private BasicManager B;
-    private ConfigManager C;
-    private MaterialManager D;
-    private WorldManager E;
-    private boolean isFAWEEnabled;
+    private static PlayerWorldsPro b;
+    private static GUI_Buy_PlayerWorld c;
+    private static GUI_CreateWorld d;
+    private static GUI_CustomGenerators e;
+    private static GUI_Extend_PlayerWorld f;
+    private static GUI_Main g;
+    private static GUI_PreBuiltMaps h;
+    private static GUI_Settings i;
+    private static GUI_Settings_AddMember j;
+    private static GUI_Settings_BanPlayer k;
+    private static GUI_Settings_ChangeDefaultGameMode l;
+    private static GUI_Settings_ChangeDifficulty m;
+    private static GUI_Settings_ChangeGameMode n;
+    private static GUI_Settings_ChangeGameMode_SelectPlayer o;
+    private static GUI_Settings_ChangeTime p;
+    private static GUI_Settings_ChangeWeather q;
+    private static GUI_Settings_Fly r;
+    private static GUI_Settings_KickPlayer s;
+    private static GUI_Settings_RemoveMember t;
+    private static GUI_Settings_Teleport u;
+    private static GUI_Settings_TeleportHere v;
+    private static GUI_Settings_UnbanPlayer w;
+    private static GUI_Settings_WorldBorder x;
+    private static BasicEvents y;
+    private static SettingsEvents z;
+    private static BasicManager B;
+    private static ConfigManager C;
+    private static MaterialManager D;
+    private static WorldManager E;
+    private static boolean isFAWEEnabled;
+    private static Plugin plugin;
 
     public static Economy b() {
-        return G;
+        return economy;
     }
 
     public void onEnable() {
+        plugin = this;
+
         this.saveDefaultConfig();
         this.a = new API(this);
-        this.b = new PlayerWorldsPro(this);
-        this.c = new GUI_Buy_PlayerWorld(this);
-        this.d = new GUI_CreateWorld(this);
-        this.e = new GUI_CustomGenerators(this);
-        this.f = new GUI_Extend_PlayerWorld(this);
-        this.g = new GUI_Main(this);
-        this.h = new GUI_PreBuiltMaps(this);
-        this.i = new GUI_Settings(this);
-        this.j = new GUI_Settings_AddMember(this);
-        this.k = new GUI_Settings_BanPlayer(this);
-        this.l = new GUI_Settings_ChangeDefaultGameMode(this);
-        this.m = new GUI_Settings_ChangeDifficulty(this);
-        this.n = new GUI_Settings_ChangeGameMode(this);
-        this.o = new GUI_Settings_ChangeGameMode_SelectPlayer(this);
-        this.p = new GUI_Settings_ChangeTime(this);
-        this.q = new GUI_Settings_ChangeWeather(this);
-        this.r = new GUI_Settings_Fly(this);
-        this.s = new GUI_Settings_KickPlayer(this);
-        this.t = new GUI_Settings_RemoveMember(this);
-        this.u = new GUI_Settings_Teleport(this);
-        this.v = new GUI_Settings_TeleportHere(this);
-        this.w = new GUI_Settings_UnbanPlayer(this);
-        this.x = new GUI_Settings_WorldBorder(this);
-        this.y = new BasicEvents(this);
-        this.z = new SettingsEvents(this);
-        this.B = new BasicManager(this);
-        this.C = new ConfigManager(this);
-        this.C.createFoldersAndLoadFiles();
-        this.D = new MaterialManager();
-        this.E = new WorldManager(this);
+        b = new PlayerWorldsPro(this);
+        c = new GUI_Buy_PlayerWorld();
+        d = new GUI_CreateWorld(this);
+        e = new GUI_CustomGenerators(this);
+        f = new GUI_Extend_PlayerWorld(this);
+        g = new GUI_Main(this);
+        h = new GUI_PreBuiltMaps(this);
+        i = new GUI_Settings(this);
+        j = new GUI_Settings_AddMember(this);
+        k = new GUI_Settings_BanPlayer(this);
+        l = new GUI_Settings_ChangeDefaultGameMode(this);
+        m = new GUI_Settings_ChangeDifficulty(this);
+        n = new GUI_Settings_ChangeGameMode(this);
+        o = new GUI_Settings_ChangeGameMode_SelectPlayer(this);
+        p = new GUI_Settings_ChangeTime(this);
+        q = new GUI_Settings_ChangeWeather(this);
+        r = new GUI_Settings_Fly(this);
+        s = new GUI_Settings_KickPlayer(this);
+        t = new GUI_Settings_RemoveMember(this);
+        u = new GUI_Settings_Teleport(this);
+        v = new GUI_Settings_TeleportHere(this);
+        w = new GUI_Settings_UnbanPlayer(this);
+        x = new GUI_Settings_WorldBorder(this);
+        y = new BasicEvents(this);
+        z = new SettingsEvents(this);
+        B = new BasicManager();
+        C = new ConfigManager();
+        C.createFoldersAndLoadFiles();
+        D = new MaterialManager();
+        E = new WorldManager();
         this.setCommandExecutor();
         this.registerEvents();
         this.checkFAWEEnabled();
-        this.E.a();
+        E.a();
         this.isEconomyEnabled();
-        this.E.c();
+        E.c();
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlaceholderHook(this).register();
         }
@@ -123,35 +127,35 @@ public final class Main extends JavaPlugin {
     }
 
     private void setCommandExecutor() {
-        this.getCommand("PlayerWorldsPro").setExecutor(this.b);
+        this.getCommand("PlayerWorldsPro").setExecutor(b);
     }
 
     private void registerEvents() {
         PluginManager pluginManager = Bukkit.getPluginManager();
-        pluginManager.registerEvents(this.c, this);
-        pluginManager.registerEvents(this.d, this);
-        pluginManager.registerEvents(this.e, this);
-        pluginManager.registerEvents(this.f, this);
-        pluginManager.registerEvents(this.g, this);
-        pluginManager.registerEvents(this.h, this);
-        pluginManager.registerEvents(this.i, this);
-        pluginManager.registerEvents(this.j, this);
-        pluginManager.registerEvents(this.k, this);
-        pluginManager.registerEvents(this.l, this);
-        pluginManager.registerEvents(this.m, this);
-        pluginManager.registerEvents(this.n, this);
-        pluginManager.registerEvents(this.o, this);
-        pluginManager.registerEvents(this.p, this);
-        pluginManager.registerEvents(this.q, this);
-        pluginManager.registerEvents(this.r, this);
-        pluginManager.registerEvents(this.s, this);
-        pluginManager.registerEvents(this.t, this);
-        pluginManager.registerEvents(this.u, this);
-        pluginManager.registerEvents(this.v, this);
-        pluginManager.registerEvents(this.w, this);
-        pluginManager.registerEvents(this.x, this);
-        pluginManager.registerEvents(this.y, this);
-        pluginManager.registerEvents(this.z, this);
+        pluginManager.registerEvents(c, this);
+        pluginManager.registerEvents(d, this);
+        pluginManager.registerEvents(e, this);
+        pluginManager.registerEvents(f, this);
+        pluginManager.registerEvents(g, this);
+        pluginManager.registerEvents(h, this);
+        pluginManager.registerEvents(i, this);
+        pluginManager.registerEvents(j, this);
+        pluginManager.registerEvents(k, this);
+        pluginManager.registerEvents(l, this);
+        pluginManager.registerEvents(m, this);
+        pluginManager.registerEvents(n, this);
+        pluginManager.registerEvents(o, this);
+        pluginManager.registerEvents(p, this);
+        pluginManager.registerEvents(q, this);
+        pluginManager.registerEvents(r, this);
+        pluginManager.registerEvents(s, this);
+        pluginManager.registerEvents(t, this);
+        pluginManager.registerEvents(u, this);
+        pluginManager.registerEvents(v, this);
+        pluginManager.registerEvents(w, this);
+        pluginManager.registerEvents(x, this);
+        pluginManager.registerEvents(y, this);
+        pluginManager.registerEvents(z, this);
     }
 
     private boolean isEconomyEnabled() {
@@ -162,8 +166,8 @@ public final class Main extends JavaPlugin {
         if (registeredServiceProvider == null) {
             return false;
         }
-        G = (Economy) registeredServiceProvider.getProvider();
-        return G != null;
+        economy = (Economy) registeredServiceProvider.getProvider();
+        return economy != null;
     }
 
     public API c() {
@@ -171,123 +175,131 @@ public final class Main extends JavaPlugin {
     }
 
     public PlayerWorldsPro d() {
-        return this.b;
+        return b;
     }
 
     public GUI_Buy_PlayerWorld e() {
-        return this.c;
+        return c;
     }
 
     public GUI_CreateWorld f() {
-        return this.d;
+        return d;
     }
 
     public GUI_CustomGenerators g() {
-        return this.e;
+        return e;
     }
 
     public GUI_Extend_PlayerWorld h() {
-        return this.f;
+        return f;
     }
 
     public GUI_Main i() {
-        return this.g;
+        return g;
     }
 
     public GUI_PreBuiltMaps j() {
-        return this.h;
+        return h;
     }
 
-    public GUI_Settings k() {
-        return this.i;
+    public static GUI_Settings k() {
+        return i;
     }
 
     public GUI_Settings_AddMember l() {
-        return this.j;
+        return j;
     }
 
     public GUI_Settings_BanPlayer m() {
-        return this.k;
+        return k;
     }
 
     public GUI_Settings_ChangeDefaultGameMode n() {
-        return this.l;
+        return l;
     }
 
     public GUI_Settings_ChangeDifficulty o() {
-        return this.m;
+        return m;
     }
 
     public GUI_Settings_ChangeGameMode p() {
-        return this.n;
+        return n;
     }
 
     public GUI_Settings_ChangeGameMode_SelectPlayer q() {
-        return this.o;
+        return o;
     }
 
     public GUI_Settings_ChangeTime r() {
-        return this.p;
+        return p;
     }
 
     public GUI_Settings_ChangeWeather s() {
-        return this.q;
+        return q;
     }
 
     public GUI_Settings_Fly t() {
-        return this.r;
+        return r;
     }
 
     public GUI_Settings_KickPlayer u() {
-        return this.s;
+        return s;
     }
 
     public GUI_Settings_RemoveMember v() {
-        return this.t;
+        return t;
     }
 
     public GUI_Settings_Teleport w() {
-        return this.u;
+        return u;
     }
 
     public GUI_Settings_TeleportHere x() {
-        return this.v;
+        return v;
     }
 
     public GUI_Settings_UnbanPlayer y() {
-        return this.w;
+        return w;
     }
 
     public GUI_Settings_WorldBorder z() {
-        return this.x;
+        return x;
     }
 
     public BasicEvents A() {
-        return this.y;
+        return y;
     }
 
     public SettingsEvents B() {
-        return this.z;
+        return z;
     }
 
-    public BasicManager D() {
-        return this.B;
+    public static BasicManager D() {
+        return B;
     }
 
     public ConfigManager E() {
-        return this.C;
+        return C;
     }
 
     public MaterialManager F() {
-        return this.D;
+        return D;
     }
 
-    public WorldManager G() {
-        return this.E;
+    public static WorldManager G() {
+        return E;
     }
 
-    public boolean H() {
-        return this.isFAWEEnabled;
+    public static boolean H() {
+        return isFAWEEnabled;
+    }
+
+    public static Plugin getPlugin() {
+        return plugin;
+    }
+
+    public static Economy getEconomy() {
+        return economy;
     }
 }
 

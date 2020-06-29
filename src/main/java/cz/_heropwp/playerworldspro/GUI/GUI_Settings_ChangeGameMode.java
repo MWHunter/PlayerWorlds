@@ -45,12 +45,12 @@ implements Listener {
     public void a(Player player) {
         if (!this.a.k().b().containsKey(player.getName()) || Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName()))) == null) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
             return;
         }
         if (this.a.getConfig().getBoolean("Permissions.Change-GameMode") && !player.hasPermission("PlayerWorldsPro.changeGameMode")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-GameMode.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-GameMode.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)27, (String)this.a.getConfig().getString("GUI.Change-GameMode.Title").replace("&", "§"));
@@ -144,10 +144,10 @@ implements Listener {
                     if (player.getWorld().getName().equals(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName()))) {
                         player.closeInventory();
                         player.setGameMode(GameMode.SURVIVAL);
-                        player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-GameMode.Survival").replace("&", "§"));
+                        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-GameMode.Survival").replace("&", "§"));
                     } else {
                         player.closeInventory();
-                        player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
+                        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
                     }
                     this.a.k().b().remove(player.getName());
                 } else if (inventoryClickEvent.isRightClick()) {
@@ -158,10 +158,10 @@ implements Listener {
                     if (player.getWorld().getName().equals(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName()))) {
                         player.closeInventory();
                         player.setGameMode(GameMode.CREATIVE);
-                        player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-GameMode.Creative").replace("&", "§"));
+                        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-GameMode.Creative").replace("&", "§"));
                     } else {
                         player.closeInventory();
-                        player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
+                        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
                     }
                     this.a.k().b().remove(player.getName());
                 } else if (inventoryClickEvent.isRightClick()) {
@@ -172,10 +172,10 @@ implements Listener {
                     if (player.getWorld().getName().equals(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName()))) {
                         player.closeInventory();
                         player.setGameMode(GameMode.ADVENTURE);
-                        player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-GameMode.Adventure").replace("&", "§"));
+                        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-GameMode.Adventure").replace("&", "§"));
                     } else {
                         player.closeInventory();
-                        player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
+                        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
                     }
                     this.a.k().b().remove(player.getName());
                 } else if (inventoryClickEvent.isRightClick()) {
@@ -186,10 +186,10 @@ implements Listener {
                     if (player.getWorld().getName().equals(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName()))) {
                         player.closeInventory();
                         player.setGameMode(GameMode.SPECTATOR);
-                        player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Change-GameMode.Spectator").replace("&", "§"));
+                        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Change-GameMode.Spectator").replace("&", "§"));
                     } else {
                         player.closeInventory();
-                        player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
+                        player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
                     }
                     this.a.k().b().remove(player.getName());
                 } else if (inventoryClickEvent.isRightClick()) {

@@ -47,12 +47,12 @@ implements Listener {
     public void a(Player player) {
         if (!this.a.k().b().containsKey(player.getName()) || Bukkit.getWorld((String)(this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName()))) == null) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Unloaded-World").replace("&", "§"));
             return;
         }
         if (this.a.getConfig().getBoolean("Permissions.World-Border") && !player.hasPermission("PlayerWorldsPro.worldBorder")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.World-Border.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.World-Border.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)27, (String)this.a.getConfig().getString("GUI.World-Border.Title").replace("&", "§"));
@@ -164,16 +164,16 @@ implements Listener {
                 player.closeInventory();
                 if (world.getName().equals(player.getWorld().getName())) {
                     worldBorder.setCenter(player.getLocation());
-                    player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.World-Border.Center").replace("&", "§"));
+                    player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.World-Border.Center").replace("&", "§"));
                 } else {
-                    player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
+                    player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Same-World").replace("&", "§"));
                 }
             } else if (string.equals(this.a.getConfig().getString("GUI.World-Border.Items.Set.Displayname").replace("&", "§"))) {
                 worldBorder.setSize(100.0);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.World-Border.Set").replace("&", "§").replace("%size%", "100"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.World-Border.Set").replace("&", "§").replace("%size%", "100"));
             } else if (string.equals(this.a.getConfig().getString("GUI.World-Border.Items.Reset.Displayname").replace("&", "§"))) {
                 worldBorder.setSize(2.9999984E7);
-                player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.World-Border.Reset").replace("&", "§"));
+                player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.World-Border.Reset").replace("&", "§"));
             }
         }
         player.closeInventory();

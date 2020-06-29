@@ -53,7 +53,7 @@ implements Listener {
     public void a(Player player) {
         if (this.a.getConfig().getBoolean("Permissions.Kick") && !player.hasPermission("PlayerWorldsPro.kick")) {
             player.closeInventory();
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Insufficient-Permission").replace("&", "§"));
             return;
         }
         Inventory inventory = Bukkit.createInventory(null, (int)54, (String)this.a.getConfig().getString("GUI.Kick-Player.Title").replace("&", "§"));
@@ -181,9 +181,9 @@ implements Listener {
             }
             if (this.a.D().b()) {
                 this.a.D().a(player2, this.a.D().c());
-                player2.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Kicked").replace("&", "§"));
+                player2.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Kicked").replace("&", "§"));
             } else {
-                player2.kickPlayer(this.a.D().e() + this.a.getConfig().getString("Messages.Lobby-Is-Not-Configured").replace("&", "§"));
+                player2.kickPlayer(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Lobby-Is-Not-Configured").replace("&", "§"));
             }
             String string2 = this.a.getConfig().getString("Basic.World-Prefix") + this.a.k().b().get(player.getName());
             for (Player player3 : Bukkit.getOnlinePlayers()) {
@@ -192,9 +192,9 @@ implements Listener {
                 string3 = string3.replace("&", "§");
                 string3 = string3.replace("%player%", player2.getName());
                 string3 = string3.replace("%executor%", player.getName());
-                player3.sendMessage(this.a.D().e() + string3);
+                player3.sendMessage(this.a.D().getPluginPrefix() + string3);
             }
-            player.sendMessage(this.a.D().e() + this.a.getConfig().getString("Messages.Kick-Player").replace("&", "§").replace("%player%", player2.getName()));
+            player.sendMessage(this.a.D().getPluginPrefix() + this.a.getConfig().getString("Messages.Kick-Player").replace("&", "§").replace("%player%", player2.getName()));
             player.closeInventory();
             this.a.k().b().remove(player.getName());
         }

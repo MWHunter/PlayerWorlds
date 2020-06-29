@@ -17,55 +17,44 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class ConfigManager {
-    private final Main main;
-    private final HashMap<dataOrPlayers, File> fileHashMap;
-    private final HashMap<dataOrPlayers, FileConfiguration> fileConfigurations;
+    private static File playersFile = new File(Main.getPlugin().getDataFolder(), "players.yml");
+    private static File dataFile = new File(Main.getPlugin().getDataFolder(), "data.yml");
 
-    public ConfigManager(Main main) {
-        this.main = main;
-        this.fileHashMap = new HashMap<>();
-        this.fileConfigurations = new HashMap<>();
-    }
-
-    private String getLowerCaseYMLName(dataOrPlayers a2) {
-        return a2.toString().toLowerCase() + ".yml";
-    }
+    private static FileConfiguration playersConfig;
+    private static FileConfiguration dataConfig;
 
     public void createFoldersAndLoadFiles() {
-        File file;
-        if (!this.main.getDataFolder().exists()) {
-            this.main.getDataFolder().mkdir();
-        }
-        if (!(file = new File(this.main.getDataFolder(), "maps")).exists()) {
-            file.mkdir();
-        }
-        /*for (dataOrPlayers a2 : ) {*/ // TODO: Does this work?
-        for (dataOrPlayers a2 : dataOrPlayers.values()) {
-            File file2 = new File(this.main.getDataFolder(), this.getLowerCaseYMLName(a2));
-            if (!file2.exists()) {
-                this.main.saveResource(this.getLowerCaseYMLName(a2), false);
-            }
-            this.fileHashMap.put(a2, file2);
-            this.c(a2);
-        }
-        main.getLogger().log(Level.WARNING, "We have attempted to load some unknown yml files");
+        if (!(new File(Main.getPlugin().getDataFolder(),"maps")).exists()) new File(Main.getPlugin().getDataFolder(), "maps").mkdirs();
+        if (!playersFile.exists()) Main.getPlugin().saveResource("players.yml", false);
+        if (!dataFile.exists()) Main.getPlugin().saveResource("data.yml", false);
+
+        playersConfig = YamlConfiguration.loadConfiguration(playersFile);
+        dataConfig = YamlConfiguration.loadConfiguration(dataFile);
     }
 
-    public FileConfiguration a(dataOrPlayers a2) {
-        return this.fileConfigurations.get(a2);
+    public static FileConfiguration getDataConfig() {
+        return dataConfig;
     }
 
-    public void b(dataOrPlayers a2) {
+    public static FileConfiguration getPlayersConfig() {
+        return playersConfig;
+    }
+
+    public static void saveConfig(dataOrPlayers a2) {
         try {
-            this.fileConfigurations.get(a2).save(this.fileHashMap.get(a2));
-        }
-        catch (IOException iOException) {
+            if (a2 == dataOrPlayers.DATA) {
+                dataConfig.save(dataFile);
+            } else {
+                playersConfig.save(playersFile);
+            }
+        } catch (IOException iOException) {
             iOException.printStackTrace();
         }
     }
 
-    public void c(dataOrPlayers a2) {
-        this.fileConfigurations.put(a2, YamlConfiguration.loadConfiguration(this.fileHashMap.get(a2)));
+    public static void saveFile(dataOrPlayers a2) {
+        if (a2 == dataOrPlayers.DATA) dataConfig = YamlConfiguration.loadConfiguration(dataFile);
+        if (a2 == dataOrPlayers.PLAYERS) playersConfig = YamlConfiguration.loadConfiguration(playersFile);
     }
 
     public enum dataOrPlayers {
@@ -73,4 +62,3 @@ public class ConfigManager {
         PLAYERS
     }
 }
-

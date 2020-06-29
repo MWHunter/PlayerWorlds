@@ -92,8 +92,8 @@ implements Listener {
         inventory.setItem(4, this.d(player.getName()));
         int n = 9;
         int n2 = 1;
-        if (this.a.E().a(ConfigManager.dataOrPlayers.DATA).contains("Worlds")) {
-            for (String string : this.a.E().a(ConfigManager.dataOrPlayers.DATA).getConfigurationSection("Worlds").getKeys(false)) {
+        if (ConfigManager.getDataConfig().contains("Worlds")) {
+            for (String string : ConfigManager.getDataConfig().getConfigurationSection("Worlds").getKeys(false)) {
                 if (this.c.containsKey(player.getName())) {
                     if (n >= inventory.getSize()) break;
                     if (n2 > this.c.get(player.getName()) * 45) {
@@ -154,8 +154,8 @@ implements Listener {
 
     private ItemStack c(String string) {
         int n = 0;
-        if (this.a.E().a(ConfigManager.dataOrPlayers.DATA).contains("Worlds")) {
-            n = this.a.E().a(ConfigManager.dataOrPlayers.DATA).getConfigurationSection("Worlds").getKeys(false).size();
+        if (ConfigManager.getDataConfig().contains("Worlds")) {
+            n = ConfigManager.getDataConfig().getConfigurationSection("Worlds").getKeys(false).size();
         }
         if (n > (this.c.get(string) + 1) * 45) {
             ItemStack itemStack = new ItemStack(Material.ARROW);
